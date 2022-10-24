@@ -2,4 +2,4 @@
  Web thương mại điện tử
 
 ## Vercel
-Link: https://nghiendt.vercel.app
+Link: https://nghiendt.me
