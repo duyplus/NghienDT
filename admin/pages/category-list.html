@@ -18,6 +18,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div class="row my-3">
+                        <div class="col-sm-6 form-inline justify-content-start">
+                            <label class="pr-2">Tìm kiếm:</label>
+                            <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
+                        </div>
+                        <div class="col-sm-6 form-inline justify-content-end">
+                            <label class="pr-2">Tìm kiếm:</label>
+                            <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
+                        </div>
+                    </div>
                     <table class="table table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
@@ -27,8 +37,26 @@
                                 <th>Tuỳ chọn</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            <tr ng-repeat="item in filteredItems | filter:search">
+                                <td >{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.image}}</td>
+                                <td>
+                                    <a href="admin/#!/category-form" ng-click="edit(item)">
+                                        <i class="las la-pen text-info"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col-sm-6 ">Đang xem <b>{{curPage}}</b> đến <b>{{itemsPerPage}}</b> trong tổng số
+                            <b>{{items.length}}</b> mục
+                        </div>
+                        <div class="col-sm-6 pagination-sm" uib-pagination total-items="items.length" max-size="maxSize"
+                            ng-model="curPage" rotate="false"></div>
+                    </div>
                 </div>
             </div>
         </div>

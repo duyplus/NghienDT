@@ -1,4 +1,4 @@
-app.controller("company-ctrl", function ($scope, $http, $compile) {
+app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, myService) {
     var url = "http://localhost:8080/api/company";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
@@ -78,10 +78,11 @@ app.controller("company-ctrl", function ($scope, $http, $compile) {
     $scope.create = function () {
         var item = angular.copy($scope.companydata);
         $http.post(`${url}`, item).then(resp => {
+            resp.data.logo = "null.jpg";
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert_success("Thêm mới thành công!");
-            $location.path('user-list');
+            $location.path('company-list');
         }).catch(error => {
             sweetalert_error("Lỗi thêm mới hãng!");
             console.log("Error", error);
@@ -96,7 +97,7 @@ app.controller("company-ctrl", function ($scope, $http, $compile) {
             $scope.items[index] = item;
             $scope.reset();
             sweetalert_success("Cập nhật hãng thành công!");
-            $location.path('user-list');
+            $location.path('company-list');
         }).catch(error => {
             sweetalert_error("Lỗi cập nhật hãng!");
             console.log("Error", error);
@@ -110,7 +111,7 @@ app.controller("company-ctrl", function ($scope, $http, $compile) {
             $scope.items.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa hãng thành công!");
-            $location.path('user-list');
+            $location.path('company-list');
         }).catch(error => {
             sweetalert_error("Lỗi xóa hãng!");
             console.log("Error", error);
