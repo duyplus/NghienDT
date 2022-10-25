@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- end of user-info -->
+                        </div>
 
                         <div class="main-dashboard">
                             <div class="row">
@@ -49,35 +49,38 @@
                                     <ul class="nav flex-column dashboard-list" role="tablist">
                                         <li>
                                             <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab"
-                                                data-bs-target="#dashboard" type="button" role="tab"
+                                                data-bs-target="#dashboard" role="tab"
                                                 aria-controls="dashboard" aria-selected="true">Bảng điều
                                                 khiển</button>
                                         </li>
                                         <li>
+                                            <button class="nav-link" id="add-tab" data-bs-toggle="tab"
+                                                data-bs-target="#add" role="tab" aria-controls="add"
+                                                aria-selected="false">Thêm sản phẩm</button>
+                                        </li>
+                                        <li>
                                             <button class="nav-link" id="orders-tab" data-bs-toggle="tab"
-                                                data-bs-target="#orders" type="button" role="tab" aria-controls="orders"
+                                                data-bs-target="#orders" role="tab" aria-controls="orders"
                                                 aria-selected="false">Đơn hàng</button>
                                         </li>
                                         <li>
                                             <button class="nav-link" id="account-details-tab" data-bs-toggle="tab"
-                                                data-bs-target="#account-details" type="button" role="tab"
+                                                data-bs-target="#account-details" role="tab"
                                                 aria-controls="account-details" aria-selected="false">Thông tin tài
                                                 khoản</button>
                                         </li>
                                         <li>
-                                            <button class="nav-link" id="downloads-tab" data-bs-toggle="tab"
-                                                data-bs-target="#downloads" type="button" role="tab"
-                                                aria-controls="downloads" aria-selected="false">Thêm sản
-                                                phẩm</button>
+                                            <button class="nav-link" id="changepass-tab" data-bs-toggle="tab"
+                                                data-bs-target="#changepass" role="tab"
+                                                aria-controls="changepass" aria-selected="false">Đổi mật khẩu</button>
                                         </li>
                                         <li>
                                             <a class="nav-link" href="#!login">Đăng xuất</a>
                                         </li>
-                                    </ul> <!-- end of dashboard-list -->
+                                    </ul>
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-10">
-                                    <!-- Tab panes -->
                                     <div class="tab-content dashboard-content">
                                         <div id="dashboard" class="tab-pane fade show active" role="tabpanel"
                                             aria-labelledby="dashboard-tab">
@@ -112,7 +115,74 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div> <!-- end of tab-pane -->
+                                        </div>
+                                        <div id="add" class="tab-pane fade" role="tabpanel" aria-labelledby="add-tab">
+                                            <h3>Thêm sản phẩm</h3>
+                                            <form action="#">
+                                                <div class="form-group row mb-3">
+                                                    <label
+                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Loại
+                                                        sản phẩm</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <select class="form-control">
+                                                            <option value="1">SP1</option>
+                                                            <option value="2">SP2</option>
+                                                            <option value="3">SP3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label
+                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Hãng</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <select class="form-control">
+                                                            <option value="1">H1</option>
+                                                            <option value="2">H2</option>
+                                                            <option value="3">H3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Tên
+                                                        sản phẩm</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <input type="text" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label
+                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Giá</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <input type="text" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mã
+                                                        giảm giá</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <input type="text" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mô
+                                                        tả</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <textarea rows="4" class="form-control" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label
+                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Ảnh</label>
+                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                        <input type="file" class="form-control" accept="image/*"
+                                                            multiple>
+                                                    </div>
+                                                </div>
+                                                <div class="register-box d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-secondary">Thêm</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                         <div id="orders" class="tab-pane fade" role="tabpanel"
                                             aria-labelledby="orders-tab">
                                             <h3>Đơn hàng</h3>
@@ -141,200 +211,133 @@
                                                             <td>October 4, 2019</td>
                                                             <td>Processing</td>
                                                             <td>$17.00 for 1 item </td>
-                                                            <td><a class="btn btn-secondary" href="#!cart">view</a>
+                                                            <td><a class="btn btn-secondary" href="#!cart">Xem</a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div> <!-- end of tab-pane -->
+                                        </div>
                                         <div id="account-details" class="tab-pane fade" role="tabpanel"
-                                            aria-labelledby="account-details-tab" ng-app="myApp" ng-controller="myCtrl">
+                                            aria-labelledby="account-details-tab">
                                             <h3>Thông tin tài khoản </h3>
                                             <div class="login-form">
                                                 <form action="#">
                                                     <div class="form-group row mb-3 d-none">
-                                                        <label for="f-name"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">ID</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="f-name"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.id" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
-                                                        <label for="l-name"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Tài
                                                             khoản</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="l-name"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.username" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
-                                                        <label for="u-name"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Họ
                                                             và tên</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="u-name"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.fullname" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
-                                                        <label for="a-name"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Số
                                                             điện thoại</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="a-name"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.phone" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
-                                                        <label for="b-name"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Địa
                                                             chỉ</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="b-name"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.address" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
-                                                        <label for="inputpassword"
-                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mật
-                                                            khẩu hiện tại</label>
-                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="password" class="form-control"
-                                                                ng-model="userdata.password" id="inputpassword"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row mb-3">
-                                                        <label for="newpassword"
-                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mật
-                                                            khẩu mới</label>
-                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="password" class="form-control"
-                                                                id="newpassword">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row mb-3">
-                                                        <label for="c-password"
-                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Xác
-                                                            nhận mật khẩu mới</label>
-                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="password" class="form-control" id="c-password">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row mb-3">
-                                                        <label for="email"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Email</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="email"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.email" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
-                                                        <label for="birth"
+                                                        <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Ngày
-                                                            sinh
-                                                            (Không bắt buộc)</label>
+                                                            sinh</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                            <input type="text" class="form-control" id="birth"
+                                                            <input type="text" class="form-control"
                                                                 ng-model="userdata.birthday | date: 'dd/MM/yyyy'"
                                                                 placeholder="DD / MM / YYYY" required>
                                                         </div>
                                                     </div>
-                                                    <div class="form-check row p-0 mt-5">
+                                                    <div class="form-check row p-0 mt-3">
                                                         <div
                                                             class="col-12 col-sm-12 col-md-8 offset-md-4 col-lg-6 offset-lg-3">
                                                             <div class="custom-checkbox">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="offer">
+                                                                <input class="form-check-input" type="checkbox">
                                                                 <span class="checkmark"></span>
-                                                                <label class="form-check-label" for="offer">Đăng ký nhận
-                                                                    ưu đãi từ chúng tôi</label>
+                                                                <label class="form-check-label">Đăng ký nhận ưu đãi từ
+                                                                    chúng tôi</label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="register-box d-flex justify-content-end mt-half">
+                                                    <div class="register-box d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-secondary"
                                                             ng-click="update()">Cập nhật</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
-                                        <div id="downloads" class="tab-pane fade" role="tabpanel"
-                                            aria-labelledby="address-tab">
-                                            <h3>Thêm sản phẩm</h3>
-                                            <form action="#">
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-categories"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Loại
-                                                        sản phẩm</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <select class="form-control" id="prod-categories">
-                                                            <option value="1">SP1</option>
-                                                            <option value="2">SP2</option>
-                                                            <option value="3">SP3</option>
-                                                        </select>
+                                        <div id="changepass" class="tab-pane fade" role="tabpanel"
+                                            aria-labelledby="changepass-tab">
+                                            <h3>Thông tin tài khoản </h3>
+                                            <div class="login-form">
+                                                <form action="#">
+                                                    <div class="form-group row mb-3">
+                                                        <label
+                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mật
+                                                            khẩu hiện tại</label>
+                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                            <input type="password" class="form-control" required>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-companies"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Hãng</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <select class="form-control" id="prod-companies">
-                                                            <option value="1">H1</option>
-                                                            <option value="2">H2</option>
-                                                            <option value="3">H3</option>
-                                                        </select>
+                                                    <div class="form-group row mb-3">
+                                                        <label
+                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mật
+                                                            khẩu mới</label>
+                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                            <input type="password" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-name"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Tên
-                                                        sản phẩm</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <input type="text" class="form-control" id="prod-name" required>
+                                                    <div class="form-group row mb-3">
+                                                        <label
+                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Xác
+                                                            nhận mật khẩu mới</label>
+                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                            <input type="password" class="form-control">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-price"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Giá</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <input type="text" class="form-control" id="prod-price"
-                                                            required>
+                                                    <div class="register-box my-4">
+                                                        <button type="submit" class="btn btn-secondary px-4 py-1">Cập
+                                                            nhật</button>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-discount"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mã
-                                                        giảm giá</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <input type="text" class="form-control" id="prod-discount"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-description"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mô
-                                                        tả</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <textarea name="" id="" rows="4" class="form-control"
-                                                            id="prod-description" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label for="prod-img"
-                                                        class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Ảnh</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <input type="file" class="form-control" id="prod-img"
-                                                            accept="image/*" multiple>
-                                                    </div>
-                                                </div>
-                                                <div class="register-box d-flex justify-content-end mt-half">
-                                                    <button type="submit" class="btn btn-secondary">Thêm</button>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
