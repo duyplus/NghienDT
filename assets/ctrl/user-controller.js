@@ -1,4 +1,4 @@
-app.controller('user-ctrl', function ($scope, $http) {
+app.controller('user-ctrl', function ($scope, $http, $location) {
     var url = "http://localhost:8080/api/user";
     $scope.items = [];
     $scope.userdata = {};
@@ -19,6 +19,7 @@ app.controller('user-ctrl', function ($scope, $http) {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
+            $location.path('my-account');
         }).catch(error => {
             console.log("Error", error);
         });

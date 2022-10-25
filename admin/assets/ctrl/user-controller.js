@@ -76,9 +76,12 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
 
     //them sp moi
     $scope.create = function () {
+        $scope.userdata.createdat = new Date().toJSON();
+        $scope.userdata.updatedat = new Date().toJSON();
+        $scope.userdata.image = "avt.png";
+        $scope.userdata.token = "null";
         var item = angular.copy($scope.userdata);
         $http.post(`${url}`, item).then(resp => {
-            resp.data.token = "null";
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert_success("Thêm mới thành công!");
@@ -91,6 +94,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
 
     //cap nhat sp
     $scope.update = function () {
+        $scope.userdata.updatedat = new Date().toJSON();
         var item = angular.copy($scope.userdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);

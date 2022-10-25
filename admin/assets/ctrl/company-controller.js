@@ -76,9 +76,9 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //them sp moi
     $scope.create = function () {
+        $scope.userdata.logo = "null.jpg";
         var item = angular.copy($scope.companydata);
         $http.post(`${url}`, item).then(resp => {
-            resp.data.logo = "null.jpg";
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert_success("Thêm mới thành công!");
