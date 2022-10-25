@@ -78,7 +78,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
     $scope.create = function () {
         $scope.userdata.createdat = new Date().toJSON();
         $scope.userdata.updatedat = new Date().toJSON();
-        $scope.userdata.image = "avt.png";
+        $scope.userdata.image = "avta.png";
         $scope.userdata.token = "null";
         var item = angular.copy($scope.userdata);
         $http.post(`${url}`, item).then(resp => {
