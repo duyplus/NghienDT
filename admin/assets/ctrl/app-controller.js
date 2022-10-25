@@ -61,26 +61,3 @@ app.factory('myService', function () {
         get: get
     }
 });
-
-app.service('UserCRUDService', [ '$http', function($http) {
-
-    this.getUser = function getUser(username, password,phone,fullname,birthday,email,address,image,created_at,updated_at,token) {
-        return $http({
-            method : 'POST',
-            url : 'http://localhost:8080/api/user',
-            data : {
-                username : username,
-                password : password,
-                phone : phone,
-                fullname : fullname,
-                email: email,
-                birthday: birthday,
-                address: address,
-                image: avt,
-                created_at: created_at,
-                updated_at: new Date().toJSON(),
-                token: null
-            }
-        });
-    }
-} ]);
