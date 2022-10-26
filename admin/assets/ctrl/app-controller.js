@@ -48,7 +48,7 @@ app.directive('convertDate', function () {
     }
 });
 
-app.factory('myService', function () {
+app.factory('userService', function () {
     var savedData = {}
     function set(data) {
         savedData = data;
@@ -61,7 +61,52 @@ app.factory('myService', function () {
         get: get
     }
 });
+
 app.factory('companyService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+app.factory('productService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+
+app.factory('cateService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+
+app.factory('reviewService', function () {
     var savedData = {}
     function set(data) {
         savedData = data;

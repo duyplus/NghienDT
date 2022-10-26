@@ -21,18 +21,38 @@
                     <table class="table table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th>Mã SP</th>
+                                <th class="d-none">Mã SP</th>
                                 <th>Tên SP</th>
                                 <th>Giá bán</th>
                                 <th>Có sẵn</th>
+                                <th>Danh mục</th>
                                 <th>Hãng</th>
                                 <th>Người bán</th>
+                                <th>Discount</th>
                                 <th>Đăng lúc</th>
                                 <th>Cập nhật lúc</th>
                                 <th>Tuỳ chọn</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            <tr ng-repeat="item in filteredItems | filter:search">
+                                <td class="d-none">{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.price}}</td>
+                                <td>{{item.available}}</td>
+                                <td>{{item.category.name}}</td>
+                                <td>{{item.company.name}}</td>
+                                <td>{{item.user.username}}</td>
+                                <td>{{item.discount}}</td>
+                                <td>{{item.createdAt}}</td>
+                                <td>{{item.updatedAt}}</td>
+                                <td>
+                                    <a href="admin/#!/product-form" ng-click="edit(item)">
+                                        <i class="las la-pen text-info"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
