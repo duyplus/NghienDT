@@ -1,4 +1,9 @@
 app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
+  let url = "assets/data/products.json";
+  $scope.items;
+  $http.get(url).then((response) => {
+    $scope.items = response.data;
+  });
   // home slider
   var heroSlider = $(".hero-slider-active");
   heroSlider.slick({
@@ -697,19 +702,10 @@ app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
     },
   });
 
-  let url = "assets/data/products.json";
-  $scope.items;
-  $http.get(url).then((response) => {
-    $scope.items = response.data;
-  });
-
-  $scope.addCart = function (evt, data, index) {
-    let itemCart = $rootScope.cart.get(data.id);
-    let prod = $scope.items[index];
-    // if (!itemCart || itemCart.quantity < Number(data.quantity)) {
-    if (!itemCart || itemCart.quantity < prod.quantity) {
-      let item = angular.copy(data);
-      item.quantity = 1;
+  $scope.addCart = function (data) {
+    let itemCart = $rootScope.cart.map.get(data.id);
+    if (!itemCart || itemCart.quantity < Number(data.quantity)) {
+      let item = { ...data, quantity: 1 };
       $scope.$emit("addCart", item);
     } else {
       alert("Đã đạt giới hạn số lượng tối đa");

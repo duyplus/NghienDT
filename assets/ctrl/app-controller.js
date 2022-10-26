@@ -18,11 +18,22 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "checkout-ctrl",
     })
 
-        .when("/my-account", { templateUrl: "pages/my-account.html", controller: "user-ctrl" })
-        .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
-        .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "user-ctrl" })
-        .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
-        .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
+    .when("/my-account", {
+      templateUrl: "pages/my-account.html",
+      controller: "user-ctrl",
+    })
+    .when("/forgot-password", {
+      templateUrl: "pages/forgot-password.html",
+      controller: "user-ctrl",
+    })
+    .when("/register", {
+      templateUrl: "pages/register.html",
+      controller: "user-ctrl",
+    })
+    .when("/login", {
+      templateUrl: "pages/login.html",
+      controller: "user-ctrl",
+    })
 
     .when("/contact-us", { templateUrl: "pages/contact-us.html" })
     .when("/404", { templateUrl: "pages/404.html" })
@@ -41,20 +52,45 @@ app.directive("convertDate", function () {
         fromField = fromField.getTime();
         return fromField;
       });
-        }
-    }
+    },
+  };
 });
 
-app.factory('myService', function () {
-    var savedData = {}
-    function set(data) {
-        savedData = data;
-    }
-    function get() {
-        return savedData;
-    }
-    return {
-        set: set,
-        get: get
-    }
+app.factory("myService", function () {
+  var savedData = {};
+  function set(data) {
+    savedData = data;
+  }
+  function get() {
+    return savedData;
+  }
+  return {
+    set: set,
+    get: get,
+  };
 });
+
+app.controller("myCtrl", ($scope, $rootScope) => {
+  $rootScope.cart = new Map();
+
+  $scope.$on("addCart", (evt, data) => {
+    let cart = $rootScope.cart;
+    if (cart.has(data.id)) {
+      let item = cart.get(data.id);
+      item.quantity++;
+    } else {
+      cart.set(data.id, data);
+    }
+
+    $scope.total = getTotal(cart);
+    $scope.cartArr = [...cart.values()];
+  });
+});
+
+let getTotal = function (cart) {
+  let total = 0;
+  cart.forEach((item) => {
+    total += item.price * item.quantity;
+  });
+  return total;
+};

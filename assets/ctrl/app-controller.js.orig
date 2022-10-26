@@ -1,25 +1,5 @@
 const app = angular.module("myApp", ["ngRoute", "ui.bootstrap"]);
 app.config(function ($routeProvider, $locationProvider) {
-<<<<<<< HEAD
-    // route
-    $routeProvider
-        .when('/', { templateUrl: 'pages/home.html', controller: "home-ctrl" })
-        .when("/shop", { templateUrl: "pages/shop.html", controller: "shop-ctrl" })
-        .when("/product", { templateUrl: "pages/product.html", controller: "product-ctrl" })
-        .when("/wishlist", { templateUrl: "pages/wishlist.html", controller: "wishlist-ctrl" })
-        .when("/cart", { templateUrl: "pages/cart.html", controller: "cart-ctrl" })
-        .when("/checkout", { templateUrl: "pages/checkout.html", controller: "checkout-ctrl" })
-
-        .when("/my-account", { templateUrl: "pages/my-account.html", controller: "user-ctrl" })
-        .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
-        .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "user-ctrl" })
-        .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
-        .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
-        
-        .when("/contact-us", { templateUrl: "pages/contact-us.html" })
-        .when("/404", { templateUrl: "pages/404.html" })
-        .otherwise({ redirectTo: '/' });
-=======
   // route
   $routeProvider
     .when("/", { templateUrl: "pages/home.html", controller: "home-ctrl" })
@@ -38,27 +18,15 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "checkout-ctrl",
     })
 
-    .when("/my-account", {
-      templateUrl: "pages/my-account.html",
-      controller: "user-ctrl",
-    })
-    .when("/forgot-password", {
-      templateUrl: "pages/forgot-password.html",
-      controller: "user-ctrl",
-    })
-    .when("/register", {
-      templateUrl: "pages/register.html",
-      controller: "user-ctrl",
-    })
-    .when("/login", {
-      templateUrl: "pages/login.html",
-      controller: "user-ctrl",
-    })
+        .when("/my-account", { templateUrl: "pages/my-account.html", controller: "user-ctrl" })
+        .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
+        .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "user-ctrl" })
+        .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
+        .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
 
     .when("/contact-us", { templateUrl: "pages/contact-us.html" })
     .when("/404", { templateUrl: "pages/404.html" })
     .otherwise({ redirectTo: "/" });
->>>>>>> 0a4cf1e (Home controller, thêm sp vào cart, lỗi compare quantity)
 });
 
 app.directive("convertDate", function () {
@@ -73,6 +41,25 @@ app.directive("convertDate", function () {
         fromField = fromField.getTime();
         return fromField;
       });
+<<<<<<< HEAD
+        }
+    }
+});
+
+app.factory('myService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+=======
     },
   };
 });
@@ -92,26 +79,69 @@ app.factory("myService", function () {
 });
 
 app.controller("myCtrl", ($scope, $rootScope) => {
-  $rootScope.cart = new Map();
+  $rootScope.cart = {
+    map: new Map(),
+    array: [],
+    total: 0,
+  };
+  getCartFromLocal($rootScope.cart);
 
   $scope.$on("addCart", (evt, data) => {
     let cart = $rootScope.cart;
-    if (cart.has(data.id)) {
-      let item = cart.get(data.id);
-      item.quantity++;
-    } else {
-      cart.set(data.id, data);
-    }
+    addToCart(cart, data);
+  });
 
-    $scope.total = getTotal(cart);
-    $scope.cartArr = [...cart.values()];
+  $scope.removeCartItem = (item) => {
+    console.log("remove item", item);
+    removeItem($rootScope.cart, item);
+  };
+
+  $scope.$on("removeCartItem", (evt, data) => {
+    console.log("remove cart item in app controller");
+    $scope.removeCartItem(data);
   });
 });
 
-let getTotal = function (cart) {
+function addToCart(cart, product) {
+  if (cart.map.has(product.id)) {
+    let item = cart.map.get(product.id);
+    item.quantity++;
+  } else {
+    cart.map.set(product.id, product);
+  }
+  loadCartData(cart);
+}
+
+function getTotal(cart) {
   let total = 0;
   cart.forEach((item) => {
     total += item.price * item.quantity;
   });
   return total;
-};
+}
+
+function saveToLocal(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function loadCartData(cart) {
+  cart.total = getTotal(cart.map);
+  cart.array = [...cart.map.values()];
+  saveToLocal(cart.array);
+}
+
+function getCartFromLocal(cart) {
+  let items = JSON.parse(localStorage.getItem("cart"));
+  if (items) {
+    items.forEach((item) => cart.map.set(item.id, item));
+    loadCartData(cart);
+  }
+}
+
+function removeItem(cart, item) {
+  if (cart.map.has(item.id)) {
+    console.log(cart.map.delete(item.id));
+    loadCartData(cart);
+  }
+}
+>>>>>>> 7b4510b (Xong tinh nang xoa cart item)
