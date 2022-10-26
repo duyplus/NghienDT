@@ -91,7 +91,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     $scope.create = function () {
         $scope.productdata.createdat = new Date().toJSON();
         $scope.productdata.updatedat = new Date().toJSON();
-        $scope.productdata.image = "avt.png";
+        $scope.productdata.image = "null.png";
         var item = angular.copy($scope.productdata);
         $http.post(`${url}`, item).then(resp => {
             $scope.items.push(resp.data);
@@ -99,7 +99,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             sweetalert_success("Thêm mới thành công!");
             $location.path('user-list');
         }).catch(error => {
-            sweetalert_error("Lỗi thêm mới tài khoản!");
+            sweetalert_error("Lỗi thêm mới sản phẩm!");
             console.log("Error", error);
         });
     }
@@ -112,10 +112,10 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
-            sweetalert_success("Cập nhật tài khoản thành công!");
+            sweetalert_success("Cập nhật sản phẩm thành công!");
             $location.path('user-list');
         }).catch(error => {
-            sweetalert_error("Lỗi cập nhật tài khoản!");
+            sweetalert_error("Lỗi cập nhật sản phẩm!");
             console.log("Error", error);
         });
     }
@@ -123,13 +123,13 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     //xoa sp
     $scope.delete = function (item) {
         $http.delete(`${url}/${$scope.productdata.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
+            var index = $scope.items.findIndex(p => p.id == $scope.productdata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
-            sweetalert_success("Xóa tài khoản thành công!");
+            sweetalert_success("Xóa sản phẩm thành công!");
             $location.path('user-list');
         }).catch(error => {
-            sweetalert_error("Lỗi xóa tài khoản!");
+            sweetalert_error("Lỗi xóa sản phẩm!");
             console.log("Error", error);
         });
     }
