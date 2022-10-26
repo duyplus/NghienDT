@@ -39,14 +39,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr ng-repeat="item in cart.array">
                                                     <td>
-                                                        <a href="#!product"><img
-                                                                src="assets/img/product/pro-layout-img5.jpg"
-                                                                class="img-thumbnail"></a>
+                                                        <a href="#!product"><img src="assets/img/product/{{item.image}}"
+                                                                alt="{{item.image}}" class="img-thumbnail"></a>
                                                     </td>
                                                     <td>
-                                                        <a href="#!product">Compete Track Tote</a>
+                                                        <a href="#!product">{{item.name}}</a>
                                                         <span>Delivery Date: 2019-09-22</span>
                                                         <span>Color: Brown</span>
                                                         <span>Reward Points: 300</span>
@@ -55,20 +54,21 @@
                                                     <td>
                                                         <div class="input-group btn-block">
                                                             <div class="product-qty me-3">
-                                                                <input type="text" value="0" disabled>
+                                                                <input ng-model="item.quantity" type="number" disabled>
                                                             </div>
                                                             <span class="input-group-btn">
                                                                 <button type="submit" class="btn btn-primary"><i
                                                                         class="fa fa-refresh"></i></button>
                                                                 <button type="button"
                                                                     class="btn btn-danger pull-right"><i
-                                                                        class="fa fa-times-circle"></i></button>
+                                                                        class="fa fa-times-circle"
+                                                                        ng-click="removeItem(item)"></i></button>
                                                             </span>
                                                         </div>
                                                     </td>
-                                                    <td>$200.00</td>
+                                                    <td>{{item.price * item.quantity}}</td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>
                                                         <a href="#!product"><img
                                                                 src="assets/img/product/pro-layout-img4.jpg"
@@ -133,7 +133,7 @@
                                                         </div>
                                                     </td>
                                                     <td>$180.00</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>

@@ -6,7 +6,7 @@
   "discount" : 0,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-  "image" : "anh3.png",
+  "image" : "product-3.jpg",
   "createdAt" : "2022-10-23",
   "updatedAt" : "2023-02-12T01:15:45.000+00:00",
   "user" : {
@@ -41,7 +41,7 @@
   "discount" : 0,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-  "image" : "anh3.png",
+  "image" : "product-3.jpg",
   "createdAt" : "2022-09-15",
   "updatedAt" : "2022-12-23T00:25:23.000+00:00",
   "user" : {
@@ -76,7 +76,7 @@
   "discount" : 5,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-  "image" : "anh2.png",
+  "image" : "product-2.jpg",
   "createdAt" : "2023-03-27",
   "updatedAt" : "2022-02-13T15:21:07.000+00:00",
   "user" : {
@@ -111,7 +111,7 @@
   "discount" : 10,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
-  "image" : "anh1.png",
+  "image" : "product-1.jpg",
   "createdAt" : "2023-03-11",
   "updatedAt" : "2022-10-10T13:29:33.000+00:00",
   "user" : {
@@ -146,7 +146,7 @@
   "discount" : 10,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor.",
-  "image" : "anh2.png",
+  "image" : "product-2.jpg",
   "createdAt" : "2023-07-07",
   "updatedAt" : "2023-04-24T05:08:43.000+00:00",
   "user" : {
@@ -181,7 +181,7 @@
   "discount" : 20,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-  "image" : "anh3.png",
+  "image" : "product-3.jpg",
   "createdAt" : "2022-12-24",
   "updatedAt" : "2022-06-01T02:07:54.000+00:00",
   "user" : {
@@ -216,7 +216,7 @@
   "discount" : 20,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor.",
-  "image" : "anh4.png",
+  "image" : "product-4.jpg",
   "createdAt" : "2022-11-22",
   "updatedAt" : "2021-12-27T21:47:47.000+00:00",
   "user" : {
@@ -251,7 +251,7 @@
   "discount" : 18,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
-  "image" : "anh1.png",
+  "image" : "product-1.jpg",
   "createdAt" : "2022-09-14",
   "updatedAt" : "2021-11-17T07:07:53.000+00:00",
   "user" : {
@@ -286,7 +286,7 @@
   "discount" : 15,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
-  "image" : "anh4.png",
+  "image" : "product-4.jpg",
   "createdAt" : "2022-06-10",
   "updatedAt" : "2022-10-24T17:17:36.000+00:00",
   "user" : {
@@ -321,7 +321,7 @@
   "discount" : 15,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
-  "image" : "anh2.png",
+  "image" : "product-2.jpg",
   "createdAt" : "2022-06-15",
   "updatedAt" : "2023-08-16T08:04:54.000+00:00",
   "user" : {
@@ -356,7 +356,7 @@
   "discount" : 0,
   "available" : false,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer",
-  "image" : "anh3.png,",
+  "image" : "product-3.jpg,",
   "createdAt" : "2022-09-11",
   "updatedAt" : "2022-12-23T13:01:22.000+00:00",
   "user" : {
@@ -391,7 +391,7 @@
   "discount" : 10,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
-  "image" : "anh3.png,",
+  "image" : "product-3.jpg,",
   "createdAt" : "2022-07-04",
   "updatedAt" : "2022-04-03T11:13:15.000+00:00",
   "user" : {
@@ -426,7 +426,7 @@
   "discount" : 5,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor.",
-  "image" : "anh1.png,",
+  "image" : "product-1.jpg,",
   "createdAt" : "2023-10-19",
   "updatedAt" : "2023-10-06T16:35:18.000+00:00",
   "user" : {
@@ -461,7 +461,7 @@
   "discount" : 5,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
-  "image" : "anh1.png,",
+  "image" : "product-1.jpg,",
   "createdAt" : "2022-04-30",
   "updatedAt" : "2023-05-05T06:06:35.000+00:00",
   "user" : {
@@ -496,7 +496,7 @@
   "discount" : 5,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
-  "image" : "anh2.png,",
+  "image" : "product-2.jpg,",
   "createdAt" : "2022-05-23",
   "updatedAt" : "2022-01-30T19:39:54.000+00:00",
   "user" : {
@@ -531,7 +531,7 @@
   "discount" : 0,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam",
-  "image" : "anh4.png,",
+  "image" : "product-4.jpg,",
   "createdAt" : "2023-07-04",
   "updatedAt" : "2022-04-28T06:51:26.000+00:00",
   "user" : {
@@ -566,7 +566,7 @@
   "discount" : 20,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor.",
-  "image" : "anh3.png,",
+  "image" : "product-3.jpg,",
   "createdAt" : "2022-02-27",
   "updatedAt" : "2022-05-08T03:25:55.000+00:00",
   "user" : {
@@ -601,7 +601,7 @@
   "discount" : 20,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor.",
-  "image" : "anh3.png,",
+  "image" : "product-3.jpg,",
   "createdAt" : "2023-07-25",
   "updatedAt" : "2022-10-05T17:52:29.000+00:00",
   "user" : {
@@ -636,7 +636,7 @@
   "discount" : 32,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
-  "image" : "anh2.png,",
+  "image" : "product-2.jpg,",
   "createdAt" : "2023-07-06",
   "updatedAt" : "2023-06-05T08:40:23.000+00:00",
   "user" : {
@@ -671,7 +671,7 @@
   "discount" : 32,
   "available" : true,
   "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing",
-  "image" : "anh2.png,",
+  "image" : "product-2.jpg,",
   "createdAt" : "2022-06-27",
   "updatedAt" : "2023-05-01T00:27:05.000+00:00",
   "user" : {

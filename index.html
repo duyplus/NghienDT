@@ -125,24 +125,24 @@
                                 </li>
                                 <li class="my-cart">
                                     <button type="button" class="ha-toggle"><span class="lnr lnr-cart"></span><span
-                                            class="count">{{cart.size}}</span>Giỏ hàng</button>
+                                            class="count">{{cart.array.length}}</span>Giỏ hàng</button>
                                     <ul class="mini-cart-drop-down ha-dropdown">
-                                        <li class="mb-30" ng-repeat="item in cartArr">
+                                        <li class="mb-30" ng-repeat="item in cart.array">
                                             <div class="cart-img">
-                                                <a href="#!product"><img src="assets/img/cart/cart-1.jpg"></a>
+                                                <a href="#!product"><img src="assets/img/product/{{item.image}}"></a>
                                             </div>
                                             <div class="cart-info">
                                                 <h4><a href="#!product">{{item.name}} </a>
                                                 </h4>
                                                 <span> <span>{{item.quantity}} x </span>£{{item.price}}</span>
                                             </div>
-                                            <div class="del-icon">
+                                            <div class="del-icon btn" ng-click="removeCartItem(item)">
                                                 <i class="fa fa-times-circle"></i>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="subtotal-text">Tổng: </div>
-                                            <div class="subtotal-price"><span>£{{total}}</span></div>
+                                            <div class="subtotal-price"><span>£{{cart.total}}</span></div>
                                         </li>
                                         <li class="mt-30">
                                             <a class="cart-button" href="#!cart">Xem giỏ hàng</a>
