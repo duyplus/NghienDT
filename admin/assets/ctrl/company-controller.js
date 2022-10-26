@@ -1,8 +1,8 @@
-app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, myService) {
+app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, companyService) {
     var url = "http://localhost:8080/api/company";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
-    $scope.companydata = myService.get();
+    $scope.companydata = companyService.get();
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -71,12 +71,12 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //hien thi len form
     $scope.edit = function (item) {
-        myService.set(item);
+        companyService.set(item);
     }
 
     //them sp moi
     $scope.create = function () {
-        $scope.userdata.logo = "null.jpg";
+        $scope.companydata.logo = "null.png";
         var item = angular.copy($scope.companydata);
         $http.post(`${url}`, item).then(resp => {
             $scope.items.push(resp.data);
@@ -91,6 +91,7 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //cap nhat sp
     $scope.update = function () {
+        $scope.companydata.logo = "null.png";
         var item = angular.copy($scope.companydata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);

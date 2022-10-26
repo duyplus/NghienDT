@@ -110,7 +110,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
 
     //xoa sp
     $scope.delete = function (item) {
-        $http.delete(`${url}/${item.id}`).then(resp => {
+        $http.delete(`${url}/${$scope.userdata.id}`).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items.splice(index, 1);
             $scope.reset();
