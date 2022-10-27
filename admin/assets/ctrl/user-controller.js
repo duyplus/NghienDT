@@ -78,7 +78,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
     $scope.create = function () {
         $scope.userdata.createdat = new Date().toJSON();
         $scope.userdata.updatedat = new Date().toJSON();
-        $scope.userdata.image = "avt.png";
+        // $scope.userdata.image = "avt.png";
         $scope.userdata.token = "null";
         var item = angular.copy($scope.userdata);
         $http.post(`${url}`, item).then(resp => {
@@ -136,4 +136,58 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
             console.log("Error", error);
         })
     }
+
+    ///////
+    $('document').ready(function () {
+        $('input[type=file]').on('change', function () {
+            var $files = $(this).get(0).files;
+            if ($files.length) {
+                if ($files[0].size > $(this).data('max-size') * 1024) {
+                    console.log('Vui lòng chọn file có dung lượng nhỏ hơn!');
+                    return false;
+                }
+                console.log('Đang upload hình ảnh lên imgur...');
+
+                var apiUrl = 'https://api.imgur.com/3/image';
+                var apiKey = '146def7f79c7a87';
+                var settings = {
+                    async: false,
+                    crossDomain: true,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    url: apiUrl,
+                    headers: {
+                        Authorization: 'Client-ID ' + apiKey,
+                        Accept: 'application/json',
+                    },
+                    mimeType: 'multipart/form-data',
+                };
+
+                var formData = new FormData();
+                formData.append('image', $files[0]);
+                settings.data = formData;
+
+                $.ajax(settings).done(function (response) {
+                    console.log('done');
+                    var obj = JSON.parse(response);
+                    document.getElementById("link").value = JSON.stringify(obj.data.link);
+                    console.log(JSON.stringify(obj.data.link))
+                });
+            }
+        });
+        
+        $('input[name="link"]').change(function() {
+            $('input[name="img"]').val($(this).val());
+        });
+
+        $(function () {
+            var $link = $('#link');
+            var $img = $('#img');
+            function onChange() {
+                $img.val($link.val());
+            };
+            $('#link').change(onChange).keyup(onChange);
+        });
+    });
 });
