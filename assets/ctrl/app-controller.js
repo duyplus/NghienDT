@@ -11,6 +11,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
         .when("/my-account", { templateUrl: "pages/my-account.html", controller: "user-ctrl" })
         .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
+        .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "user-ctrl" })
         .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
         .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
         
