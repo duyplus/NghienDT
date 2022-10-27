@@ -86,7 +86,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert_success("Thêm mới thành công!");
-            $location.path('user-list');
+            $location.path('product-list');
         }).catch(error => {
             sweetalert_error("Lỗi thêm mới sản phẩm!");
             console.log("Error", error);
@@ -102,7 +102,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             $scope.items[index] = item;
             $scope.reset();
             sweetalert_success("Cập nhật sản phẩm thành công!");
-            $location.path('user-list');
+            $location.path('product-list');
         }).catch(error => {
             sweetalert_error("Lỗi cập nhật sản phẩm!");
             console.log("Error", error);
@@ -116,7 +116,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             $scope.items.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa sản phẩm thành công!");
-            $location.path('user-list');
+            $location.path('product-list');
         }).catch(error => {
             sweetalert_error("Lỗi xóa sản phẩm!");
             console.log("Error", error);
