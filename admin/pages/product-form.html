@@ -55,10 +55,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Người bán</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="text" ng-model="productdata.user.username"
-                                        name="userid">
+                                <label class="col-sm-2 col-form-label">Người bán: </label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" ng-model="getUser" ng-change="findUser()"
+                                        name="username" required>
+                                </div>
+                                <label class="col-sm-2 col-form-label">ID người bán</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="number" string-to-number ng-value="filterUser.id" ng-model="productdata.user"
+                                        name="user" >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -66,7 +71,7 @@
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label">Danh mục</label>
                                         <div class="col-sm-8">
-                                            <select class="custom-select" ng-model="productdata.category"
+                                            <select class="custom-select" ng-model="getcate" string-to-number
                                                 ng-options="item.id as item.name for item in cate track by item.id"
                                                 name="category">
                                                 <!-- <option ng-repeat="item in cate" value="{{item.id}}">{{item.name}} -->
@@ -79,7 +84,7 @@
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label">Hãng</label>
                                         <div class="col-sm-8">
-                                            <select class="custom-select" ng-model="productdata.company" name="company"
+                                            <select class="custom-select" ng-model="getcompany" name="company" string-to-number
                                                 ng-options="item.id as item.name for item in company track by item.id">
                                                 <!-- <option ng-repeat="item in company" value="{{item.id}}">{{item.name}} -->
                                                 </option>
