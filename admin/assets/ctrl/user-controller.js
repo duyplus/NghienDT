@@ -165,8 +165,8 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
                 });
             }
         });
-        
-        $('input[name="link"]').change(function() {
+
+        $('input[name="link"]').change(function () {
             $('input[name="img"]').val($(this).val());
         });
 
@@ -179,4 +179,21 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
             $('#link').change(onChange).keyup(onChange);
         });
     });
+
+
+    // Export xcel
+    $(document).ready(function () {
+        $("#saveAsExcel").click(function () {
+            var workbook = XLSX.utils.book_new();
+            var worksheet_data = document.getElementById("table");
+            var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
+
+            workbook.SheetNames.push("User");
+            workbook.Sheets["User"] = worksheet;
+            exportExcelFile(workbook);
+        });
+    })
+    function exportExcelFile(workbook) {
+        return XLSX.writeFile(workbook, "User_List.xlsx");
+    }
 });
