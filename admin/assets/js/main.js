@@ -27,10 +27,6 @@
         }
     }
 
-    function initTooltipPlugin() {
-        $('[data-toggle="tooltip"]').tooltip()
-    }
-
     function initMainIconTabMenu() {
         $('.main-icon-menu .nav-link').on('click', function (e) {
             $("body").removeClass("enlarge-menu");
@@ -98,7 +94,6 @@
         initMetisMenu();
         initLeftMenuCollapse();
         initEnlarge();
-        initTooltipPlugin();
         initMainIconTabMenu();
         initActiveMenu();
         initFeatherIcon();

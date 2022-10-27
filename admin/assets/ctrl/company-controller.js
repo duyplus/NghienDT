@@ -21,17 +21,6 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
         });
     }
 
-    // Summernote
-    $('#summernote').summernote({
-        height: 200,
-        placeholder: 'Nhập thông tin sản phẩm..',
-        toolbar: [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['view', ['codeview']],
-        ]
-    });
-
     // Dropify
     $('.dropify').dropify();
     var drEvent = $('.dropify-event').dropify();
