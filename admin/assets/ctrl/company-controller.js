@@ -106,9 +106,9 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
     }
 
     //xoa sp
-    $scope.delete = function (item) {
-        $http.delete(`${url}/${item.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
+    $scope.delete = function () {
+        $http.delete(`${url}/${$scope.companydata.id}`).then(resp => {
+            var index = $scope.items.findIndex(p => p.id == $scope.companydata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa hãng thành công!");

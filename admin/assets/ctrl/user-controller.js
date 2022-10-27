@@ -1,8 +1,8 @@
-app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $filter, myService) {
+app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $filter, userService) {
     var url = "http://localhost:8080/api/user";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
-    $scope.userdata = myService.get();
+    $scope.userdata = userService.get();
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -71,7 +71,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
 
     //hien thi len form
     $scope.edit = function (item) {
-        myService.set(item);
+        userService.set(item);
     }
 
     //them sp moi
@@ -109,9 +109,9 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
     }
 
     //xoa sp
-    $scope.delete = function (item) {
+    $scope.delete = function () {
         $http.delete(`${url}/${$scope.userdata.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
+            var index = $scope.items.findIndex(p => p.id == $scope.userdata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa tài khoản thành công!");

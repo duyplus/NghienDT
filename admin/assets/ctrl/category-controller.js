@@ -1,8 +1,8 @@
-app.controller("category-ctrl", function ($scope, $rootScope, $location, $http, $filter, myService) {
+app.controller("category-ctrl", function ($scope, $rootScope, $location, $http, $filter, cateService) {
     var url = "http://localhost:8080/api/category";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
-    $scope.categorydata = myService.get();
+    $scope.categorydata = cateService.get();
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -71,14 +71,14 @@ app.controller("category-ctrl", function ($scope, $rootScope, $location, $http, 
 
     //hien thi len form
     $scope.edit = function (item) {
-        myService.set(item);
+        cateService.set(item);
     }
 
     //them sp moi
     $scope.create = function () {
+        $scope.categorydata.image = "null.png";
         var item = angular.copy($scope.categorydata);
         $http.post(`${url}`, item).then(resp => {
-            resp.data.image = "null.jpg";
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert_success("Thêm mới thành công!");
@@ -105,9 +105,9 @@ app.controller("category-ctrl", function ($scope, $rootScope, $location, $http, 
     }
 
     //xoa sp
-    $scope.delete = function (item) {
-        $http.delete(`${url}/${item.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
+    $scope.delete = function () {
+        $http.delete(`${url}/${$scope.categorydata.id}`).then(resp => {
+            var index =$scope.items.findIndex(p => p.id == $scope.categorydata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa hãng thành công!");
