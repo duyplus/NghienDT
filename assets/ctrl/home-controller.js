@@ -1,9 +1,4 @@
 app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
-  let url = "assets/data/products.json";
-  $scope.items;
-  $http.get(url).then((response) => {
-    $scope.items = response.data;
-  });
   // home slider
   var heroSlider = $(".hero-slider-active");
   heroSlider.slick({
@@ -701,18 +696,30 @@ app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
       },
     },
   });
+  $scope.items = [];
+  fetchData($scope, $http);
 
   $scope.addCart = function (data) {
-    let itemCart = $rootScope.cart.map.get(data.id);
-    if (!itemCart || itemCart.quantity < Number(data.quantity)) {
-      let item = { ...data, quantity: 1 };
-      $scope.$emit("addCart", item);
-    } else {
-      alert("Đã đạt giới hạn số lượng tối đa");
-    }
-
-    // console.log(itemCart, Number(itemCart.quantity) >= Number(data.quanity));
-    // console.log(data.quantity, typeof data.quantity, Number(data.quantity));
-    // console.log(itemCart && itemCart.quantity == data.quanity);
+    addCart($scope, $rootScope, data);
   };
 });
+
+function fetchData(scope, http) {
+  let url = "assets/data/products.json";
+  http
+    .get(url)
+    .then((response) => {
+      scope.items = response.data;
+    })
+    .catch((err) => console.log(err));
+}
+
+function addCart(scope, rootScope, data) {
+  let itemCart = rootScope.cart.map.get(data.id);
+  if (!itemCart || itemCart.quantity < Number(data.quantity)) {
+    let item = { ...data, quantity: 1 };
+    scope.$emit("addCart", item);
+  } else {
+    alert("Đã đạt giới hạn số lượng tối đa");
+  }
+}
