@@ -111,7 +111,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
         });
     }
 
-    //upload hinh
+    //upload hinh (cũ)
     $scope.imageChanged = function (files) {
         var data = new FormData();
         data.append('file', files[0]);
@@ -126,7 +126,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
         })
     }
 
-    ///////
+    // Up ảnh thông qua API của Imgur
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
             var $files = $(this).get(0).files;
@@ -160,23 +160,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
                 $.ajax(settings).done(function (response) {
                     console.log('done');
                     var obj = JSON.parse(response);
-                    document.getElementById("link").value = JSON.stringify(obj.data.link);
-                    console.log(JSON.stringify(obj.data.link))
+                    console.log(obj.data.link);
+                    document.getElementById("img").setAttribute("value", obj.data.link);
                 });
             }
-        });
-
-        $('input[name="link"]').change(function () {
-            $('input[name="img"]').val($(this).val());
-        });
-
-        $(function () {
-            var $link = $('#link');
-            var $img = $('#img');
-            function onChange() {
-                $img.val($link.val());
-            };
-            $('#link').change(onChange).keyup(onChange);
         });
     });
 
