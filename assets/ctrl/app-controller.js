@@ -69,28 +69,3 @@ app.factory("myService", function () {
     get: get,
   };
 });
-
-app.controller("myCtrl", ($scope, $rootScope) => {
-  $rootScope.cart = new Map();
-
-  $scope.$on("addCart", (evt, data) => {
-    let cart = $rootScope.cart;
-    if (cart.has(data.id)) {
-      let item = cart.get(data.id);
-      item.quantity++;
-    } else {
-      cart.set(data.id, data);
-    }
-
-    $scope.total = getTotal(cart);
-    $scope.cartArr = [...cart.values()];
-  });
-});
-
-let getTotal = function (cart) {
-  let total = 0;
-  cart.forEach((item) => {
-    total += item.price * item.quantity;
-  });
-  return total;
-};
