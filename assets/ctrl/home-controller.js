@@ -1,4 +1,63 @@
-app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
+app.controller(
+  "home-ctrl",
+  function ($scope, $rootScope, $location, $http, $timeout) {
+    $scope.items = [];
+    console.log("fetch data");
+
+    fetchData($scope, $http);
+    // watch first $digest
+    function postDigest(callback) {
+      var unregister = $scope.$watch("items", function () {
+        unregister();
+        $timeout(
+          function () {
+            console.log("time out");
+            callback();
+            postDigest(callback);
+          },
+          0,
+          false
+        );
+      });
+    }
+    console.log("before post digest");
+    // triggered after a digest cycle
+    postDigest(function () {
+      // console.log("post digest");
+      if ($scope.items.length > 0) owlCarousel();
+    });
+
+    $scope.addCart = function (data) {
+      addCart($scope, $rootScope, data);
+    };
+    $scope.carousel = () => owlCarousel();
+  }
+);
+
+function fetchData(scope, http) {
+  let url = "assets/data/products.json";
+  http
+    .get(url)
+    .then((response) => {
+      scope.items = response.data;
+      console.log("done fetch data");
+    })
+
+    .catch((err) => console.log(err));
+}
+
+function addCart(scope, rootScope, data) {
+  let itemCart = rootScope.cart.map.get(data.id);
+  if (!itemCart || itemCart.quantity < Number(data.quantity)) {
+    let item = { ...data, quantity: 1 };
+    scope.$emit("addCart", item);
+  } else {
+    alert("Đã đạt giới hạn số lượng tối đa");
+  }
+}
+
+function owlCarousel() {
+  console.log("own carousel");
   // home slider
   var heroSlider = $(".hero-slider-active");
   heroSlider.slick({
@@ -696,30 +755,4 @@ app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
       },
     },
   });
-  $scope.items = [];
-  fetchData($scope, $http);
-
-  $scope.addCart = function (data) {
-    addCart($scope, $rootScope, data);
-  };
-});
-
-function fetchData(scope, http) {
-  let url = "assets/data/products.json";
-  http
-    .get(url)
-    .then((response) => {
-      scope.items = response.data;
-    })
-    .catch((err) => console.log(err));
-}
-
-function addCart(scope, rootScope, data) {
-  let itemCart = rootScope.cart.map.get(data.id);
-  if (!itemCart || itemCart.quantity < Number(data.quantity)) {
-    let item = { ...data, quantity: 1 };
-    scope.$emit("addCart", item);
-  } else {
-    alert("Đã đạt giới hạn số lượng tối đa");
-  }
 }
