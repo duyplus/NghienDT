@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label">Danh mục</label>
                                         <div class="col-sm-8">
-                                            <select class="custom-select" ng-model="getcate" string-to-number
+                                            <select class="custom-select" ng-model="productdata.category" string-to-number
                                                 ng-options="item.id as item.name for item in cate track by item.id"
                                                 name="category">
                                                 <!-- <option ng-repeat="item in cate" value="{{item.id}}">{{item.name}} -->
@@ -84,7 +84,7 @@
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label">Hãng</label>
                                         <div class="col-sm-8">
-                                            <select class="custom-select" ng-model="getcompany" name="company" string-to-number
+                                            <select class="custom-select" ng-model="productdata.company" name="company" string-to-number
                                                 ng-options="item.id as item.name for item in company track by item.id">
                                                 <!-- <option ng-repeat="item in company" value="{{item.id}}">{{item.name}} -->
                                                 </option>
