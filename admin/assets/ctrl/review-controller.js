@@ -125,4 +125,20 @@ app.controller("review-ctrl", function ($scope, $http, $compile) {
             console.log("Error", error);
         })
     }
+
+    // Export xcel
+    $(document).ready(function () {
+        $("#saveAsExcel").click(function () {
+            var workbook = XLSX.utils.book_new();
+            var worksheet_data = document.getElementById("table");
+            var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
+
+            workbook.SheetNames.push("Review");
+            workbook.Sheets["Review"] = worksheet;
+            exportExcelFile(workbook);
+        });
+    })
+    function exportExcelFile(workbook) {
+        return XLSX.writeFile(workbook, "Review_List.xlsx");
+    }
 });

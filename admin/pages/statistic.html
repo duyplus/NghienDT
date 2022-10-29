@@ -65,8 +65,19 @@
         </div>
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered dt-responsive nowrap">
+                <div class="card-body table-responsive">
+                    <div class="row my-3">
+                        <div class="col-sm-6 form-inline justify-content-start">
+                            <label class="pr-2">Tìm kiếm:</label>
+                            <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
+                        </div>
+                        <div class="col-sm-6 form-inline justify-content-end">
+                            <button type="button" class="btn btn-sm btn-secondary" id="saveAsExcel">
+                                <i class="fa-regular fa-file-export"></i> Excel
+                            </button>
+                        </div>
+                    </div>
+                    <table id="table" class="table table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
                                 <th>Product Name</th>
