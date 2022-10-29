@@ -1,0 +1,17 @@
+<<<<<<< HEAD
+app.controller("cart-ctrl", function ($scope, $cart) {
+  $scope.removeItem = (item) => {
+    $cart.removeItem(item.id);
+  };
+});
+=======
+app.controller(
+  "cart-ctrl",
+  function ($scope, $rootScope, $location, $http, $cart) {
+    $scope.removeItem = (item) => {
+      console.log("hello removing item", item.id);
+      $cart.removeItem(item.id);
+    };
+  }
+);
+>>>>>>> c57e660cce2688a3c9223685e27c3a8d7bb2eb15
