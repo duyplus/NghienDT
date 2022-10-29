@@ -1,0 +1,18 @@
+app.controller(
+  "product-ctrl",
+<<<<<<< HEAD
+  function ($scope, $location, $templateUrl, $owlSlick) {
+    $scope.templateUrl = $templateUrl.getProductTemplates();
+    $scope.product = {};
+    $scope.$on("viewProduct", (evt, product) => {
+=======
+  function ($scope, $location, $templateUrl, $owlSlick, $event) {
+    $scope.templateUrl = $templateUrl.getProductTemplates();
+    $scope.product = {};
+    $scope.$on($event.VIEW_PRODUCT_EVENT(), (evt, product) => {
+>>>>>>> 5f8473b (Move OwlSlick config to service)
+      $scope.product = product;
+    });
+    $owlSlick.configProduct($scope);
+  }
+);

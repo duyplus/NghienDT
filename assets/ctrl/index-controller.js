@@ -5,9 +5,9 @@ app.controller(
       $cart.removeItem(item.id);
     };
 
-    $scope.$on("viewProduct", (evt, item) => {
-      $window.location.href = "/#!product";
-      $scope.$broadcast("viewProduct", item);
+  $scope.$on("viewProduct", (evt, item) => {
+    $window.location.href = "/#!product";
+    $scope.$broadcast("viewProduct", item);
     });
     $owlSlick.configIndex($scope);
   }

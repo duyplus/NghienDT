@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+app.controller(
+  "home-ctrl",
+  function ($scope, $rootScope, $data, $cart, $templateUrl) {
+=======
+
+app.controller(
+  "home-ctrl",
+  function ($scope, $rootScope, $data, $cart, $templateUrl, $event) {
+>>>>>>> 5f8473b (Move OwlSlick config to service)
+    $scope.templateUrl = $templateUrl.getHomeTemplates();
+    $data.fetch($scope, { name: "categories" });
+    $data.fetch($scope, { name: "products" });
+    $scope.addCart = (product) => {
+      $cart.addItem(product);
+<<<<<<< HEAD
+    };
+    $scope.viewProduct = (product) => {
+      $scope.$emit("viewProduct", product);
+=======
+>>>>>>> 5f8473b (Move OwlSlick config to service)
+    };
+<<<<<<< HEAD
+  
+=======
+    $scope.viewProduct = (product) => {
+      $scope.$emit($event.VIEW_PRODUCT_EVENT(), product);
+    };
+>>>>>>> 8ccf02d (Add  service and  service)
+  }
+);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5f8473b (Move OwlSlick config to service)

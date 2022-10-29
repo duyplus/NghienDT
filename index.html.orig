@@ -128,6 +128,10 @@
                                             class="count">{{cart.size}}</span>Giỏ hàng</button>
                                     <ul class="mini-cart-drop-down ha-dropdown">
                                         <li class="mb-30" ng-repeat="(key, item) in cart.values">
+<<<<<<< HEAD
+                                        <li class="mb-30" ng-repeat="item in cart.array">
+=======
+>>>>>>> c57e660 (Refractor view with ng-include, also add  and  service)
                                             <div class="cart-img">
                                                 <a href="#!product"><img src="assets/img/product/{{item.image}}"></a>
                                             </div>
@@ -419,7 +423,7 @@
     <script type="text/javascript" src="assets/ctrl/product-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/user-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/wishlist-controller.js"></script>
-
+<script type="text/javascript" src="https://bit.ly/ui-bootstrap-tpls"></script>
     <script type="text/javascript" src="https://bit.ly/ui-bootstrap-tpls"></script>
     <script type="text/javascript" src="https://bit.ly/googleTranslateElementInit2"></script>
 </body>

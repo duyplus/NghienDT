@@ -8,7 +8,7 @@ app.controller(
       $cart.addItem(product);
     };
     $scope.viewProduct = (product) => {
-      $scope.$emit("viewProduct", product);
+    $scope.$emit("viewProduct", product);
     };
   }
 );
