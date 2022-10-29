@@ -39,7 +39,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="item in cart.array">
+                                                <tr ng-repeat="item in cart.values">
                                                     <td>
                                                         <a href="#!product"><img src="assets/img/product/{{item.image}}"
                                                                 alt="{{item.image}}" class="img-thumbnail"></a>
@@ -56,84 +56,13 @@
                                                             <div class="product-qty me-3">
                                                                 <input ng-model="item.quantity" type="number" min="0">
                                                             </div>
-                                                            <span class="input-group-btn">
-                                                                <!-- <button type="submit" class="btn btn-primary"><i
-                                                                        class="fa fa-refresh"></i></button> -->
-                                                                <button type="button"
-                                                                    class="btn btn-danger pull-right"><i
-                                                                        class="fa fa-times-circle"
-                                                                        ng-click="removeItem(item)"></i></button>
-                                                            </span>
+                                                            <button type="button" class="btn btn-danger rounded-3"
+                                                                ng-click="removeItem(item)"><i
+                                                                    class="fa fa-times-circle"></i></button>
                                                         </div>
                                                     </td>
                                                     <td>${{item.price * item.quantity}}</td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <td>
-                                                        <a href="#!product"><img
-                                                                src="assets/img/product/pro-layout-img4.jpg"
-                                                                alt="Cart Product Image" title="Rival Field Messenger 6"
-                                                                class="img-thumbnail"></a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#!product">Rival Field Messenger 6</a>
-                                                        <span>Color: Dark Blue</span>
-                                                    </td>
-                                                    <td>10</td>
-                                                    <td>
-                                                        <div class="input-group btn-block">
-                                                            <div class="product-qty me-3">
-                                                                <input type="text" value="0">
-                                                            </div>
-                                                            <span class="input-group-btn">
-                                                                <button type="submit" data-toggle="tooltip"
-                                                                    data-direction="top" class="btn btn-primary"
-                                                                    data-original-title="Update"><i
-                                                                        class="fa fa-refresh"></i></button>
-                                                                <button type="button" data-toggle="tooltip"
-                                                                    data-direction="top"
-                                                                    class="btn btn-danger pull-right"
-                                                                    data-original-title="Remove"><i
-                                                                        class="fa fa-times-circle"></i></button>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$480.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href="#!product"><img
-                                                                src="assets/img/product/pro-layout-img3.jpg"
-                                                                alt="Cart Product Image" title="Fusion Backpack"
-                                                                class="img-thumbnail"></a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#!product">Fusion Backpack</a>
-                                                        <span>Select: White</span>
-                                                        <span>Color: Brown</span>
-                                                        <span>Reward Points: 200</span>
-                                                    </td>
-                                                    <td>2</td>
-                                                    <td>
-                                                        <div class="input-group btn-block">
-                                                            <div class="product-qty me-3">
-                                                                <input type="text" value="0">
-                                                            </div>
-                                                            <span class="input-group-btn">
-                                                                <button type="submit" data-toggle="tooltip"
-                                                                    data-direction="top" class="btn btn-primary"
-                                                                    data-original-title="Update"><i
-                                                                        class="fa fa-refresh"></i></button>
-                                                                <button type="button" data-toggle="tooltip"
-                                                                    data-direction="top"
-                                                                    class="btn btn-danger pull-right"
-                                                                    data-original-title="Remove"><i
-                                                                        class="fa fa-times-circle"></i></button>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$180.00</td>
-                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>

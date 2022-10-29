@@ -1,5 +1,9 @@
-app.controller("cart-ctrl", function ($scope, $rootScope, $location, $http) {
+app.controller(
+  "cart-ctrl",
+  function ($scope, $rootScope, $location, $http, $cart) {
     $scope.removeItem = (item) => {
-        $scope.$emit("removeCartItem", item);
+      console.log("hello removing item", item.id);
+      $cart.removeItem(item.id);
     };
-});
+  }
+);

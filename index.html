@@ -125,9 +125,9 @@
                                 </li>
                                 <li class="my-cart">
                                     <button type="button" class="ha-toggle"><span class="lnr lnr-cart"></span><span
-                                            class="count">{{cart.array.length}}</span>Giỏ hàng</button>
+                                            class="count">{{cart.size}}</span>Giỏ hàng</button>
                                     <ul class="mini-cart-drop-down ha-dropdown">
-                                        <li class="mb-30" ng-repeat="item in cart.array">
+                                        <li class="mb-30" ng-repeat="(key, item) in cart.values">
                                             <div class="cart-img">
                                                 <a href="#!product"><img src="assets/img/product/{{item.image}}"></a>
                                             </div>
@@ -411,6 +411,7 @@
     <script type="text/javascript" src="assets/js/custom.min.js"></script>
     <script type="text/javascript" src="assets/js/main.min.js"></script>
     <script type="text/javascript" src="assets/ctrl/app-controller.js"></script>
+    <script type="text/javascript" src="assets/ctrl/app-services.js"></script>
     <script type="text/javascript" src="assets/ctrl/index-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/cart-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/order-controller.js"></script>
