@@ -26,9 +26,9 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/statistic", { templateUrl: "admin/pages/statistic.html", controller: "statistic-ctrl" })
         .when("/setting", { templateUrl: "admin/pages/setting.html", controller: "setting-ctrl" })
 
+        .when('/', { templateUrl: 'admin/pages/dashboard.html', controller: "dashboard-ctrl"})
         .when("/login", { templateUrl: "admin/pages/login.html" })
         .when("/404", { templateUrl: "admin/pages/404.html" })
-        .when('/', { templateUrl: 'admin/pages/home.html', })
         .otherwise({ redirectTo: '/' });
 });
 

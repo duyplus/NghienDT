@@ -38,85 +38,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr ng-repeat="item in items">
                                     <td>
                                         <div class="media">
                                             <img src="admin/assets/images/products/img-1.png" height="40"
                                                 class="mr-3 align-self-center rounded" alt="...">
                                             <div class="media-body align-self-center">
-                                                <h6 class="m-0">Camera EDM 5D(White)</h6>
-                                                <a href="#" class="font-12 text-primary">ID: A3652</a>
+                                                <h6 class="m-0">{{item.product_name}}</h6>
+                                                <a href="#" class="font-12 text-primary">ID: {{item.id}}</a>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>$50 <del class="text-muted font-10">$70</del></td>
-                                    <td>Apple</td>
-                                    <td>Hoang Duy</td>
-                                    <td><span class="badge badge-soft-warning px-2">Còn hàng</span></td>
-                                </tr>
-                                <tr>
+                                    <td>${{item.product_price}}</td>
+                                    <td>{{item.company_name}}</td>
+                                    <td>{{item.full_name}}</td>
                                     <td>
-                                        <div class="media">
-                                            <img src="admin/assets/images/products/img-1.png" height="40"
-                                                class="mr-3 align-self-center rounded" alt="...">
-                                            <div class="media-body align-self-center">
-                                                <h6 class="m-0">Shoes Max-Zon</h6>
-                                                <a href="#" class="font-12 text-primary">ID: A5002</a>
-                                            </div>
-                                        </div>
+                                        <span class="badge badge-soft-warning px-2"
+                                            ng-if="item.product_available == true">Còn hàng</span>
+                                        <span class="badge badge-soft-primary px-2"
+                                            ng-if="item.product_available != true">Hết hàng</span>
                                     </td>
-                                    <td>$99 <del class="text-muted font-10">$150</del></td>
-                                    <td>Acer</td>
-                                    <td>Hoang Duy</td>
-                                    <td><span class="badge badge-soft-primary px-2">Hết hàng</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <img src="admin/assets/images/products/img-1.png" height="40"
-                                                class="mr-3 align-self-center rounded" alt="...">
-                                            <div class="media-body align-self-center">
-                                                <h6 class="m-0">Mask N99 [ISI]</h6>
-                                                <a href="#" class="font-12 text-primary">ID: A6598</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>$199 <del class="text-muted font-10">$250</del></td>
-                                    <td>Asus</td>
-                                    <td>Hoang Duy</td>
-                                    <td><span class="badge badge-soft-warning px-2">Còn hàng</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <img src="admin/assets/images/products/img-1.png" height="40"
-                                                class="mr-3 align-self-center rounded" alt="...">
-                                            <div class="media-body align-self-center">
-                                                <h6 class="m-0">Bag (Blue)</h6>
-                                                <a href="#" class="font-12 text-primary">ID: A9547</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>$40 <del class="text-muted font-10">$49</del></td>
-                                    <td>Dell</td>
-                                    <td>Hoang Duy</td>
-                                    <td><span class="badge badge-soft-warning px-2">Còn hàng</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <img src="admin/assets/images/products/img-1.png" height="40"
-                                                class="mr-3 align-self-center rounded" alt="...">
-                                            <div class="media-body align-self-center">
-                                                <h6 class="m-0">Bag (Blue)</h6>
-                                                <a href="#" class="font-12 text-primary">ID: A9547</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>$40 <del class="text-muted font-10">$49</del></td>
-                                    <td>Dell</td>
-                                    <td>Hoang Duy</td>
-                                    <td><span class="badge badge-soft-warning px-2">Còn hàng</span></td>
                                 </tr>
                             </tbody>
                         </table>
