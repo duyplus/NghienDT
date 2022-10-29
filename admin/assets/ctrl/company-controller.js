@@ -122,4 +122,20 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
             console.log("Error", error);
         })
     }
+
+    // Export xcel
+    $(document).ready(function () {
+        $("#saveAsExcel").click(function () {
+            var workbook = XLSX.utils.book_new();
+            var worksheet_data = document.getElementById("table");
+            var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
+
+            workbook.SheetNames.push("Company");
+            workbook.Sheets["Company"] = worksheet;
+            exportExcelFile(workbook);
+        });
+    })
+    function exportExcelFile(workbook) {
+        return XLSX.writeFile(workbook, "Company_List.xlsx");
+    }
 });

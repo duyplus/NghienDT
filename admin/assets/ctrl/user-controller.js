@@ -167,7 +167,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
         });
     });
 
-
     // Export xcel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
