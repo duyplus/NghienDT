@@ -21,57 +21,8 @@
                 </ul>
             </div>
         </div>
-        <p>{{digestTotal}}</p>
-        <button class="btn btn-primary" ng-click="carousel()">Carousel</button>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                <div class="product-gallary-wrapper">
-                    <div class="product-gallary-active owl-carousel owl-arrow-style product-spacing owl-theme">
-                        <!-- class="product-gallary-active owl-carousel owl-arrow-style product-spacing owl-theme owl-loaded"> -->
-                        <!-- <div class="owl-stage-outer"> -->
-                        <!-- style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 535.5px;" -->
-                        <!-- <div class="owl-stage"> -->
-                        <!-- style="width: 237.75px; margin-right: 30px;" -->
-                        <!-- <div class="owl-item active" > -->
-                        <div class="product-item" ng-repeat="item in items">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-1.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-2.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                    <a href="#" title="Quick view"><i class="lnr lnr-magnifier"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">{{item.company.name}}</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">{{item.name}}</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£{{item.price}}</span>
-                                </div>
-                                <button class="btn-cart" type="button" ng-click="addCart(item)">add to
-                                    cart</button>
-                            </div>
-                        </div>
-
-                        <!-- </div> -->
-                        <!-- </div> -->
-                        <!-- </div> -->
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
                 <div class="product-gallary-wrapper">
                     <div class="product-gallary-active owl-carousel owl-arrow-style product-spacing">
                         <div class="product-item" ng-repeat="item in items">
@@ -106,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
                 <div class="product-gallary-wrapper">
                     <div class="product-gallary-active owl-carousel owl-arrow-style product-spacing">
