@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Máy tính",
+        "image": "mt.png"
+    },
+    {
+        "id": 2,
+        "name": "Laptop",
+        "image": "lt.png"
+    },
+    {
+        "id": 3,
+        "name": "Điện thoại",
+        "image": "dt.png"
+    },
+    {
+        "id": 4,
+        "name": "Máy tính bảng",
+        "image": "mtb,png"
+    }
+]

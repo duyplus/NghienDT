@@ -1,31 +1,25 @@
-app.controller("home-ctrl", function ($scope, $rootScope, $location, $http) {
-    $scope.items = [];
-    fetchData($scope, $http);
+app.controller("home-ctrl", function ($scope, $rootScope, $data, $cart) {
+  $scope.templateUrl = getTemplateUrl();
+  $data.fetch("categories", $scope);
+  $data.fetch("products", $scope);
+  $scope.addCart = (product) => {
+    $cart.addItem(product);
+  };
+  $scope.viewProduct = (product) => {
+    $scope.$emit("viewProduct", product);
+  };
 
-    $scope.addCart = function (data) {
-        addCart($scope, $rootScope, data);
+  function getTemplateUrl() {
+    const templatePath = "pages/home";
+    return {
+      slider: `${templatePath}/slider.html`,
+      features: `${templatePath}/features.html`,
+      products: `${templatePath}/products.html`,
+      featuredProducts: `${templatePath}/featured-product.html`,
+      productsByCategory: `${templatePath}/product-by-category.html`,
+      bannerTop: `${templatePath}/banner-top.html`,
+      bannerMiddle: `${templatePath}/banner-middle.html`,
+      bannerBottom: `${templatePath}/banner-bottom.html`,
     };
+  }
 });
-
-function fetchData(scope, http) {
-    let url = "assets/data/products.json";
-    http
-        .get(url)
-        .then((response) => {
-            scope.items = response.data;
-        })
-        .catch((err) => console.log(err));
-}
-
-function addCart(scope, rootScope, data) {
-    let itemCart = rootScope.cart.map.get(data.id);
-    if (!itemCart || itemCart.quantity < Number(data.quantity)) {
-        let item = {
-            ...data,
-            quantity: 1
-        };
-        scope.$emit("addCart", item);
-    } else {
-        alert("Đã đạt giới hạn số lượng tối đa");
-    }
-}
