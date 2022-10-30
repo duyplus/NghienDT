@@ -101,11 +101,9 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.productdata.updatedAt = new Date().toJSON();
         $scope.productdata.discount = 12;
         $scope.productdata.image = "null.png";
-        $scope.productdata.user = $scope.filterUser;
-        $scope.productdata.company = $scope.company[$scope.productdata.company];
-        $scope.productdata.category = $scope.cate[$scope.productdata.category];
-         // $scope.productdata.company = urlcompany +"/"+$scope.getcompany
-        // $scope.productdata.cate = urlcate +"/"+$scope.getcate
+        $scope.productdata.User = $scope.filterUser;
+        $scope.productdata.Company = $scope.company[$scope.productdata.Company];
+        $scope.productdata.Category = $scope.cate[$scope.productdata.Category];
         var item = angular.copy($scope.productdata);
         $http.post(`${url}`, item).then(resp => {
             $scope.items.push(resp.data);
