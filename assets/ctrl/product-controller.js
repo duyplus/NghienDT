@@ -1,7 +1,7 @@
 app.controller(
   "product-ctrl",
-  function ($scope, $location, $template, $owlSlick) {
-    $scope.templateUrl = $template.getProductTemplates();
+  function ($scope, $location, $templateUrl, $owlSlick) {
+    $scope.templateUrl = $templateUrl.getProductTemplates();
     $scope.product = {};
     $scope.$on("viewProduct", (evt, product) => {
       $scope.product = product;
