@@ -1,0 +1,16 @@
+app.controller("cart-ctrl", function ($scope, $cart) {
+  $scope.removeItem = (item) => {
+    $cart.removeItem(item.id);
+<<<<<<< HEAD
+<<<<<<< HEAD
+  };
+=======
+    };
+>>>>>>> 5f8473b (Move OwlSlick config to service)
+=======
+    };
+=======
+  };
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
+>>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)
+});

@@ -1,0 +1,116 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+app.controller("index-ctrl", ($scope, $cart, $utility) => {
+  const { $owlSlick } = $utility;
+
+  $owlSlick.configIndex($scope);
+
+  $scope.removeCartItem = (item) => {
+    $cart.removeItem(item.id);
+  };
+});
+=======
+>>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)
+app.controller(
+  "index-ctrl",
+  ($scope, $rootScope, $window, $cart, $owlSlick) => {
+    $scope.removeCartItem = (item) => {
+      $cart.removeItem(item.id);
+    };
+
+    $scope.$on("viewProduct", (evt, item) => {
+      $window.location.href = "/#!product";
+      $scope.$broadcast("viewProduct", item);
+    });
+    $owlSlick.configIndex($scope);
+  }
+);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+app.controller(
+  "index-ctrl",
+  ($scope, $rootScope, $url, $cart, $owlSlick, $event) => {
+    $scope.removeCartItem = (item) => {
+      $cart.removeItem(item.id);
+    };
+    $scope.$on($event.VIEW_PRODUCT_EVENT(), (evt, item) => {
+      $url.redirect("/#!product");
+      $scope.$broadcast(evt.name, item);
+    });
+    $owlSlick.configIndex($scope);
+  }
+);
+=======
+app.controller("index-ctrl", ($scope, $rootScope) => {
+  $rootScope.cart = {
+    map: new Map(),
+    array: [],
+    total: 0,
+  };
+  getCartFromLocal($rootScope.cart);
+
+  $scope.$on("addCart", (evt, data) => {
+    let cart = $rootScope.cart;
+    addToCart(cart, data);
+  });
+
+  $scope.removeCartItem = (item) => {
+    // console.log("remove item", item);
+    removeItem($rootScope.cart, item);
+  };
+
+  $scope.$on("removeCartItem", (evt, data) => {
+    // console.log("remove cart item in index controller");
+    $scope.removeCartItem(data);
+  });
+});
+
+function addToCart(cart, product) {
+  if (cart.map.has(product.id)) {
+    let item = cart.map.get(product.id);
+    item.quantity++;
+  } else {
+    cart.map.set(product.id, product);
+  }
+  loadCartData(cart);
+}
+
+function getTotal(cart) {
+  let total = 0;
+  cart.forEach((item) => {
+    total += item.price * item.quantity;
+  });
+  return total;
+}
+
+function saveToLocal(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function loadCartData(cart) {
+  cart.total = getTotal(cart.map);
+  cart.array = [...cart.map.values()];
+  saveToLocal(cart.array);
+}
+
+function getCartFromLocal(cart) {
+  let items = JSON.parse(localStorage.getItem("cart"));
+  if (items) {
+    items.forEach((item) => cart.map.set(item.id, item));
+    loadCartData(cart);
+  }
+}
+
+function removeItem(cart, item) {
+  if (cart.map.has(item.id)) {
+    console.log(cart.map.delete(item.id));
+    loadCartData(cart);
+  }
+}
+>>>>>>> 9ac97a8 (Refractor code cart)
+>>>>>>> 5f8473b (Move OwlSlick config to service)
+=======
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
+>>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)

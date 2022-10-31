@@ -39,7 +39,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+<<<<<<< HEAD
+<<<<<<< HEAD
                                                 <tr ng-repeat="item in cart.values">
+=======
+                                                <tr ng-repeat="item in cart.array">
+>>>>>>> 7b4510b (Xong tinh nang xoa cart item)
+=======
+                                                <tr ng-repeat="item in cart.values">
+>>>>>>> c57e660 (Refractor view with ng-include, also add  and  service)
                                                     <td>
                                                         <a href="#!product"><img src="assets/img/product/{{item.image}}"
                                                                 alt="{{item.image}}" class="img-thumbnail"></a>
@@ -54,7 +62,14 @@
                                                     <td>
                                                         <div class="input-group btn-block">
                                                             <div class="product-qty me-3">
+<<<<<<< HEAD
+<<<<<<< HEAD
                                                                 <input ng-model="item.quantity" type="number" min="0">
+=======
+                                                                <input ng-model="item.quantity" type="number" disabled>
+=======
+                                                                <input ng-model="item.quantity" type="number" min="0">
+>>>>>>> 9ac97a8 (Refractor code cart)
                                                             </div>
                                                             <button type="button" class="btn btn-danger rounded-3"
                                                                 ng-click="removeItem(item)"><i
@@ -63,6 +78,73 @@
                                                     </td>
                                                     <td>${{item.price * item.quantity}}</td>
                                                 </tr>
+<<<<<<< HEAD
+                                                <!-- <tr>
+                                                    <td>
+                                                        <a href="#!product"><img
+                                                                src="assets/img/product/pro-layout-img4.jpg"
+                                                                alt="Cart Product Image" title="Rival Field Messenger 6"
+                                                                class="img-thumbnail"></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#!product">Rival Field Messenger 6</a>
+                                                        <span>Color: Dark Blue</span>
+                                                    </td>
+                                                    <td>10</td>
+                                                    <td>
+                                                        <div class="input-group btn-block">
+                                                            <div class="product-qty me-3">
+                                                                <input type="text" value="0">
+                                                            </div>
+                                                            <span class="input-group-btn">
+                                                                <button type="submit" data-toggle="tooltip"
+                                                                    data-direction="top" class="btn btn-primary"
+                                                                    data-original-title="Update"><i
+                                                                        class="fa fa-refresh"></i></button>
+                                                                <button type="button" data-toggle="tooltip"
+                                                                    data-direction="top"
+                                                                    class="btn btn-danger pull-right"
+                                                                    data-original-title="Remove"><i
+                                                                        class="fa fa-times-circle"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>$480.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#!product"><img
+                                                                src="assets/img/product/pro-layout-img3.jpg"
+                                                                alt="Cart Product Image" title="Fusion Backpack"
+                                                                class="img-thumbnail"></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#!product">Fusion Backpack</a>
+                                                        <span>Select: White</span>
+                                                        <span>Color: Brown</span>
+                                                        <span>Reward Points: 200</span>
+                                                    </td>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <div class="input-group btn-block">
+                                                            <div class="product-qty me-3">
+                                                                <input type="text" value="0">
+>>>>>>> 7b4510b (Xong tinh nang xoa cart item)
+                                                            </div>
+                                                            <button type="button" class="btn btn-danger rounded-3"
+                                                                ng-click="removeItem(item)"><i
+                                                                    class="fa fa-times-circle"></i></button>
+                                                        </div>
+                                                    </td>
+<<<<<<< HEAD
+                                                    <td>${{item.price * item.quantity}}</td>
+                                                </tr>
+=======
+                                                    <td>$180.00</td>
+                                                </tr> -->
+>>>>>>> 7b4510b (Xong tinh nang xoa cart item)
+=======
+>>>>>>> c57e660 (Refractor view with ng-include, also add  and  service)
                                             </tbody>
                                         </table>
                                     </div>
