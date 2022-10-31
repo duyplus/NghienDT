@@ -1,4 +1,5 @@
 <div class="product-detail-main-wrapper pb-50">
+<<<<<<< HEAD
     <div class="container-fluid" ng-init="prod = info.currentProduct">
         <div class="row" ng-if="prod">
             <div class="col-lg-5">
@@ -142,6 +143,10 @@
             </div>
         </div>
         <div class="row" ng-if="!prod">
+=======
+    <div class="container-fluid">
+        <div class="row">
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
             <div class="col-lg-5">
                 <slick settings="slickConfigs" class="product-large-slider mb-20">
                     <div class="pro-large-img">
@@ -202,7 +207,11 @@
                         <div class="pro-details-list pt-20">
                             <ul>
                                 <li><span>Ex Tax :</span>£60.24</li>
+<<<<<<< HEAD
                                 <li><span>Brands :</span><span>Canon</span></li>
+=======
+                                <li><span>Brands :</span><a href="#">Canon</a></li>
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
                                 <li><span>Product Code :</span>Digital</li>
                                 <li><span>Reward Points :</span>200</li>
                                 <li><span>Availability :</span>In Stock</li>

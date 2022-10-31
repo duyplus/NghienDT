@@ -1,4 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+app.controller("index-ctrl", ($scope, $cart, $utility) => {
+  const { $owlSlick } = $utility;
+
+  $owlSlick.configIndex($scope);
+
+  $scope.removeCartItem = (item) => {
+    $cart.removeItem(item.id);
+  };
+});
+=======
+>>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)
 app.controller(
   "index-ctrl",
   ($scope, $rootScope, $window, $cart, $owlSlick) => {
@@ -13,6 +26,7 @@ app.controller(
     $owlSlick.configIndex($scope);
   }
 );
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 app.controller(
@@ -97,3 +111,6 @@ function removeItem(cart, item) {
 }
 >>>>>>> 9ac97a8 (Refractor code cart)
 >>>>>>> 5f8473b (Move OwlSlick config to service)
+=======
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
+>>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)

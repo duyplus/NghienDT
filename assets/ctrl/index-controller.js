@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 app.controller(
   "index-ctrl",
   ($scope, $rootScope, $window, $cart, $owlSlick) => {
@@ -12,3 +13,14 @@ app.controller(
     $owlSlick.configIndex($scope);
   }
 );
+=======
+app.controller("index-ctrl", ($scope, $cart, $utility) => {
+  const { $owlSlick } = $utility;
+
+  $owlSlick.configIndex($scope);
+
+  $scope.removeCartItem = (item) => {
+    $cart.removeItem(item.id);
+  };
+});
+>>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)

@@ -11,9 +11,13 @@
                         <p><a href="#!shop">{{product.company.name}}</a></p>
                     </div>
                     <div class="product-module-name">
+<<<<<<< HEAD
                         <h4>
                             <a href="#" ng-click="viewProduct(item)">{{product.name}}</a>
                         </h4>
+=======
+                        <h4><a href="#!product">{{product.name}}</a></h4>
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
                     </div>
                     <div class="ratings">
                         <span><i class="lnr lnr-star"></i></span>
@@ -28,11 +32,20 @@
                     </div>
                 </div>
                 <div class="product-module-thumb">
+<<<<<<< HEAD
                     <a href="#" ng-click="viewProduct(item)">
                         <img src="assets/img/product/{{product.image}}" alt="" />
+=======
+                    <a href="#!product">
+                        <img src="assets/img/product/{{product.image}}" alt="">
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
                     </a>
                 </div>
             </div>
         </data-owl-carousel>
+<<<<<<< HEAD
+=======
+        <!-- <div class="" ng-include="'./product/product-horizontal-card.html'"></div> -->
+>>>>>>> 27536f2eded340bfba2a9c36a52402836ce1f96d
     </div>
 </div>
