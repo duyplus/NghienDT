@@ -11,5 +11,5 @@ Link: https://nghiendt.me
   git clone https://github.com/duyplus/NghienDT.git
 ```
 ### License
-The language pack is released under the MIT license. Please
+The source code for the site is licensed under the MIT license. Please
 see [the license terms](https://github.com/duyplus/NghienDT/blob/master/LICENSE).
