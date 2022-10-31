@@ -1,8 +1,12 @@
-app.controller("review-ctrl", function ($scope, $http, $compile) {
+app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $filter, reviewService) {
     var url = "http://localhost:8080/api/review";
+    var urlorder = "http://localhost:8080/api/orderdetail";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
-    $scope.userdata = myService.get();
+    $scope.orderdetail = [];
+    $scope.reviewdata = reviewService.get();
+    $scope.getOrderdetail = "";
+
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -34,10 +38,16 @@ app.controller("review-ctrl", function ($scope, $http, $compile) {
         sweetalert_error("Has Errors!");
     });
 
-    //load data
+     
+
+    //load category
+    $http.get(urlorder).then(resp => {
+        $scope.cate = resp.data;
+    });
+
+    //load data review
     $http.get(url).then(resp => {
         $scope.items = resp.data;
-
         // paginate
         $scope.curPage = 1;
         $scope.itemsPerPage = 10;
@@ -53,60 +63,57 @@ app.controller("review-ctrl", function ($scope, $http, $compile) {
         });
     });
 
+    // //filter user
+    // $http.get(urluser).then(resp => {
+    //     $scope.user = resp.data;
+    // });
+    // $scope.findUser = function(){
+    //     $scope.filterUser = $scope.user.filter(function(item) {
+    //         return item.username === $scope.getUser;
+    //       })[0];
+    // }
+    
     //xoa form
     $scope.reset = function () {
-        $scope.userdata = {};
+        $scope.reviewdata = {};
     }
 
     //hien thi len form
     $scope.edit = function (item) {
-        myService.set(item);
+        reviewService.set(item);
     }
 
-    //them sp moi
-    $scope.create = function () {
-        $scope.userdata.createdat = new Date().toJSON();
-        $scope.userdata.updatedat = new Date().toJSON();
-        $scope.userdata.image = "avt.png";
-        $scope.userdata.token = "null";
-        var item = angular.copy($scope.userdata);
-        $http.post(`${url}`, item).then(resp => {
-            $scope.items.push(resp.data);
-            $scope.reset();
-            sweetalert_success("Thêm mới thành công!");
-            $location.path('user-list');
-        }).catch(error => {
-            sweetalert_error("Lỗi thêm mới tài khoản!");
-            console.log("Error", error);
-        });
-    }
-
-    //cap nhat sp
+    //cap nhat review
     $scope.update = function () {
-        $scope.userdata.updatedat = new Date().toJSON();
-        var item = angular.copy($scope.userdata);
+        $scope.reviewdata.updatedat = new Date().toJSON();
+        $scope.reviewdata.discount = 12;
+        $scope.reviewdata.image = "null.png";
+        $scope.reviewdata.User = $scope.filterUser;
+        $scope.reviewdata.Company = $scope.company[$scope.reviewdata.Company];
+        $scope.reviewdata.Category = $scope.cate[$scope.reviewdata.Category];
+        var item = angular.copy($scope.reviewdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
-            sweetalert_success("Cập nhật tài khoản thành công!");
-            $location.path('user-list');
+            sweetalert_success("Cập nhật sản phẩm thành công!");
+            $location.path('review-list');
         }).catch(error => {
-            sweetalert_error("Lỗi cập nhật tài khoản!");
+            sweetalert_error("Lỗi cập nhật sản phẩm!");
             console.log("Error", error);
         });
     }
 
-    //xoa sp
+    //xoa review
     $scope.delete = function (item) {
-        $http.delete(`${url}/${$scope.userdata.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
+        $http.delete(`${url}/${$scope.reviewdata.id}`).then(resp => {
+            var index = $scope.items.findIndex(p => p.id == $scope.reviewdata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
-            sweetalert_success("Xóa tài khoản thành công!");
-            $location.path('user-list');
+            sweetalert_success("Xóa sản phẩm thành công!");
+            $location.path('review-list');
         }).catch(error => {
-            sweetalert_error("Lỗi xóa tài khoản!");
+            sweetalert_error("Lỗi xóa sản phẩm!");
             console.log("Error", error);
         });
     }
@@ -119,7 +126,7 @@ app.controller("review-ctrl", function ($scope, $http, $compile) {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(resp => {
-            $scope.userdata.image = resp.data.image;
+            $scope.reviewdata.image = resp.data.image;
         }).catch(error => {
             sweetalert("Lỗi tải lên hình ảnh!");
             console.log("Error", error);
@@ -133,12 +140,12 @@ app.controller("review-ctrl", function ($scope, $http, $compile) {
             var worksheet_data = document.getElementById("table");
             var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
 
-            workbook.SheetNames.push("Review");
-            workbook.Sheets["Review"] = worksheet;
+            workbook.SheetNames.push("review");
+            workbook.Sheets["review"] = worksheet;
             exportExcelFile(workbook);
         });
     })
     function exportExcelFile(workbook) {
-        return XLSX.writeFile(workbook, "Review_List.xlsx");
+        return XLSX.writeFile(workbook, "review_List.xlsx");
     }
 });

@@ -57,7 +57,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Người bán: </label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" ng-model="getUser" ng-change="findUser()"
+                                    <input class="form-control" type="text" ng-model="getUser" ng-change="findUser()" 
                                         name="username" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">ID người bán</label>
@@ -72,7 +72,7 @@
                                         <label class="col-sm-4 col-form-label">Danh mục</label>
                                         <div class="col-sm-8">
                                             <select class="custom-select" ng-model="productdata.Category" string-to-number
-                                                ng-options="cate.id as cate.name for cate in cate track by cate.id"
+                                                ng-options="item as item.name for item in cate track by item.id"
                                                 name="category">
                                                 <!-- <option ng-repeat="item in cate" value="{{item.id}}">{{item.name}} -->
                                                 </option>
@@ -84,8 +84,8 @@
                                     <div class="row">
                                         <label class="col-sm-4 col-form-label">Hãng</label>
                                         <div class="col-sm-8">
-                                            <select class="custom-select" ng-model="productdata.Company" name="company" string-to-number
-                                                ng-options="company.id as company.name for company in company track by company.id">
+                                            <select class="custom-select" ng-model="productdata.Company"  name="company" string-to-number
+                                                ng-options=" item as item.name for item in company track by item.id">
                                                 <!-- <option ng-repeat="item in company" value="{{item.id}}">{{item.name}} -->
                                                 </option>
                                             </select>

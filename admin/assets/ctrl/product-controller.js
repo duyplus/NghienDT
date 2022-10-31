@@ -56,7 +56,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.company = resp.data;
     });
 
-    //load data
+    //load data product
     $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
@@ -82,7 +82,6 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.filterUser = $scope.user.filter(function(item) {
             return item.username === $scope.getUser;
           })[0];
-          console.log($scope.productdata.user);
     }
     
     //xoa form
@@ -119,6 +118,11 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     //cap nhat sp
     $scope.update = function () {
         $scope.productdata.updatedat = new Date().toJSON();
+        $scope.productdata.discount = 12;
+        $scope.productdata.image = "null.png";
+        $scope.productdata.User = $scope.filterUser;
+        $scope.productdata.Company = $scope.company[$scope.productdata.Company];
+        $scope.productdata.Category = $scope.cate[$scope.productdata.Category];
         var item = angular.copy($scope.productdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
