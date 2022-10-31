@@ -3,9 +3,7 @@ app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $f
     var urlorder = "http://localhost:8080/api/orderdetail";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
-    $scope.orderdetail = [];
     $scope.reviewdata = reviewService.get();
-    $scope.getOrderdetail = "";
 
 
     var sweetalert_success = function (text) {
@@ -40,7 +38,7 @@ app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $f
 
      
 
-    //load category
+    //load orderDetails
     $http.get(urlorder).then(resp => {
         $scope.cate = resp.data;
     });
@@ -63,16 +61,6 @@ app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $f
         });
     });
 
-    // //filter user
-    // $http.get(urluser).then(resp => {
-    //     $scope.user = resp.data;
-    // });
-    // $scope.findUser = function(){
-    //     $scope.filterUser = $scope.user.filter(function(item) {
-    //         return item.username === $scope.getUser;
-    //       })[0];
-    // }
-    
     //xoa form
     $scope.reset = function () {
         $scope.reviewdata = {};
@@ -85,21 +73,15 @@ app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $f
 
     //cap nhat review
     $scope.update = function () {
-        $scope.reviewdata.updatedat = new Date().toJSON();
-        $scope.reviewdata.discount = 12;
-        $scope.reviewdata.image = "null.png";
-        $scope.reviewdata.User = $scope.filterUser;
-        $scope.reviewdata.Company = $scope.company[$scope.reviewdata.Company];
-        $scope.reviewdata.Category = $scope.cate[$scope.reviewdata.Category];
         var item = angular.copy($scope.reviewdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
-            sweetalert_success("Cập nhật sản phẩm thành công!");
+            sweetalert_success("Cập nhật đánh giá thành công!");
             $location.path('review-list');
         }).catch(error => {
-            sweetalert_error("Lỗi cập nhật sản phẩm!");
+            sweetalert_error("Lỗi cập nhật đánh giá!");
             console.log("Error", error);
         });
     }
@@ -110,10 +92,10 @@ app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $f
             var index = $scope.items.findIndex(p => p.id == $scope.reviewdata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
-            sweetalert_success("Xóa sản phẩm thành công!");
+            sweetalert_success("Xóa đánh giá thành công!");
             $location.path('review-list');
         }).catch(error => {
-            sweetalert_error("Lỗi xóa sản phẩm!");
+            sweetalert_error("Lỗi xóa đánh giá!");
             console.log("Error", error);
         });
     }
