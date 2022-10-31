@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 offset-xl-2">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
                                 <div class="registration-form login-form">
                                     <form action="#">
                                         <div class="login-info mb-20">
@@ -37,55 +37,38 @@
                                                     nhập!</a></p>
                                         </div>
                                         <div class="form-group mb-3 row">
-                                            <label for="f-name"
-                                                class="col-12 col-sm-12 col-md-4 col-form-label">Tên</label>
-                                            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="f-name" required="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-3 row">
                                             <label for="l-name"
-                                                class="col-12 col-sm-12 col-md-4 col-form-label">Họ</label>
+                                                class="col-12 col-sm-12 col-md-4 col-form-label">Họ và tên</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="l-name" required="">
+                                                <input type="text" class="form-control" id="l-name" required>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
                                             <label for="inputusername"
                                                 class="col-12 col-sm-12 col-md-4 col-form-label">Tài khoản</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="inputusername" required="">
+                                                <input type="text" class="form-control" id="inputusername" required>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
                                             <label for="password" class="col-12 col-sm-12 col-md-4 col-form-label">Mật
                                                 khẩu</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="password" class="form-control" id="password" required="">
+                                                <input type="password" class="form-control" id="password" required>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
                                             <label for="c-password" class="col-12 col-sm-12 col-md-4 col-form-label">Xác
-                                                nhận mật
-                                                khẩu</label>
+                                                nhận mật khẩu</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="password" class="form-control" id="c-password" required="">
+                                                <input type="password" class="form-control" id="c-password" required>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
                                             <label for="email"
                                                 class="col-12 col-sm-12 col-md-4 col-form-label">Email</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="email" required="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-3 row">
-                                            <label for="birth" class="col-12 col-sm-12 col-md-4 col-form-label">Ngày
-                                                sinh
-                                                (Không bắt buộc)</label>
-                                            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="birth"
-                                                    placeholder="MM / DD / YYYY" required="">
+                                                <input type="text" class="form-control" id="email" oninput="checkPassword(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-check row g-0 mt-5">
@@ -112,3 +95,12 @@
         </div>
     </div>
 </div>
+<script>
+    function checkPassword(password) {
+        if (password.value != $("#password").val()) {
+            password.setCustomValidity("Mật khẩu không giống nhau!");
+        } else {
+            password.setCustomValidity("");
+        }
+    }
+</script>
