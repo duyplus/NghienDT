@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-app.controller(
-  "product-ctrl",
-  function ($scope, $location, $templateUrl, $owlSlick) {
-    $scope.templateUrl = $templateUrl.getProductTemplates();
-    $scope.product = {};
-    $scope.$on("viewProduct", (evt, product) => {
-      $scope.product = product;
-    });
-    $owlSlick.configProduct($scope);
-  }
-);
-=======
 app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
   const { $message, $templateUrl, $owlSlick } = $utility;
 
@@ -45,4 +32,3 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
     }
   });
 });
->>>>>>> 5d42187 (Hiển thị thông tin sản phẩm details và refractor  service)
