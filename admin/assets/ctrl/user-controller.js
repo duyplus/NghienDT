@@ -1,6 +1,5 @@
 app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $filter, userService) {
     var url = "http://localhost:8080/api/user";
-    var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
     $scope.userdata = userService.get();
 
@@ -58,6 +57,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
         $scope.userdata = {};
     }
 
+
     //hien thi len form
     $scope.edit = function (item) {
         userService.set(item);
@@ -111,21 +111,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
         });
     }
 
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.userdata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
-    }
-
     ///////
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
@@ -160,23 +145,21 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
                 $.ajax(settings).done(function (response) {
                     console.log('done');
                     var obj = JSON.parse(response);
-                    document.getElementById("link").value = JSON.stringify(obj.data.link);
-                    console.log(JSON.stringify(obj.data.link))
+                    var cut = JSON.stringify(obj.data.link);
+                    $scope.userdata.image = cut.slice(1, cut.length - 1);
+                    $("#img").attr("src", cut.slice(1, cut.length - 1));
                 });
             }
         });
-        
-        $('input[name="link"]').change(function() {
-            $('input[name="img"]').val($(this).val());
-        });
-
-        $(function () {
-            var $link = $('#link');
-            var $img = $('#img');
-            function onChange() {
-                $img.val($link.val());
-            };
-            $('#link').change(onChange).keyup(onChange);
-        });
     });
+
+    // load Image 
+    if (document.getElementById("img") == null) {
+        console.log("Chưa có ảnh nè")
+    } else {
+        $("#img").attr("src", $scope.userdata.image);
+        $("#img").attr("width", "300");
+    }
+
+
 });
