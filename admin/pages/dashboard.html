@@ -79,49 +79,49 @@
                                     Hôm nay<i class="las la-angle-down ml-1"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Hôm nay</a>
-                                    <a class="dropdown-item" href="#">Tuần trước</a>
-                                    <a class="dropdown-item" href="#">Tháng trước</a>
-                                    <a class="dropdown-item" href="#">Năm trước</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Hôm nay</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Tuần trước</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Tháng trước</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Năm trước</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body border-bottom-dashed my-1">
-                    <div class="earning-data text-center">
-                        <img src="admin/assets/images/money-beg.png" class="money-bag my-3" height="75">
-                        <h5 class="earn-money mb-1">$51,255</h5>
-                        <p class="text-muted font-15 mb-4">Tổng doanh thu</p>
-                        <div class="text-center my-2">
-                            <h6 class="text-primary bg-soft-primary p-3 mb-0 font-13 rounded">
-                                Mục tiêu $90,000 <span class="mx-2">/</span> Tháng trước $68,550
-                            </h6>
+                <div ng-repeat="item in items2">
+                    <div class="card-body border-bottom-dashed my-1">
+                        <div class="earning-data text-center">
+                            <img src="admin/assets/images/money-beg.png" class="money-bag my-3" height="75">
+                            <h5 class="earn-money mb-1">{{item.sum_revenue | number}}đ</h5>
+                            <p class="text-muted font-15 mb-4">Tổng doanh thu</p>
+                            <div class="text-center my-2">
+                                <h6 class="text-primary bg-soft-primary p-3 mb-0 font-13 rounded">
+                                    Mục tiêu <b>100,000,000đ</b> <span class="mx-2">/</span> Tháng trước <b>68,550,000đ</b>
+                                </h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body my-1">
-                    <div class="row">
-                        <div class="col">
-                            <div class="media">
-                                <i data-feather="shopping-cart"
-                                    class="align-self-center icon-md text-secondary mr-2"></i>
-                                <div class="media-body align-self-center">
-                                    <h6 class="m-0 font-24">128</h6>
-                                    <p class="text-muted mb-0">Đơn hàng mới hôm nay</p>
+                    <div class="card-body my-1">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="media">
+                                    <i data-feather="shopping-cart" class="align-self-center icon-md mr-2"></i>
+                                    <div class="media-body align-self-center">
+                                        <h6 class="m-0 font-24">{{item.order_quantity | number}}</h6>
+                                        <p class="text-muted mb-0">Đơn hàng hôm nay</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="media">
+                                    <i data-feather="dollar-sign" class="align-self-center icon-md mr-2"></i>
+                                    <div class="media-body align-self-center">
+                                        <h6 class="m-0 font-24">{{item.revenue_order | number}}đ</h6>
+                                        <p class="text-muted mb-0">Doanh thu hôm nay</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="media">
-                                <i data-feather="dollar-sign" class="align-self-center icon-md text-secondary mr-2"></i>
-                                <div class="media-body align-self-center">
-                                    <h6 class="m-0 font-24">$5,335</h6>
-                                    <p class="text-muted mb-0">Doanh thu hôm nay</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -196,40 +196,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Nguyen Van A</td>
-                                    <td>0123456789</td>
-                                    <td>Ho Chi Minh, VN</td>
-                                    <td class="text-danger">15</td>
-                                    <td>$15,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyen Van B</td>
-                                    <td>0123456789</td>
-                                    <td>Ho Chi Minh, VN</td>
-                                    <td class="text-danger">15</td>
-                                    <td>$15,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyen Van C</td>
-                                    <td>0123456789</td>
-                                    <td>Ho Chi Minh, VN</td>
-                                    <td class="text-danger">15</td>
-                                    <td>$15,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyen Van D</td>
-                                    <td>0123456789</td>
-                                    <td>Ho Chi Minh, VN</td>
-                                    <td class="text-danger">15</td>
-                                    <td>$15,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyen Van E</td>
-                                    <td>0123456789</td>
-                                    <td>Ho Chi Minh, VN</td>
-                                    <td class="text-danger">15</td>
-                                    <td>$15,000</td>
+                                <tr ng-repeat="item1 in items1">
+                                    <td>{{item1.full_name}}</td>
+                                    <td>{{item1.user_phone}}</td>
+                                    <td>{{item1.user_address}}</td>
+                                    <td class="text-danger">{{item1.order_quantity}}</td>
+                                    <td commaseparator>{{item1.sum_order | number}}đ</td>
                                 </tr>
                             </tbody>
                         </table>

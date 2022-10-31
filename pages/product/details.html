@@ -1,0 +1,284 @@
+<div class="product-detail-main-wrapper pb-50">
+    <div class="container-fluid" ng-init="prod = info.currentProduct">
+        <div class="row" ng-if="prod">
+            <div class="col-lg-5">
+                <slick settings="slickConfigs" class="product-large-slider mb-20">
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/{{prod.image}}" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-5.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-6.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-7.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-8.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-9.jpg" alt="" />
+                    </div>
+                </slick>
+                <slick settings="slickConfigss" class="pro-nav">
+                    <div class="pro-nav-thumb"><img src="assets/img/product/{{prod.image}}" alt="{{prod.image}}" />
+                    </div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-5.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-6.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-7.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-8.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-9.jpg" alt="" /></div>
+                </slick>
+            </div>
+            <div class="col-lg-7">
+                <div class="product-detail-inner">
+                    <div class="product-detail-contentt">
+                        <div class="pro-details-name mb-10">
+                            <h3>{{prod.name}}</h3>
+                        </div>
+                        <div class="pro-details-review mb-20">
+                            <ul>
+                                <li>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                </li>
+                                <li><a href="#">1 Reviews</a></li>
+                            </ul>
+                        </div>
+                        <div class="price-box mb-15">
+                            <span class="regular-price"><span class="special-price">£{{prod.price}}</span></span>
+                            <span class="old-price"><del>£60.00</del></span>
+                        </div>
+                        <div class="product-detail-sort-des pb-20">
+                            <p>{{prod.description}}</p>
+                        </div>
+                        <div class="pro-details-list pt-20">
+                            <ul>
+                                <li><span>Ex Tax :</span>£60.24</li>
+                                <li><span>Brands :</span><span>{{prod.company.name}}</span></li>
+                                <li><span>Product Code :</span>Digital</li>
+                                <li><span>Reward Points :</span>200</li>
+                                <li><span>Availability :</span>{{prod.quantity}}</li>
+                            </ul>
+                        </div>
+                        <div class="product-availabily-option mt-15 mb-15">
+                            <h3>Available Options</h3>
+                            <div class="color-optionn">
+                                <h4><sup>*</sup>color</h4>
+                                <ul>
+                                    <li>
+                                        <a class="c-black" href="#" title="Black"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-blue" href="#" title="Blue"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-brown" href="#" title="Brown"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-gray" href="#" title="Gray"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-red" href="#" title="Red"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pro-quantity-box mb-30">
+                            <div class="qty-boxx" ng-if="prod.quantity > 0">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" name="quantity" id="quantity" min="0" ng-model="info.quantity">
+                                <button class="btn-cart lg-btn" ng-click="addToCart()">add to cart</button>
+                            </div>
+                            <div class="qty-boxx" ng-if="prod.quantity == 0">
+                                <button class="btn-cart lg-btn" disabled>SOLD OUT</button>
+                            </div>
+                        </div>
+                        <div class="useful-links mb-20">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-heart-o"></i>add to wish list</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-refresh"></i>compare this product</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tag-line mb-20">
+                            <label>tag :</label>
+                            <a href="#">Movado</a>,
+                            <a href="#">Omega</a>
+                        </div>
+                        <div class="pro-social-sharing">
+                            <label>share :</label>
+                            <ul>
+                                <li class="list-inline-item">
+                                    <a href="#" class="bg-facebook" title="Facebook">
+                                        <i class="fa fa-facebook"></i>
+                                        <span>like 0</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="bg-twitter" title="Twitter">
+                                        <i class="fa fa-twitter"></i>
+                                        <span>tweet</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="bg-google" title="Google Plus">
+                                        <i class="fa fa-google-plus"></i>
+                                        <span>google +</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="!prod">
+            <div class="col-lg-5">
+                <slick settings="slickConfigs" class="product-large-slider mb-20">
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-4.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-5.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-6.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-7.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-8.jpg" alt="" />
+                    </div>
+                    <div class="pro-large-img">
+                        <img src="assets/img/product/product-9.jpg" alt="" />
+                    </div>
+                </slick>
+                <slick settings="slickConfigss" class="pro-nav">
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-4.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-5.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-6.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-7.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-8.jpg" alt="" /></div>
+                    <div class="pro-nav-thumb"><img src="assets/img/product/product-9.jpg" alt="" /></div>
+                </slick>
+            </div>
+            <div class="col-lg-7">
+                <div class="product-detail-inner">
+                    <div class="product-detail-contentt">
+                        <div class="pro-details-name mb-10">
+                            <h3>Bose SoundLink Bluetooth Speaker</h3>
+                        </div>
+                        <div class="pro-details-review mb-20">
+                            <ul>
+                                <li>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                    <span><i class="fa fa-star"></i></span>
+                                </li>
+                                <li><a href="#">1 Reviews</a></li>
+                            </ul>
+                        </div>
+                        <div class="price-box mb-15">
+                            <span class="regular-price"><span class="special-price">£50.00</span></span>
+                            <span class="old-price"><del>£60.00</del></span>
+                        </div>
+                        <div class="product-detail-sort-des pb-20">
+                            <p>Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR
+                                category', while we're not typically too concerned with marketing talk this
+                                particular statement is clearly pretty accurate...</p>
+                        </div>
+                        <div class="pro-details-list pt-20">
+                            <ul>
+                                <li><span>Ex Tax :</span>£60.24</li>
+                                <li><span>Brands :</span><span>Canon</span></li>
+                                <li><span>Product Code :</span>Digital</li>
+                                <li><span>Reward Points :</span>200</li>
+                                <li><span>Availability :</span>In Stock</li>
+                            </ul>
+                        </div>
+                        <div class="product-availabily-option mt-15 mb-15">
+                            <h3>Available Options</h3>
+                            <div class="color-optionn">
+                                <h4><sup>*</sup>color</h4>
+                                <ul>
+                                    <li>
+                                        <a class="c-black" href="#" title="Black"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-blue" href="#" title="Blue"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-brown" href="#" title="Brown"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-gray" href="#" title="Gray"></a>
+                                    </li>
+                                    <li>
+                                        <a class="c-red" href="#" title="Red"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pro-quantity-box mb-30">
+                            <div class="qty-boxx">
+                                <label>qty :</label>
+                                <input type="number" placeholder="0">
+                                <button class="btn-cart lg-btn">add to cart</button>
+                            </div>
+                        </div>
+                        <div class="useful-links mb-20">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-heart-o"></i>add to wish list</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-refresh"></i>compare this product</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tag-line mb-20">
+                            <label>tag :</label>
+                            <a href="#">Movado</a>,
+                            <a href="#">Omega</a>
+                        </div>
+                        <div class="pro-social-sharing">
+                            <label>share :</label>
+                            <ul>
+                                <li class="list-inline-item">
+                                    <a href="#" class="bg-facebook" title="Facebook">
+                                        <i class="fa fa-facebook"></i>
+                                        <span>like 0</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="bg-twitter" title="Twitter">
+                                        <i class="fa fa-twitter"></i>
+                                        <span>tweet</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="bg-google" title="Google Plus">
+                                        <i class="fa fa-google-plus"></i>
+                                        <span>google +</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

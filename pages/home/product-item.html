@@ -1,0 +1,30 @@
+<div class="product-item">
+    <div class="product-thumb">
+        <a href="#" ng-click="viewProduct($event, product)">
+            <img src="assets/img/product/{{product.image}}" class="pri-img" alt="" />
+            <img src="assets/img/product/product-2.jpg" class="sec-img" alt="" />
+        </a>
+        <div class="box-label">
+            <div class="label-product label_new">
+                <span>new</span>
+            </div>
+        </div>
+        <div class="action-links">
+            <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
+        </div>
+    </div>
+    <div class="product-caption">
+        <div class="manufacture-product">
+            <p><a href="#!shop">{{product.company.name}}</a></p>
+        </div>
+        <div class="product-name">
+            <h4><a href="#" ng-click="viewProduct($event, product)">{{product.name}}</a></h4>
+        </div>
+        <div class="price-box">
+            <span class="regular-price">£{{product.price}}</span>
+        </div>
+        <button class="btn-cart" type="button" ng-click="addCart(product)">
+            add to cart
+        </button>
+    </div>
+</div>
