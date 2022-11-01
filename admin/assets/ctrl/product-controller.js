@@ -79,8 +79,8 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.user = resp.data;
     });
     $scope.findUser = function(){
-        $scope.filterUser = $scope.user.filter(function(item) {
-            return item.username === $scope.getUser;
+        $scope.productdata.User = $scope.user.filter(function(item) {
+            return item.username === $scope.productdata.User.username;
           })[0];
     }
     
@@ -100,9 +100,8 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.productdata.updatedAt = new Date().toJSON();
         $scope.productdata.discount = 12;
         $scope.productdata.image = "null.png";
-        $scope.productdata.User = $scope.filterUser;
-        $scope.productdata.Company = $scope.company[$scope.productdata.Company];
-        $scope.productdata.Category = $scope.cate[$scope.productdata.Category];
+        $scope.productdata.Company = $scope.company[$scope.productdata.Company.id];
+        $scope.productdata.Category = $scope.cate[$scope.productdata.Category.id];
         var item = angular.copy($scope.productdata);
         $http.post(`${url}`, item).then(resp => {
             $scope.items.push(resp.data);
@@ -120,9 +119,8 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.productdata.updatedat = new Date().toJSON();
         $scope.productdata.discount = 12;
         $scope.productdata.image = "null.png";
-        $scope.productdata.User = $scope.filterUser;
-        $scope.productdata.Company = $scope.company[$scope.productdata.Company];
-        $scope.productdata.Category = $scope.cate[$scope.productdata.Category];
+        $scope.productdata.Company = $scope.company[$scope.productdata.Company.id];
+        $scope.productdata.Category = $scope.cate[$scope.productdata.Category.id];
         var item = angular.copy($scope.productdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
