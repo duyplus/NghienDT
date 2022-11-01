@@ -153,7 +153,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
         });
     });
 
-    // load Image 
+    // load 1 Image
     if (document.getElementById("img") == null) {
         console.log("Chưa có ảnh nè")
     } else {
