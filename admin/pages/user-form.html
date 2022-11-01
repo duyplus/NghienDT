@@ -22,20 +22,15 @@
                         <div class="col-lg-4">
                             <div class="form-group row" w>
                                 <label class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10">
-                                    <input type="file" accept="image/*" id="link" />
+                                <div class="col-sm-10 custom-file">
+                                    <input class="custom-file-input" type="file" accept="image/*" id="link" />
+                                    <label class="custom-file-label">Choose file...</label>
                                 </div>
                             </div>
-                            <!--khúc này-->
-                            <div class="form-group row d-none">
-                                <label class="col-sm-2 col-form-label">Hình ảnh</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="text" ng-model="userdata.image" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Hình ảnh</label>
-                                <div class="col-sm-10">
+                            <div class="form-group row my-4">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10 text-center">
+                                    <input class="form-control d-none" type="text" ng-model="userdata.image" />
                                     <img src="" id="img" alt="" referrerpolicy="no-referrer">
                                 </div>
                             </div>
