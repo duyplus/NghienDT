@@ -1,12 +1,12 @@
 <div class="product-item">
     <div class="product-thumb">
-        <a href="#" ng-click="viewProduct($event, product)">
-            <img src="assets/img/product/{{product.image}}" class="pri-img" alt="" />
-            <img src="assets/img/product/product-2.jpg" class="sec-img" alt="" />
+        <a href="#!product" ng-click="viewProduct($event, product)">
+            <img src="{{product.image}}" class="pri-img" alt="" />
+            <img src="{{product.image}}" class="sec-img" alt="" />
         </a>
         <div class="box-label">
             <div class="label-product label_new">
-                <span>new</span>
+                <span>mới</span>
             </div>
         </div>
         <div class="action-links">
@@ -18,13 +18,13 @@
             <p><a href="#!shop">{{product.company.name}}</a></p>
         </div>
         <div class="product-name">
-            <h4><a href="#" ng-click="viewProduct($event, product)">{{product.name}}</a></h4>
+            <h4><a href="#!product" ng-click="viewProduct($event, product)">{{product.name}}</a></h4>
         </div>
         <div class="price-box">
             <span class="regular-price">£{{product.price}}</span>
         </div>
         <button class="btn-cart" type="button" ng-click="addCart(product)">
-            add to cart
+            Thêm vào giỏ
         </button>
     </div>
 </div>
