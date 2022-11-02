@@ -5,6 +5,7 @@
     <base href="/">
     <meta charset="UTF-8">
     <title>NghienDT - Trang thương mại điện tử hàng đầu Việt Nam</title>
+    <meta name="referrer" content="no-referrer">
     <meta name="author" content="Nghien Team" />
     <meta name="robots" content="noodp,index,follow" />
     <meta http-equiv="content-language" content="vi" />
@@ -58,23 +59,13 @@
                                     </button>
                                     <ul class="box-dropdown ha-dropdown" style="display: none;">
                                         <li>
-                                            <a href="javascript:void(0);" onclick="doGTranslate('vi|en');return false;">
-                                                <img src="assets/img/icon/en.png"> Tiếng Anh
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" onclick="doGTranslate('vi|ru');return false;">
-                                                <img src="assets/img/icon/ru.png"> Tiếng Nga
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" onclick="doGTranslate('vi|fr');return false;">
-                                                <img src="assets/img/icon/fr.png"> Tiếng Pháp
-                                            </a>
-                                        </li>
-                                        <li>
                                             <a href="javascript:void(0);" onclick="doGTranslate('vi|vi');return false;">
                                                 <img src="assets/img/icon/vi.png"> Tiếng Việt
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="doGTranslate('vi|en');return false;">
+                                                <img src="assets/img/icon/en.png"> Tiếng Anh
                                             </a>
                                         </li>
                                     </ul>
@@ -104,9 +95,10 @@
                                     <div class="search-form">
                                         <select>
                                             <optgroup label="Electronics">
-                                                <option value="volvo">Laptop</option>
-                                                <option value="saab">PC</option>
-                                                <option value="saab">Điện thoại</option>
+                                                <option value="laptop">Laptop</option>
+                                                <option value="maytinh">Máy tính</option>
+                                                <option value="dienthoai">Điện thoại</option>
+                                                <option value="maytinhbang">Máy tính bảng</option>
                                             </optgroup>
                                         </select>
                                     </div>
@@ -120,29 +112,38 @@
                         <div class="mini-cart-option">
                             <ul>
                                 <li class="wishlist mr-2">
-                                    <a class="ha-toggle" href="#!wishlist"><span class="lnr lnr-heart"></span><span
-                                            class="count">1</span>Yêu thích</a>
+                                    <a class="ha-toggle" href="#!wishlist">
+                                        <span class="lnr lnr-heart"></span>
+                                        <span class="count">1</span>Yêu thích
+                                    </a>
                                 </li>
                                 <li class="my-cart">
-                                    <button type="button" class="ha-toggle"><span class="lnr lnr-cart"></span><span
-                                            class="count">{{cart.size}}</span>Giỏ hàng</button>
+                                    <button class="ha-toggle">
+                                        <span class="lnr lnr-cart"></span>
+                                        <span class="count">{{cart.size}}</span>Giỏ hàng
+                                    </button>
                                     <ul class="mini-cart-drop-down ha-dropdown">
-                                        <li class="mb-30" ng-repeat="(key, item) in cart.values">
-                                            <div class="cart-img">
-                                                <a href="#!product"><img src="assets/img/product/{{item.image}}"></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h4><a href="#!product">{{item.name}} </a>
-                                                </h4>
-                                                <span> <span>{{item.quantity}} x </span>£{{item.price}}</span>
-                                            </div>
-                                            <div class="del-icon btn" ng-click="removeCartItem(item)">
-                                                <i class="fa fa-times-circle"></i>
-                                            </div>
+                                        <li ng-repeat="(key, item) in cart.values">
+                                            <table class="table table-borderless">
+                                                <td class="cart-img">
+                                                    <a class="text-break" href="#!product">
+                                                        <img src="{{item.image}}" referrerpolicy="no-referrer">
+                                                    </a>
+                                                </td>
+                                                <td class="cart-info">
+                                                    <a class="text-reset" href="#!product">{{item.name}}</a>
+                                                    <span>{{item.quantity}} x</span> {{item.price}} vnđ
+                                                </td>
+                                                <td class="text-end">
+                                                    <div class="del-icon btn" ng-click="removeCartItem(item)">
+                                                        <i class="fa fa-times-circle"></i>
+                                                    </div>
+                                                </td>
+                                            </table>
                                         </li>
                                         <li>
-                                            <div class="subtotal-text">Tổng: </div>
-                                            <div class="subtotal-price"><span>£{{cart.total}}</span></div>
+                                            <div class="subtotal-text">Tổng:</div>
+                                            <div class="subtotal-price"><span class="text-danger">{{cart.total}} vnđ</span></div>
                                         </li>
                                         <li class="mt-30">
                                             <a class="cart-button" href="#!cart">Xem giỏ hàng</a>
@@ -175,54 +176,35 @@
                                 </div>
                                 <nav class="categorie-menus ha-dropdown">
                                     <ul id="menu2">
-                                        <li><a href="#!shop">Video & Home Theater<span
-                                                    class="lnr lnr-chevron-right"></span></a>
+                                        <li ng-repeat="item in cates">
+                                            <a href="#!shop">
+                                                {{item.name}} <span class="lnr lnr-chevron-right"></span>
+                                            </a>
                                             <ul class="cat-submenu category-mega">
-                                                <li class="cat-mega-title"><a href="#">Security Cameras</a>
+                                                <li class="cat-mega-title">
                                                     <ul>
                                                         <li><a href="#!shop">DSLR Cameras</a></li>
                                                         <li><a href="#!shop">Lense Camera</a></li>
-                                                        <li><a href="#!shop">Digital Cameras</a>
-                                                        </li>
-                                                        <li><a href="#!shop">Mirrorless Cameras</a>
-                                                        </li>
-                                                        <li><a href="#!shop">Point</a></li>
+                                                        <li><a href="#!shop">Digital Cameras</a></li>
+                                                        <li><a href="#!shop">Mirrorless Cameras</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="cat-mega-title"><a href="#">Mirrorless Cameras</a>
+                                                <li class="cat-mega-title">
                                                     <ul>
                                                         <li><a href="#!shop">DSLR Cameras</a></li>
                                                         <li><a href="#!shop">Lense Camera</a></li>
-                                                        <li><a href="#!shop">Digital Cameras</a>
-                                                        </li>
-                                                        <li><a href="#!shop">Mirrorless Cameras</a>
-                                                        </li>
-                                                        <li><a href="#!shop">Point</a></li>
+                                                        <li><a href="#!shop">Digital Cameras</a></li>
+                                                        <li><a href="#!shop">Mirrorless Cameras</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="cat-mega-title"><a href="#">Digital Cameras</a>
+                                                <li class="cat-mega-title">
                                                     <ul>
                                                         <li><a href="#!shop">DSLR Cameras</a></li>
                                                         <li><a href="#!shop">Lense Camera</a></li>
-                                                        <li><a href="#!shop">Digital Cameras</a>
-                                                        </li>
-                                                        <li><a href="#!shop">Mirrorless Cameras</a>
-                                                        </li>
-                                                        <li><a href="#!shop">Point</a></li>
+                                                        <li><a href="#!shop">Digital Cameras</a></li>
+                                                        <li><a href="#!shop">Mirrorless Cameras</a></li>
                                                     </ul>
                                                 </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#!shop">Cellphones & Accessories<span
-                                                    class="lnr lnr-chevron-right"></span></a>
-                                            <ul class="cat-submenu">
-                                                <li><a href="#!shop">CD Players & Turntables</a>
-                                                </li>
-                                                <li><a href="#!shop">Home Theater Systems</a></li>
-                                                <li><a href="#!shop">Receivers & Amplifiers</a>
-                                                </li>
-                                                <li><a href="#!shop">Speakers</a></li>
-                                                <li><a href="#!shop">Wireless Audio</a></li>
                                             </ul>
                                         </li>
                                     </ul>

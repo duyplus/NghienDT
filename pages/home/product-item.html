@@ -1,12 +1,15 @@
 <div class="product-item">
     <div class="product-thumb">
         <a href="#!product" ng-click="viewProduct($event, product)">
-            <img src="{{product.image}}" class="pri-img" alt="" />
-            <img src="{{product.image}}" class="sec-img" alt="" />
+            <img src="{{product.image}}" class="pri-img" alt="{{product.name}}" referrerpolicy="no-referrer" />
+            <img src="{{product.image}}" class="sec-img" alt="{{product.name}}" referrerpolicy="no-referrer" />
         </a>
         <div class="box-label">
             <div class="label-product label_new">
                 <span>mới</span>
+            </div>
+            <div class="label-product label_sale" ng-if="product.discount">
+                <span>-{{product.discount}}%</span>
             </div>
         </div>
         <div class="action-links">

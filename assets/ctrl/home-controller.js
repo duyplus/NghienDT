@@ -1,20 +1,30 @@
 app.controller("home-ctrl", function ($scope, $cart, $product, $utility) {
-  const { $data, $url, $templateUrl } = $utility;
+    const { $data, $url, $templateUrl } = $utility;
 
-  $scope.templateUrl = $templateUrl.getHomeTemplates();
-  fetchData("categories", "products");
+    $scope.templateUrl = $templateUrl.getHomeTemplates();
+    fetchData("categories", "products");
 
-  $scope.addCart = (product) => {
-    $cart.addItem(product);
-  };
+    $scope.addCart = (product) => {
+        $cart.addItem(product);
+    };
 
-  $scope.viewProduct = (event, product) => {
-    event.preventDefault();
-    $product.current = product;
-    $url.redirectToProductPage();
-  };
+    $scope.viewProduct = (event, product) => {
+        event.preventDefault();
+        $product.current = product;
+        $url.redirectToProductPage();
+    };
 
-  function fetchData(...names) {
-    names.forEach((name) => $data.fetch($scope, { name: name }));
-  }
+    function fetchData(...names) {
+        names.forEach((name) => $data.fetch($scope, { name: name }));
+    }
+
+    $scope.config = {
+        autoHideScrollbar: false,
+        theme: 'light',
+        advanced: {
+            updateOnContentResize: true
+        },
+        setHeight: 200,
+        scrollInertia: 0
+    }
 });
