@@ -50,10 +50,15 @@
                                 <td class="d-none">{{item.id}}</td>
                                 <td>{{item.name}}</td>
                                 <td>{{item.price}}</td>
-                                <td>{{item.available ? "Còn hàng":"Hết hàng" }}</td>
-                                <td>{{item.Category.name}}</td>
-                                <td>{{item.Company.name}}</td>
-                                <td>{{item.User.username}}</td>
+                                <td>
+                                    <span class="badge badge-soft-warning px-2" ng-if="item.available == true">Còn
+                                        hàng</span>
+                                    <span class="badge badge-soft-primary px-2" ng-if="item.available != true">Hết
+                                        hàng</span>
+                                </td>
+                                <td>{{item.category.name}}</td>
+                                <td>{{item.company.name}}</td>
+                                <td>{{item.user.username}}</td>
                                 <td>{{item.discount}}</td>
                                 <td>{{item.createdAt | date: 'HH:mm - dd/MM/yyyy'}}</td>
                                 <td>{{item.updatedAt | date: 'HH:mm - dd/MM/yyyy'}}</td>

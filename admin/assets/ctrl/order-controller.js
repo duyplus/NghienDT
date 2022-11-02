@@ -1,17 +1,9 @@
-app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService) {
-    var url = "http://localhost:8080/api/product";
-    var urlcate = "http://localhost:8080/api/category";
-    var urlcompany = "http://localhost:8080/api/company";
-    var urluser = "http://localhost:8080/api/user";
+app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
+    var url = "http://localhost:8080/api/order";
+    var urlOrderDetail = "http://localhost:8080/api/orderdetail";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
-    $scope.cate = [];
-    $scope.user = [];
-    $scope.company = [];
-    $scope.productdata = productService.get();
-    $scope.getuser = "";
-    $scope.getcate = {};
-    $scope.getcompany = {};
+    $scope.orderdata = orderService.get();
 
 
     var sweetalert_success = function (text) {
@@ -43,20 +35,9 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     drEvent.on('dropify.errors', function (event, element) {
         sweetalert_error("Has Errors!");
     });
+   
 
-     
-
-    //load category
-    $http.get(urlcate).then(resp => {
-        $scope.cate = resp.data;
-    });
-
-    //load company
-    $http.get(urlcompany).then(resp => {
-        $scope.company = resp.data;
-    });
-
-    //load data product
+    //load data order
     $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
@@ -73,42 +54,31 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             $scope.filteredItems = $scope.items.slice(begin, end);
         });
     });
-
-    //filter user
-    $http.get(urluser).then(resp => {
-        $scope.user = resp.data;
-    });
-    $scope.findUser = function(){
-        $scope.productdata.user = $scope.user.filter(function(item) {
-            return item.username === $scope.productdata.user.username;
-          })[0];
-    }
     
     //xoa form
     $scope.reset = function () {
-        $scope.productdata = {};
+        $scope.orderdata = {};
     }
 
     //hien thi len form
     $scope.edit = function (item) {
-        productService.set(item);
+        orderService.set(item);
     }
-
 
     //them sp moi
     $scope.create = function () {
-        $scope.productdata.createdAt = new Date().toJSON();
-        $scope.productdata.updatedAt = new Date().toJSON();
-        $scope.productdata.image = "null.png";
-        $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
-        $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];
-
-        var item = angular.copy($scope.productdata);
+        $scope.orderdata.createdAt = new Date().toJSON();
+        $scope.orderdata.updatedAt = new Date().toJSON();
+        $scope.orderdata.discount = 12;
+        $scope.orderdata.image = "null.png";
+        $scope.orderdata.Company = $scope.company[$scope.orderdata.Company.id];
+        $scope.orderdata.Category = $scope.cate[$scope.orderdata.Category.id];
+        var item = angular.copy($scope.orderdata);
         $http.post(`${url}`, item).then(resp => {
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert_success("Thêm mới thành công!");
-            $location.path('product-list');
+            $location.path('order-list');
         }).catch(error => {
             sweetalert_error("Lỗi thêm mới sản phẩm!");
             console.log("Error", error);
@@ -117,16 +87,14 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //cap nhat sp
     $scope.update = function () {
-        $scope.productdata.updatedat = new Date().toJSON();
-        $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
-        $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];
-        var item = angular.copy($scope.productdata);
+        $scope.orderdata.updatedat = new Date().toJSON();
+        var item = angular.copy($scope.orderdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
             sweetalert_success("Cập nhật sản phẩm thành công!");
-            $location.path('product-list');
+            $location.path('order-list');
         }).catch(error => {
             sweetalert_error("Lỗi cập nhật sản phẩm!");
             console.log("Error", error);
@@ -135,12 +103,12 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //xoa sp
     $scope.delete = function (item) {
-        $http.delete(`${url}/${$scope.productdata.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == $scope.productdata.id);
+        $http.delete(`${url}/${$scope.orderdata.id}`).then(resp => {
+            var index = $scope.items.findIndex(p => p.id == $scope.orderdata.id);
             $scope.items.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa sản phẩm thành công!");
-            $location.path('product-list');
+            $location.path('order-list');
         }).catch(error => {
             sweetalert_error("Lỗi xóa sản phẩm!");
             console.log("Error", error);
@@ -155,7 +123,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(resp => {
-            $scope.productdata.image = resp.data.image;
+            $scope.orderdata.image = resp.data.image;
         }).catch(error => {
             sweetalert("Lỗi tải lên hình ảnh!");
             console.log("Error", error);
@@ -169,12 +137,12 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             var worksheet_data = document.getElementById("table");
             var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
 
-            workbook.SheetNames.push("Product");
-            workbook.Sheets["Product"] = worksheet;
+            workbook.SheetNames.push("order");
+            workbook.Sheets["order"] = worksheet;
             exportExcelFile(workbook);
         });
     })
     function exportExcelFile(workbook) {
-        return XLSX.writeFile(workbook, "Product_List.xlsx");
+        return XLSX.writeFile(workbook, "order_List.xlsx");
     }
 });
