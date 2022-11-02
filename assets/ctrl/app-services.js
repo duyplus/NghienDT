@@ -119,9 +119,6 @@ app.factory("$utility", ($window, $http) => {
       const api = "http://localhost:8080/api";
       const categoriesUrl = `${api}/category`;
       const productsUrl = `${api}/product`;
-      // const local = "assets/data";
-      // const categoriesUrl = `${local}/categories.json`;
-      // const productsUrl = `${local}/products.json`;
       const apiUrls = {
         categories: categoriesUrl,
         products: productsUrl,
