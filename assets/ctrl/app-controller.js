@@ -39,6 +39,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "pages/forgot-password.html",
             controller: "user-ctrl",
         })
+        .when("/reset-password", {
+            templateUrl: "pages/reset-password.html",
+            controller: "reset-password-ctrl",
+        })
         .when("/register", {
             templateUrl: "pages/register.html",
             controller: "user-ctrl",

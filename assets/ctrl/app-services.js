@@ -14,14 +14,51 @@ app.factory("myService", function () {
     };
 });
 
-app.factory("$utility", ($window, $http) => {
+app.factory("$utility", ($window, $http, $routeParams) => {
     return {
+        get $http() {
+            return $http;
+        },
+        get $params() {
+            return $routeParams;
+        },
         get $message() {
             return {
                 product: {
                     error: {
                         OVER_QUANTITY() {
-                            return "Đã vượt quá số lượng hàng tồn";
+                            return "Đã vượt quá số lượng hàng trong kho!";
+                        },
+                    },
+                },
+                user: {
+                    success: {
+                        CHANGE_PASSWORD() {
+                            return "Cập nhật mật khẩu thành công!";
+                        },
+                    },
+                    error: {
+                        CHANGE_PASSWORD() {
+                            return "Cập nhật mật khẩu thất bại!";
+                        },
+                    },
+                },
+                mail: {
+                    success: {
+                        RESET_PASSWORD() {
+                            return "Chúng tôi đã gửi một liên kết đặt lại mật khẩu đến email của bạn. Nếu bạn không thấy email, hãy kiểm tra thư rác của bạn.";
+                        },
+                    },
+                    error: {
+                        RESET_PASSWORD(code, message) {
+                            switch (code) {
+                                case -1:
+                                    return "Không thể kết nối đến server. Vui lòng kiểm tra lại server!";
+                                case 500:
+                                    return message ? message : "Không tìm thấy địa chỉ email.";
+                                default:
+                                    return "Không thể gửi mail.";
+                            }
                         },
                     },
                 },
@@ -115,20 +152,53 @@ app.factory("$utility", ($window, $http) => {
             }
             return new UrlService();
         },
-        get $data() {
+        get $serverUrl() {
             const api = "http://localhost:8080/api";
+            const api1 = "http://localhost:8080";
             const categoriesUrl = `${api}/category`;
             const productsUrl = `${api}/product`;
-            const apiUrls = {
-                categories: categoriesUrl,
-                products: productsUrl,
+            const usersUrl = `${api}/user`;
+            const forgotPasswordUrl = `${api1}/auth/forgot-password`;
+            const resetPasswordUrl = `${api1}/auth/reset-password`;
+            return {
+                apiUrls: {
+                    categories: categoriesUrl,
+                    products: productsUrl,
+                    users: usersUrl,
+                },
+                forgotPasswordUrl: forgotPasswordUrl,
+                resetPasswordUrl: resetPasswordUrl,
             };
+        },
+        get $url() {
+            class UrlService {
+                redirect(url) {
+                    $window.location.href = url;
+                }
+                redirectToProductPage() {
+                    this.redirect("/#!product");
+                }
+                redirectToHomePage() {
+                    this.redirect("/");
+                }
+                redirectToLoginPage() {
+                    this.redirect("/#!login");
+                }
+            }
+            return new UrlService();
+        },
+        get $data() {
+            const apiUrls = this.$serverUrl.apiUrls;
             return {
                 fetch($scope, { name, url }) {
                     if (!url) url = apiUrls[name];
-                    $http.get(url).then((resp) => {
-                        $scope[name] = resp.data;
-                    }).catch((err) => console.log(err));
+                    console.log(`fetch ${name} data from: ${url}`);
+                    $http
+                        .get(url)
+                        .then((resp) => {
+                            $scope[name] = resp.data;
+                        })
+                        .catch((err) => console.log(err));
                 },
             };
         },
@@ -380,8 +450,6 @@ app.factory("$cart", ($utility) => {
             const items = $local.get(this.#cart_local);
             if (items) items.forEach((item) => this.#items.set(item.id, item));
         }
-
-
     }
     return new Cart();
 });
