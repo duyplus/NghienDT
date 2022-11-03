@@ -76,82 +76,31 @@
                 <div class="product-detail-inner">
                     <div class="product-detail-contentt">
                         <div class="pro-details-name mb-10">
-                            <h3>Bose SoundLink Bluetooth Speaker</h3>
-                        </div>
-                        <div class="pro-details-review mb-20">
-                            <ul>
-                                <li>
-                                    <span><i class="fa fa-star"></i></span>
-                                    <span><i class="fa fa-star"></i></span>
-                                    <span><i class="fa fa-star"></i></span>
-                                    <span><i class="fa fa-star"></i></span>
-                                    <span><i class="fa fa-star"></i></span>
-                                </li>
-                                <li><a href="#">1 Reviews</a></li>
-                            </ul>
+                            <h3 name="name">{{productdata.name}}</h3>
                         </div>
                         <div class="price-box mb-15">
-                            <span class="regular-price"><span class="special-price">£50.00</span></span>
-                            <span class="old-price"><del>£60.00</del></span>
+                            <span class="regular-price"><span class="special-price">{{productdata.price}} VND</span></span>
                         </div>
                         <div class="product-detail-sort-des pb-20">
-                            <p>Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR
-                                category', while we're not typically too concerned with marketing talk this
-                                particular statement is clearly pretty accurate...</p>
+                            <p>{{productdata.description}}</p>
                         </div>
                         <div class="pro-details-list pt-20">
                             <ul>
-                                <li><span>Ex Tax :</span>£60.24</li>
-                                <li><span>Brands :</span><a href="#">Canon</a></li>
-                                <li><span>Product Code :</span>Digital</li>
-                                <li><span>Reward Points :</span>200</li>
-                                <li><span>Availability :</span>In Stock</li>
+                                <li><span>Brands :</span><a href="#">{{productdata.Company.name}}</a></li>
+                                <li ng-if="productdata.available">
+                                    <span>Availability :</span> In Stock
+                                </li>
+                                <li ng-if="productdata.available == false">
+                                    <span>Availability :</span> Unavailable
+                                </li>
                             </ul>
-                        </div>
-                        <div class="product-availabily-option mt-15 mb-15">
-                            <h3>Available Options</h3>
-                            <div class="color-optionn">
-                                <h4><sup>*</sup>color</h4>
-                                <ul>
-                                    <li>
-                                        <a class="c-black" href="#" title="Black"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-blue" href="#" title="Blue"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-brown" href="#" title="Brown"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-gray" href="#" title="Gray"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-red" href="#" title="Red"></a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                         <div class="pro-quantity-box mb-30">
                             <div class="qty-boxx">
                                 <label>qty :</label>
-                                <input type="text" placeholder="0">
+                                <input type="number" min="1" placeholder="1">
                                 <button class="btn-cart lg-btn">add to cart</button>
                             </div>
-                        </div>
-                        <div class="useful-links mb-20">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="fa fa-heart-o"></i>add to wish list</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-refresh"></i>compare this product</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tag-line mb-20">
-                            <label>tag :</label>
-                            <a href="#">Movado</a>,
-                            <a href="#">Omega</a>
                         </div>
                         <div class="pro-social-sharing">
                             <label>share :</label>

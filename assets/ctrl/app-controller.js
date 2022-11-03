@@ -4,7 +4,7 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', { templateUrl: 'pages/home.html', controller: "home-ctrl" })
         .when("/shop", { templateUrl: "pages/shop.html", controller: "shop-ctrl" })
-        .when("/product", { templateUrl: "pages/product.html", controller: "product-ctrl" })
+        .when("/product", { templateUrl: "pages/product.html", controller: "shop-ctrl" })
         .when("/wishlist", { templateUrl: "pages/wishlist.html", controller: "wishlist-ctrl" })
         .when("/cart", { templateUrl: "pages/cart.html", controller: "cart-ctrl" })
         .when("/checkout", { templateUrl: "pages/checkout.html", controller: "checkout-ctrl" })
@@ -13,7 +13,7 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
         .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
         .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
-        
+
         .when("/contact-us", { templateUrl: "pages/contact-us.html" })
         .when("/404", { templateUrl: "pages/404.html" })
         .otherwise({ redirectTo: '/' });
@@ -36,6 +36,63 @@ app.directive('convertDate', function () {
 });
 
 app.factory('myService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+app.factory('userService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+app.factory('companyService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+app.factory('productService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+
+app.factory('cateService', function () {
     var savedData = {}
     function set(data) {
         savedData = data;
