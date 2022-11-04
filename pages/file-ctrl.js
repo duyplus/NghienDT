@@ -59,7 +59,6 @@ app.controller("ctrl", function ($scope, $http) {
 
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
-            const img = [];
             var $files = $(this).get(0).files;
             if ($files.length) {
                 for (let index = 0; index < $files.length; index++) {
@@ -94,17 +93,17 @@ app.controller("ctrl", function ($scope, $http) {
                         console.log('done');
                         var obj = JSON.parse(response);
                         var cut = JSON.stringify(obj.data.link);
-                        img.push(cut.slice(1, cut.length - 1));
+                        // img.push(cut.slice(1, cut.length - 1));
+                        const para = document.createElement("img");
+                        para.setAttribute("src", cut.slice(1, cut.length - 1));
+                        para.setAttribute("referrerpolicy", "no-referrer");
+                        para.style.width = '300px';
+                        document.getElementById("myDIV").appendChild(para);
                     });
                 }
             }
-            img.forEach(element => {
-                const para = document.createElement("img");
-                para.setAttribute("src", element);
-                para.setAttribute("referrerpolicy", "no-referrer");
-                para.style.width = '300px';
-                document.getElementById("myDIV").appendChild(para);
-            });
+            // img.forEach(element => {
+            // });
         });
     });
 })
