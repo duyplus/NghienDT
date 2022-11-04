@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body class="container">
     <h3>RESTful - File Manager</h3>
-    <div id="Phi" ng-app="app" ng-controller="ctrl">
-        <label>
+    <div ng-app="app" ng-controller="ctrl">
+        <!-- <label>
             Upload Files:
             <input id="prod-img" type="file" accept="image/*" multiple
                 onchange="angular.element(this).scope().upload(this.files)">
@@ -20,8 +21,12 @@
         <hr>
         <label ng-repeat="filename in filenames" title="Double click to delete">
             <img ng-src="{{url(filename)}}" ng-click="delete(filename)" width="300px">
-        </label>
+        </label> -->
         <p id="img-text"></p>
+        <input type="file" accept="image/*" id="link" multiple />
+        <div id="myDIV">
+            <span>Hinh anh:</span>
+        </div>
     </div>
     <script src="file-ctrl.js"></script>
 </body>
