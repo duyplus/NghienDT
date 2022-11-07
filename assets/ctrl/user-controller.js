@@ -1,5 +1,5 @@
 app.controller('user-ctrl', function ($scope, $http, $location) {
-    var url = "http://localhost:8080/api/user";
+    var url = "https://nghienteam.studio/api/user";
     $scope.items = [];
     $scope.userdata = {};
     $scope.id = 4;
