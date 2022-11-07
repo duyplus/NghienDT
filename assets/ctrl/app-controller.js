@@ -3,7 +3,7 @@ const app = angular.module("myApp", [
     "ui.bootstrap",
     "slickCarousel"
 ]);
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $httpProvider) {
     // route
     $routeProvider
         .when("/", {
@@ -57,7 +57,11 @@ app.config(function ($routeProvider, $locationProvider) {
         .otherwise({
             redirectTo: "/",
         });
+
+    $httpProvider.interceptors.push("authInterceptor");
 });
+
+app.constant("HOST", "https://nghienteam.studio");
 
 app.directive("convertDate", function () {
     return {
@@ -111,3 +115,4 @@ app.directive("owlCarousel", function () {
 app.run(($rootScope, $cart) => {
     $rootScope.cart = $cart;
 });
+

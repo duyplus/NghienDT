@@ -31,47 +31,65 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
                                 <div class="registration-form login-form">
-                                    <form action="#">
+                                    <form>
                                         <div class="login-info mb-20">
                                             <p>Đã có tài khoản? <a href="#!login" style="color: blue">Đăng
                                                     nhập!</a></p>
                                         </div>
                                         <div class="form-group mb-3 row">
-                                            <label for="l-name"
-                                                class="col-12 col-sm-12 col-md-4 col-form-label">Họ và tên</label>
+                                            <label class="col-12 col-sm-12 col-md-4 col-form-label">Họ và tên</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="l-name" required>
+                                                <input ng-model="fullname" type="text" class="form-control"
+                                                    placeholder="Nguyễn Văn A" required>
+                                                <span ng-show="fullname.$dirty && fullname.$error.required"
+                                                    class="help-block">Fullname is required</span>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
-                                            <label for="inputusername"
-                                                class="col-12 col-sm-12 col-md-4 col-form-label">Tài khoản</label>
+                                            <label class="col-12 col-sm-12 col-md-4 col-form-label">Tài khoản</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="inputusername" required>
+                                                <input ng-model="username" type="text" class="form-control"
+                                                    placeholder="abc2022" required>
+                                                <span ng-show="username.$dirty && username.$error.required"
+                                                    class="help-block">Username is required</span>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
-                                            <label for="password" class="col-12 col-sm-12 col-md-4 col-form-label">Mật
+                                            <label class="col-12 col-sm-12 col-md-4 col-form-label">Mật khẩu</label>
+                                            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                <input ng-model="password" type="password" class="form-control"
+                                                    id="password" placeholder="******" required>
+                                                <span ng-show="password.$dirty && password.$error.required"
+                                                    class="help-block">Password is required</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label class="col-12 col-sm-12 col-md-4 col-form-label">Xác nhận mật
                                                 khẩu</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="password" class="form-control" id="password" required>
+                                                <input type="password" class="form-control" placeholder="******"
+                                                    oninput="checkPassword(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
-                                            <label for="c-password" class="col-12 col-sm-12 col-md-4 col-form-label">Xác
-                                                nhận mật khẩu</label>
+                                            <label class="col-12 col-sm-12 col-md-4 col-form-label">Điện thoại</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="password" class="form-control" id="c-password" required>
+                                                <input ng-model="phone" type="number" class="form-control"
+                                                    placeholder="0123456789" required>
+                                                <span ng-show="phone.$dirty && phone.$error.required"
+                                                    class="help-block">Phone number is required</span>
                                             </div>
                                         </div>
                                         <div class="form-group mb-3 row">
-                                            <label for="email"
-                                                class="col-12 col-sm-12 col-md-4 col-form-label">Email</label>
+                                            <label class="col-12 col-sm-12 col-md-4 col-form-label">Email</label>
                                             <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                <input type="text" class="form-control" id="email" oninput="checkPassword(this);" required>
+                                                <input ng-model="email" type="email" class="form-control"
+                                                    placeholder="abc2022@nghiendt.me" required>
+                                                <span ng-show="email.$dirty && email.$error.required"
+                                                    class="help-block">Email is required</span>
                                             </div>
                                         </div>
-                                        <div class="form-check row g-0 mt-5">
+                                        <div class="form-check row g-0 mt-4">
                                             <div class="col-12 col-sm-12 col-md-8 offset-md-4 col-lg-6 offset-lg-4">
                                                 <div class="custom-checkbox">
                                                     <input class="form-check-input" type="checkbox">
@@ -82,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="register-box d-flex justify-content-end mt-20">
-                                            <button type="submit" class="btn btn-secondary py-1 px-4">Đăng
+                                            <button class="btn btn-secondary py-1 px-4" ng-click="register()">Đăng
                                                 ký</button>
                                         </div>
                                     </form>

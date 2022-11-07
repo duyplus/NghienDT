@@ -1,6 +1,6 @@
 app.controller("category-ctrl", function ($scope, $rootScope, $location, $http, $filter, cateService) {
-    var url = "http://localhost:8080/api/category";
-    var url2 = "http://localhost:8080/api/upload/images";
+    var url = "https://nghienteam.studio/api/category";
+    var url2 = "https://nghienteam.studio/api/upload/images";
     $scope.items = [];
     $scope.categorydata = cateService.get();
 

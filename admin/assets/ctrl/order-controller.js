@@ -1,7 +1,7 @@
 app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
-    var url = "http://localhost:8080/api/order";
-    var urlOrderDetail = "http://localhost:8080/api/orderdetail";
-    var url2 = "http://localhost:8080/api/upload/images";
+    var url = "https://nghienteam.studio/api/order";
+    var urlOrderDetail = "https://nghienteam.studio/api/orderdetail";
+    var url2 = "https://nghienteam.studio/api/upload/images";
     $scope.items = [];
     $scope.orderdata = orderService.get();
 

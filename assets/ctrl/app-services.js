@@ -14,14 +14,118 @@ app.factory("myService", function () {
     };
 });
 
-app.factory("$utility", ($window, $http) => {
+app.factory("authInterceptor", function (HOST, authService) {
     return {
+        request: function (config) {
+            var token = authService.getToken();
+            if (config.url.indexOf(HOST) === 0 && token) {
+                config.headers.Authorization = "Bearer " + token;
+            }
+            return config;
+        },
+        response: function (res) {
+            if (res.config.url.indexOf(HOST) === 0 && res.data.token) {
+                authService.saveToken(res.data.token);
+            }
+            return res;
+        }
+    };
+});
+
+app.service("authService", function ($window, $location) {
+    var vm = this;
+    vm.parseJwt = function (token) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace("-", "+").replace("_", "/");
+        return JSON.parse($window.atob(base64));
+    };
+    vm.getToken = function () {
+        return $window.localStorage["jwtToken"];
+    };
+    vm.saveToken = function (token) {
+        $window.localStorage["jwtToken"] = token;
+    };
+    vm.logout = function (token) {
+        $window.localStorage.removeItem("currentUser");
+        $window.localStorage.removeItem("jwtToken");
+        $location.path("/login");
+    };
+    vm.isAuthed = function () {
+        var token = vm.getToken();
+        if (token) {
+            var params = vm.parseJwt(token);
+            return Math.round(new Date().getTime() / 1000) <= params.exp;
+        } else {
+            return false;
+        }
+    };
+});
+
+app.service("userService", function ($http, HOST) {
+    var vm = this;
+    vm.register = function (username, password, fullname, phone, email) {
+        return $http.post(HOST + "/auth/register", {
+            username: username,
+            password: password,
+            fullname: fullname,
+            phone: phone,
+            email: email
+        });
+    };
+    vm.login = function (username, password) {
+        return $http.post(HOST + "/auth/login", {
+            username: username,
+            password: password
+        });
+
+    };
+});
+
+app.factory("$utility", ($window, $http, $routeParams, HOST) => {
+    return {
+        get $http() {
+            return $http;
+        },
+        get $params() {
+            return $routeParams;
+        },
         get $message() {
             return {
                 product: {
                     error: {
                         OVER_QUANTITY() {
-                            return "Đã vượt quá số lượng hàng tồn";
+                            return "Đã vượt quá số lượng hàng trong kho!";
+                        },
+                    },
+                },
+                user: {
+                    success: {
+                        CHANGE_PASSWORD() {
+                            return "Cập nhật mật khẩu thành công!";
+                        },
+                    },
+                    error: {
+                        CHANGE_PASSWORD() {
+                            return "Cập nhật mật khẩu thất bại!";
+                        },
+                    },
+                },
+                mail: {
+                    success: {
+                        RESET_PASSWORD() {
+                            return "Chúng tôi đã gửi một liên kết đặt lại mật khẩu đến email của bạn. Nếu bạn không thấy email, hãy kiểm tra thư rác của bạn.";
+                        },
+                    },
+                    error: {
+                        RESET_PASSWORD(code, message) {
+                            switch (code) {
+                                case -1:
+                                    return "Không thể kết nối đến server. Vui lòng kiểm tra lại server!";
+                                case 500:
+                                    return message ? message : "Không tìm thấy địa chỉ email.";
+                                default:
+                                    return "Không thể gửi mail.";
+                            }
                         },
                     },
                 },
@@ -115,14 +219,41 @@ app.factory("$utility", ($window, $http) => {
             }
             return new UrlService();
         },
-        get $data() {
-            const api = "http://localhost:8080/api";
-            const categoriesUrl = `${api}/category`;
-            const productsUrl = `${api}/product`;
-            const apiUrls = {
-                categories: categoriesUrl,
-                products: productsUrl,
+        get $serverUrl() {
+            const categoriesUrl = `${HOST}/api/category`;
+            const productsUrl = `${HOST}/api/product`;
+            const usersUrl = `${HOST}/api/user`;
+            const forgotPasswordUrl = `${HOST}/auth/forgot-password`;
+            const resetPasswordUrl = `${HOST}/auth/reset-password`;
+            return {
+                apiUrls: {
+                    categories: categoriesUrl,
+                    products: productsUrl,
+                    users: usersUrl,
+                },
+                forgotPasswordUrl: forgotPasswordUrl,
+                resetPasswordUrl: resetPasswordUrl,
             };
+        },
+        get $url() {
+            class UrlService {
+                redirect(url) {
+                    $window.location.href = url;
+                }
+                redirectToProductPage() {
+                    this.redirect("/#!product");
+                }
+                redirectToHomePage() {
+                    this.redirect("/");
+                }
+                redirectToLoginPage() {
+                    this.redirect("/#!login");
+                }
+            }
+            return new UrlService();
+        },
+        get $data() {
+            const apiUrls = this.$serverUrl.apiUrls;
             return {
                 fetch($scope, { name, url }) {
                     if (!url) url = apiUrls[name];
@@ -380,8 +511,6 @@ app.factory("$cart", ($utility) => {
             const items = $local.get(this.#cart_local);
             if (items) items.forEach((item) => this.#items.set(item.id, item));
         }
-
-
     }
     return new Cart();
 });
