@@ -17,14 +17,4 @@ app.controller("home-ctrl", function ($scope, $cart, $product, $utility) {
     function fetchData(...names) {
         names.forEach((name) => $data.fetch($scope, { name: name }));
     }
-
-    $scope.config = {
-        autoHideScrollbar: false,
-        theme: 'light',
-        advanced: {
-            updateOnContentResize: true
-        },
-        setHeight: 200,
-        scrollInertia: 0
-    }
 });

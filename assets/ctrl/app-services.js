@@ -14,8 +14,80 @@ app.factory("myService", function () {
     };
 });
 
+<<<<<<< HEAD
 app.factory("$utility", ($window, $http, $routeParams) => {
     return {
+=======
+app.factory("authInterceptor", function (HOST, authService) {
+    return {
+        request: function (config) {
+            var token = authService.getToken();
+            if (config.url.indexOf(HOST) === 0 && token) {
+                config.headers.Authorization = "Bearer " + token;
+            }
+            return config;
+        },
+        response: function (res) {
+            if (res.config.url.indexOf(HOST) === 0 && res.data.token) {
+                authService.saveToken(res.data.token);
+            }
+            return res;
+        }
+    };
+});
+
+app.service("authService", function ($window, $location) {
+    var vm = this;
+    vm.parseJwt = function (token) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace("-", "+").replace("_", "/");
+        return JSON.parse($window.atob(base64));
+    };
+    vm.getToken = function () {
+        return $window.localStorage["jwtToken"];
+    };
+    vm.saveToken = function (token) {
+        $window.localStorage["jwtToken"] = token;
+    };
+    vm.logout = function (token) {
+        $window.localStorage.removeItem("currentUser");
+        $window.localStorage.removeItem("jwtToken");
+        $location.path("/login");
+    };
+    vm.isAuthed = function () {
+        var token = vm.getToken();
+        if (token) {
+            var params = vm.parseJwt(token);
+            return Math.round(new Date().getTime() / 1000) <= params.exp;
+        } else {
+            return false;
+        }
+    };
+});
+
+app.service("userService", function ($http, HOST) {
+    var vm = this;
+    vm.register = function (username, password, fullname, phone, email) {
+        return $http.post(HOST + "/auth/register", {
+            username: username,
+            password: password,
+            fullname: fullname,
+            phone: phone,
+            email: email
+        });
+    };
+    vm.login = function (username, password) {
+        return $http.post(HOST + "/auth/login", {
+            username: username,
+            password: password
+        });
+
+    };
+});
+
+app.factory("$utility", ($window, $http, $routeParams, HOST) => {
+    return {
+>>>>>>> 7515d3203b25b8e637141adc474757ddf4a1622c
         get $http() {
             return $http;
         },
@@ -153,6 +225,7 @@ app.factory("$utility", ($window, $http, $routeParams) => {
             return new UrlService();
         },
         get $serverUrl() {
+<<<<<<< HEAD
             const api = "http://localhost:8080/api";
             const api1 = "http://localhost:8080";
             const categoriesUrl = `${api}/category`;
@@ -160,6 +233,13 @@ app.factory("$utility", ($window, $http, $routeParams) => {
             const usersUrl = `${api}/user`;
             const forgotPasswordUrl = `${api1}/auth/forgot-password`;
             const resetPasswordUrl = `${api1}/auth/reset-password`;
+=======
+            const categoriesUrl = `${HOST}/api/category`;
+            const productsUrl = `${HOST}/api/product`;
+            const usersUrl = `${HOST}/api/user`;
+            const forgotPasswordUrl = `${HOST}/auth/forgot-password`;
+            const resetPasswordUrl = `${HOST}/auth/reset-password`;
+>>>>>>> 7515d3203b25b8e637141adc474757ddf4a1622c
             return {
                 apiUrls: {
                     categories: categoriesUrl,

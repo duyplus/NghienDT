@@ -1,9 +1,17 @@
-app.controller("index-ctrl", ($scope, $http, $cart, $utility) => {
+app.controller("index-ctrl", ($scope, $http, $cart, $utility, authService) => {
 	const { $owlSlick } = $utility;
-	var cate = "http://localhost:8080/api/category";
-	var brand = "http://localhost:8080/api/category";
+	var cate = "https://nghienteam.studio/api/category";
+	var brand = "https://nghienteam.studio/api/category";
 	$scope.cates = [];
 	$scope.brands = [];
+	
+    $scope.logout = function () {
+        authService.logout && authService.logout();
+    };
+
+    $scope.isAuthed = function () {
+        return authService.isAuthed ? authService.isAuthed() : false;
+    };
 
 	$http.get(cate).then(resp => {
 		$scope.cates = resp.data;

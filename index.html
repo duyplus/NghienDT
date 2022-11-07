@@ -143,7 +143,8 @@
                                         </li>
                                         <li>
                                             <div class="subtotal-text">Tổng:</div>
-                                            <div class="subtotal-price"><span class="text-danger">{{cart.total}} vnđ</span></div>
+                                            <div class="subtotal-price"><span class="text-danger">{{cart.total}}
+                                                    vnđ</span></div>
                                         </li>
                                         <li class="mt-30">
                                             <a class="cart-button" href="#!cart">Xem giỏ hàng</a>
@@ -223,13 +224,18 @@
                                         <li>
                                             <a href="#">Tài khoản<span class="lnr lnr-chevron-down"></span></a>
                                             <ul class="dropdown">
-                                                <li><a href="#!login">Đăng nhập</a></li>
-                                                <li><a href="#!register">Đăng ký</a></li>
-                                                <li><a href="#!forgot-password">Quên mật khẩu?</a></li>
-                                                <li><span>Xin chào, <b>Duy</b></span></li>
-                                                <li><a href="/admin">Bảng quản trị</a></li>
-                                                <li><a href="#!my-account">Tài khoản</a></li>
-                                                <li><a href="#!login">Đăng xuất</a></li>
+                                                <li ng-hide="isAuthed()" style="background-color: #e0ffe5;"><a
+                                                        style="color: #000;">Xin chào, <b>Khách</b></a></li>
+                                                <li ng-hide="isAuthed()"><a href="#!login">Đăng nhập</a></li>
+                                                <li ng-hide="isAuthed()"><a href="#!register">Đăng ký</a></li>
+                                                <li ng-hide="isAuthed()"><a href="#!forgot-password">Quên mật khẩu?</a>
+                                                </li>
+                                                <li ng-show="isAuthed()" style="background-color: #e0ffe5;"><a
+                                                        style="color: #000;">Xin chào, <b>Duy</b></a></li>
+                                                <li ng-show="isAuthed()"><a href="/admin">Bảng quản trị</a></li>
+                                                <li ng-show="isAuthed()"><a href="#!my-account">Tài khoản</a></li>
+                                                <li ng-show="isAuthed()"><a href="javascript:void(0);"
+                                                        ng-click="logout()">Đăng xuất</a></li>
                                             </ul>
                                         </li>
                                     </ul>
