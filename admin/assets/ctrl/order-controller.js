@@ -1,9 +1,9 @@
 app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
 <<<<<<< HEAD
-    var url = "https://nghienteam.studio/api/order";
-    var urlOrderApproval = "https://nghienteam.studio/api/order/approval/1";
-    var urlOrderDetail = "https://nghienteam.studio/api/orderdetail";
-    var url2 = "https://nghienteam.studio/api/upload/images";
+    var url = "http://localhost:8080/api/order";
+    var urlOrderApproval = "http://localhost:8080/api/order/approval/1";
+    var urlOrderDetail = "http://localhost:8080/api/orderdetail";
+    var url2 = "http://localhost:8080/api/upload/images";
 =======
     var url = "https://nghienteam.studio/api/order";
     var urlOrderDetail = "https://nghienteam.studio/api/orderdetail";

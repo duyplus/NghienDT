@@ -3,7 +3,7 @@ const app = angular.module("myApp", [
     "ui.bootstrap",
     "slickCarousel"
 ]);
-app.config(function ($routeProvider, $httpProvider) {
+app.config(function ($routeProvider, $httpProvider, $qProvider) {
     // route
     $routeProvider
         .when("/", {
@@ -63,6 +63,8 @@ app.config(function ($routeProvider, $httpProvider) {
         });
 
     $httpProvider.interceptors.push("authInterceptor");
+    $qProvider.errorOnUnhandledRejections(false);
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
 app.constant("HOST", "https://nghienteam.studio");
