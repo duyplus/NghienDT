@@ -4,7 +4,7 @@
             <div class="page-title-box">
                 <div class="row">
                     <div class="col">
-                        <h4 class="page-title">Danh sách đơn hàng</h4>
+                        <h4 class="page-title">Xét duyệt đơn hànng</h4>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">Trang chủ</li>
                             <li class="breadcrumb-item">Đơn hàng</li>
@@ -41,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in filteredItems | filter:search">
+                            <tr ng-repeat="item in filteredItemsApproval | filter : search ">
                                 <td >{{item.id}}</td>
                                 <td>{{item.user.username}}</td>
                                 <td>

@@ -1,4 +1,4 @@
-app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService) {
+app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService, moment) {
     var url = "http://localhost:8080/api/product";
     var urlcate = "http://localhost:8080/api/category";
     var urlcompany = "http://localhost:8080/api/company";
@@ -97,8 +97,8 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //them sp moi
     $scope.create = function () {
-        $scope.productdata.createdAt = new Date().toJSON();
-        $scope.productdata.updatedAt = new Date().toJSON();
+        $scope.productdata.createdAt = moment().format('YYYY-MM-DD HH:mm');
+        $scope.productdata.updatedAt =  moment().format('YYYY-MM-DD HH:mm');
         $scope.productdata.image = "null.png";
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
         $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];

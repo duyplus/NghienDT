@@ -1,10 +1,11 @@
 app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
     var url = "http://localhost:8080/api/order";
+    var urlOrderApproval = "http://localhost:8080/api/order/approval/1";
     var urlOrderDetail = "http://localhost:8080/api/orderdetail";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
     $scope.orderdata = orderService.get();
-
+    $scope.itemsApproval= [];
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -23,22 +24,26 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
         });
     }
 
-    // Dropify
-    $('.dropify').dropify();
-    var drEvent = $('.dropify-event').dropify();
-    drEvent.on('dropify.beforeClear', function (event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    //load data order approval
+    $http.get(urlOrderApproval).then(resp => {
+        $scope.itemsApproval = resp.data;
+        // paginate
+        $scope.curPage = 1;
+        $scope.itemsPerPage = 10;
+        $scope.maxSize = 5;
+        this.items = $scope.itemsApproval;
+        $scope.numOfPages = function () {
+            return Math.ceil($scope.itemsApproval.length / $scope.itemsPerPage);
+        };
+        $scope.$watch('curPage + numPerPage', function () {
+            var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
+            var end = begin + $scope.itemsPerPage;
+            $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
+        });
     });
-    drEvent.on('dropify.afterClear', function (event, element) {
-        sweetalert("File deleted!");
-    });
-    drEvent.on('dropify.errors', function (event, element) {
-        sweetalert_error("Has Errors!");
-    });
-   
 
     //load data order
-    $http.get(url).then(resp => {
+    $http.get(urlOrderApproval).then(resp => {
         $scope.items = resp.data;
         // paginate
         $scope.curPage = 1;
@@ -54,6 +59,7 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
             $scope.filteredItems = $scope.items.slice(begin, end);
         });
     });
+
     
     //xoa form
     $scope.reset = function () {
@@ -61,7 +67,7 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
     }
 
     //hien thi len form
-    $scope.edit = function (item) {
+    $scope.detail = function (item) {
         orderService.set(item);
     }
 
