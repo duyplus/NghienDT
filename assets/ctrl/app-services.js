@@ -14,10 +14,6 @@ app.factory("myService", function () {
     };
 });
 
-<<<<<<< HEAD
-app.factory("$utility", ($window, $http, $routeParams) => {
-    return {
-=======
 app.factory("authInterceptor", function (HOST, authService) {
     return {
         request: function (config) {
@@ -87,7 +83,6 @@ app.service("userService", function ($http, HOST) {
 
 app.factory("$utility", ($window, $http, $routeParams, HOST) => {
     return {
->>>>>>> 7515d3203b25b8e637141adc474757ddf4a1622c
         get $http() {
             return $http;
         },
@@ -225,21 +220,11 @@ app.factory("$utility", ($window, $http, $routeParams, HOST) => {
             return new UrlService();
         },
         get $serverUrl() {
-<<<<<<< HEAD
-            const api = "http://localhost:8080/api";
-            const api1 = "http://localhost:8080";
-            const categoriesUrl = `${api}/category`;
-            const productsUrl = `${api}/product`;
-            const usersUrl = `${api}/user`;
-            const forgotPasswordUrl = `${api1}/auth/forgot-password`;
-            const resetPasswordUrl = `${api1}/auth/reset-password`;
-=======
             const categoriesUrl = `${HOST}/api/category`;
             const productsUrl = `${HOST}/api/product`;
             const usersUrl = `${HOST}/api/user`;
             const forgotPasswordUrl = `${HOST}/auth/forgot-password`;
             const resetPasswordUrl = `${HOST}/auth/reset-password`;
->>>>>>> 7515d3203b25b8e637141adc474757ddf4a1622c
             return {
                 apiUrls: {
                     categories: categoriesUrl,
