@@ -257,13 +257,9 @@ app.factory("$utility", ($window, $http, $routeParams, HOST) => {
             return {
                 fetch($scope, { name, url }) {
                     if (!url) url = apiUrls[name];
-                    console.log(`fetch ${name} data from: ${url}`);
-                    $http
-                        .get(url)
-                        .then((resp) => {
-                            $scope[name] = resp.data;
-                        })
-                        .catch((err) => console.log(err));
+                    $http.get(url).then((resp) => {
+                        $scope[name] = resp.data;
+                    }).catch((err) => console.log(err));
                 },
             };
         },

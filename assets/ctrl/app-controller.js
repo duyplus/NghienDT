@@ -1,73 +1,26 @@
-const app = angular.module("myApp", [
-    "ngRoute",
-    "ui.bootstrap",
-    "slickCarousel"
-]);
+const app = angular.module("myApp", ["ngRoute", "ui.bootstrap", "slickCarousel"]);
 app.config(function ($routeProvider, $httpProvider, $qProvider) {
-    // route
-    $routeProvider
-        .when("/", {
-            templateUrl: "pages/home.html",
-            controller: "home-ctrl",
-        })
-        .when("/shop", {
-            templateUrl: "pages/shop.html",
-            controller: "shop-ctrl",
-        })
-        .when("/product", {
-            templateUrl: "pages/product.html",
-            controller: "product-ctrl",
-        })
-        .when("/wishlist", {
-            templateUrl: "pages/wishlist.html",
-            controller: "wishlist-ctrl",
-        })
-        .when("/cart", {
-            templateUrl: "pages/cart.html",
-            controller: "cart-ctrl",
-        })
-        .when("/checkout", {
-            templateUrl: "pages/checkout.html",
-            controller: "checkout-ctrl",
-        })
-
-        .when("/my-account", {
-            templateUrl: "pages/my-account.html",
-            controller: "user-ctrl",
-        })
-        .when("/forgot-password", {
-            templateUrl: "pages/forgot-password.html",
-            controller: "user-ctrl",
-        })
-        .when("/reset-password", {
-            templateUrl: "pages/reset-password.html",
-            controller: "reset-password-ctrl",
-        })
-        .when("/register", {
-            templateUrl: "pages/register.html",
-            controller: "user-ctrl",
-        })
-        .when("/login", {
-            templateUrl: "pages/login.html",
-            controller: "user-ctrl",
-        })
-
-        .when("/contact-us", {
-            templateUrl: "pages/contact-us.html",
-        })
-        .when("/404", {
-            templateUrl: "pages/404.html",
-        })
-        .otherwise({
-            redirectTo: "/",
-        });
-
     $httpProvider.interceptors.push("authInterceptor");
     $qProvider.errorOnUnhandledRejections(false);
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    $routeProvider
+        .when("/", { templateUrl: "pages/home.html", controller: "home-ctrl" })
+        .when("/shop", { templateUrl: "pages/shop.html", controller: "shop-ctrl" })
+        .when("/product", { templateUrl: "pages/product.html", controller: "product-ctrl" })
+        .when("/wishlist", { templateUrl: "pages/wishlist.html", controller: "wishlist-ctrl" })
+        .when("/cart", { templateUrl: "pages/cart.html", controller: "cart-ctrl" })
+        .when("/checkout", { templateUrl: "pages/checkout.html", controller: "checkout-ctrl" })
+        .when("/my-account", { templateUrl: "pages/my-account.html", controller: "user-ctrl" })
+        .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
+        .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "reset-password-ctrl" })
+        .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
+        .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
+        .when("/contact-us", { templateUrl: "pages/contact-us.html" })
+        .when("/404", { templateUrl: "pages/404.html" })
+        .otherwise({ redirectTo: "/", });
 });
 
-app.constant("HOST", "https://nghienteam.studio");
+app.constant("HOST", "http://localhost:8080");
 
 app.directive("convertDate", function () {
     return {
