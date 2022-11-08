@@ -1,7 +1,7 @@
 app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $filter, reviewService) {
-    var url = "https://nghienteam.studio/api/review";
-    var urlorder = "https://nghienteam.studio/api/orderdetail";
-    var url2 = "https://nghienteam.studio/api/upload/images";
+    var url = "http://localhost:8080/api/review";
+    var urlorder = "http://localhost:8080/api/orderdetail";
+    var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
     $scope.reviewdata = reviewService.get();
 

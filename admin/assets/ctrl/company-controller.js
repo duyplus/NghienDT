@@ -1,6 +1,6 @@
 app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, companyService) {
-    var url = "https://nghienteam.studio/api/company";
-    var url2 = "https://nghienteam.studio/api/upload/images";
+    var url = "http://localhost:8080/api/company";
+    var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
     $scope.companydata = companyService.get();
 

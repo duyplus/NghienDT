@@ -1,9 +1,9 @@
 app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService) {
-    var url = "https://nghienteam.studio/api/product";
-    var urlcate = "https://nghienteam.studio/api/category";
-    var urlcompany = "https://nghienteam.studio/api/company";
-    var urluser = "https://nghienteam.studio/api/user";
-    var url2 = "https://nghienteam.studio/api/upload/images";
+    var url = "http://localhost:8080/api/product";
+    var urlcate = "http://localhost:8080/api/category";
+    var urlcompany = "http://localhost:8080/api/company";
+    var urluser = "http://localhost:8080/api/user";
+    var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
     $scope.cate = [];
     $scope.user = [];

@@ -1,6 +1,6 @@
 app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $filter, userService) {
-    var url = "https://nghienteam.studio/api/user";
-    var url2 = "https://nghienteam.studio/api/upload/images";
+    var url = "http://localhost:8080/api/user";
+    var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
     $scope.userdata = userService.get();
 
