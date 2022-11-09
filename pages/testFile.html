@@ -27,6 +27,32 @@
         <div id="myDIV">
             <span>Hinh anh:</span>
         </div>
+        <div>
+            <table>
+                <tr>
+                    <th>STT</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="item in items">
+                    <td>{{item.stt}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.image}}</td>
+                    <td>
+                        <button ng-click="edit($index)">Edit</button>
+                    </td>
+                </tr>
+            </table>
+            <input type="text" ng-model="imgdata1.stt" disabled>
+            <input type="text" ng-model="imgdata1.name">
+            <input type="text" ng-model="imgdata1.image" id="imgs">
+            <div>
+                <button ng-click="create()">Create</button>
+                <button ng-click="update()">Update</button>
+                <button ng-click="delete()">Delete</button>
+            </div>
+        </div>
     </div>
     <script src="file-ctrl.js"></script>
 </body>
