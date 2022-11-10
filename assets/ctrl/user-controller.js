@@ -24,4 +24,18 @@ app.controller('user-ctrl', function ($scope, $http, $location) {
             console.log("Error", error);
         });
     }
+
+    $scope.btnEdit = () => {
+        var btn = document.getElementById("add-tab")
+        btn.className = "nav-link actice";
+        alert(btn.className)
+        var tab = document.getElementById("add")
+        tab.className = "tab-pane fade show actice";
+        alert(tab.className)
+    }
+    $("#tabs").tabs();
+    $("#btnEdit").click(function () {
+        // $("#tabs").tabs("option", " show active", $("#tabs").tabs('option', ' show active'));
+        $(".dashboard-list button:eq(0)").tab('show');
+    });
 });
