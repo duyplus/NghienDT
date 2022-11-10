@@ -33,7 +33,13 @@ app.controller('user-ctrl', function ($scope, $http, $location) {
         tab.className = "tab-pane fade show actice";
         alert(tab.className)
     }
-    $("#btnEdit").click(() => {
-        
+    
+    $("#btnEdit").click(()=> {
+        $("#add").attr("class", "tab-pane fade show active")
+        $("#dashboard").attr("class", "tab-pane fade")
+        $("#add-tab").attr("class", "nav-link active")
+        $("#dashboard-tab").attr("class", "nav-link")
+        $("#add-tab").attr("aria-selected", "true")
+        $("#dashboard-tab").attr("aria-selected", "false")
     })
 });
