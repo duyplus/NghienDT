@@ -65,9 +65,9 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
 
     //them sp moi
     $scope.create = function () {
-        $scope.userdata.createdat = new Date().toJSON();
-        $scope.userdata.updatedat = new Date().toJSON();
-        // $scope.userdata.image = "avt.png";
+        var datetime = new Date();
+        $scope.userdata.createdat = moment(datetime).format("YYYY-MM-DD HH:mm");
+        $scope.userdata.updatedat = moment(datetime).format("YYYY-MM-DD HH:mm");
         $scope.userdata.token = "null";
         var item = angular.copy($scope.userdata);
         $http.post(`${url}`, item).then(resp => {
@@ -83,7 +83,8 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
 
     //cap nhat sp
     $scope.update = function () {
-        $scope.userdata.updatedat = new Date().toJSON();
+        var datetime = new Date();
+        $scope.userdata.updatedat = moment(datetime).format("YYYY-MM-DD HH:mm");
         var item = angular.copy($scope.userdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);

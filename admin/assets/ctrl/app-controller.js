@@ -25,7 +25,7 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/statistic", { templateUrl: "admin/pages/statistic.html", controller: "statistic-ctrl" })
         .when("/setting", { templateUrl: "admin/pages/setting.html", controller: "setting-ctrl" })
 
-        .when('/', { templateUrl: 'admin/pages/dashboard.html', controller: "dashboard-ctrl"})
+        .when('/', { templateUrl: 'admin/pages/dashboard.html', controller: "dashboard-ctrl" })
         .when("/login", { templateUrl: "admin/pages/login.html" })
         .when("/404", { templateUrl: "admin/pages/404.html" })
         .otherwise({ redirectTo: '/' });
@@ -47,19 +47,19 @@ app.directive('convertDate', function () {
     }
 });
 
-app.directive('stringToNumber', function() {
+app.directive('stringToNumber', function () {
     return {
-      require: 'ngModel',
-      link: function(scope, element, attrs, ngModel) {
-        ngModel.$parsers.push(function(value) {
-          return '' + value;
-        });
-        ngModel.$formatters.push(function(value) {
-          return parseFloat(value);
-        });
-      }
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            ngModel.$parsers.push(function (value) {
+                return '' + value;
+            });
+            ngModel.$formatters.push(function (value) {
+                return parseFloat(value);
+            });
+        }
     };
-  });
+});
 
 app.factory('userService', function () {
     var savedData = {}
