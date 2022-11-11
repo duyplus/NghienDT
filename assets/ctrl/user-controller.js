@@ -12,7 +12,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $http.get(HOST + "/api/user").then((resp) => {
         $scope.items = resp.data;
-        $scope.userdata = $scope.items[$scope.id];
     });
 
     function handleRequest(res) {
