@@ -97,8 +97,8 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //them sp moi
     $scope.create = function () {
-        $scope.productdata.createdAt = moment().format('YYYY-MM-DD HH:mm');
-        $scope.productdata.updatedAt =  moment().format('YYYY-MM-DD HH:mm');
+        $scope.productdata.createdAt = new Date().toJSON();
+        $scope.productdata.updatedAt =  new Date().toJSON();
         $scope.productdata.image = "null.png";
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
         $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];

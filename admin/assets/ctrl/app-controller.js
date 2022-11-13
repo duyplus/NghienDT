@@ -55,7 +55,7 @@ app.directive('stringToNumber', function () {
                 return '' + value;
             });
             ngModel.$formatters.push(function (value) {
-                return parseFloat(value);
+                return parseInt(value);
             });
         }
     };

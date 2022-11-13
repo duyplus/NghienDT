@@ -1,11 +1,14 @@
 app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
     var url = "http://localhost:8080/api/order";
-    var urlOrderApproval = "http://localhost:8080/api/order/approval/1";
+    var urlOrderApproval = "http://localhost:8080/api/orderdetail/approval";
     var urlOrderDetail = "http://localhost:8080/api/orderdetail";
     var url2 = "http://localhost:8080/api/upload/images";
     $scope.items = [];
+    $scope.status = '1';
     $scope.orderdata = orderService.get();
-    $scope.itemsApproval= [];
+    $scope.itemsApproval = [];
+    $scope.itemsApproval = []
+    $scope.isRowCollapsed=true;
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -24,8 +27,8 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
         });
     }
 
-    //load data order approval
-    $http.get(url).then(resp => {
+    $scope.loadOrderApproval = function () {
+    $http.get(`${urlOrderApproval}/${$scope.status}`).then(resp => {
         $scope.itemsApproval = resp.data;
         // paginate
         $scope.curPage = 1;
@@ -41,9 +44,19 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
             $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
         });
     });
+    }
+    //load order by status
+    $scope.loadOrderbyStatus = function () {
+        $scope.loadOrderApproval();
+    }
+
+    //load order detail
+    $http.get(urlOrderDetail).then(resp => {
+        $scope.itemDetail = resp.data;
+    });
 
     //load data order
-    $http.get(urlOrderApproval).then(resp => {
+    $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
         $scope.curPage = 1;
@@ -150,5 +163,17 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
     })
     function exportExcelFile(workbook) {
         return XLSX.writeFile(workbook, "order_List.xlsx");
+    }
+})
+.directive('dir', function() {
+    return {
+        link: function(scope, elem, attrs) {
+            $(elem).on('click', function() {
+               $(this)
+               .parent('tr')
+               .next('tr')
+               .toggle();
+            })   
+        }
     }
 });
