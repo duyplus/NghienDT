@@ -32,7 +32,7 @@
                     <table id="table" class="table table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th class="d-none">Mã hãng</th>
+                                <th>ID</th>
                                 <th>Tên hãng</th>
                                 <th>Hình ảnh</th>
                                 <th>Tuỳ chọn</th>
@@ -40,7 +40,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in filteredItems | filter:search">
-                                <td class="d-none">{{item.id}}</td>
+                                <td>{{item.id}}</td>
                                 <td>{{item.name}}</td>
                                 <td>{{item.logo}}</td>
                                 <td>
