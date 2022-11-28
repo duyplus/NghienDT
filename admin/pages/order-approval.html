@@ -47,10 +47,10 @@
                                 <th>Số lượng</th>
                                 <th>Thành tiền</th>
                                 <th>Trạng thái</th>
-                                <th>Tuỳ chọn</th>
+                                <th ng-show="status == 1">Tuỳ chọn</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="item in filteredItemsApproval | filter : search">
+                        <tbody ng-repeat="item in filteredItemsApproval track by $index ">
                             <tr>
                                 <td class="d-none">{{item.id}}</td>
                                 <td><i class="las la-folder-plus text-success" style=" font-size : 24px;" ng-click="isRowCollapsed=!isRowCollapsed"></i></td>
@@ -63,19 +63,18 @@
                                     <span class="badge badge-soft-danger px-2" ng-if="item.status == 3">Đã hủy</span>
                                     <span class="badge badge-soft-success px-2" ng-if="item.status == 4">Đã hoàn thành</span>
                                 </td>
-                                <td>
-                                    <a href="admin/#!/orderdetail" ng-click="detail(item)">
-                                        <i class="las la-pen text-info"></i>
-                                    </a>
+                                <td ng-show="item.status == 1">
+                                    <input type="checkbox" id="{{item.id}}" ng-model="selectedList[item.id]"/>
+                                    <label for="{{item.id}}">{{item.id}}</label>
                                 </td>
                             </tr>
                             <tr ng-hide="isRowCollapsed">
                                 <td class="bg-warning">Đơn hàng</td>
                                 <td >ID: {{item.order.id}}</td>
                                 <td>Người đặt: {{item.order.user.username}}</td>
-                                <td>Ngày đặt: {{item.order.createdat | date: 'HH:mm - dd/MM/yyyy'}}</td>
-                                <td>Cập nhật: {{item.order.updatedat | date: 'HH:mm - dd/MM/yyyy'}}</td>
-                                <td>
+                                <td>Ngày đặt: {{item.order.createdat}}</td>
+                                <td>Cập nhật: {{item.order.updatedat}}</td>
+                                <td ng-show="item.status == 1">
                                     <a href="admin/#!/orderdetail" ng-click="detail(item)">
                                         <i class="las la-pen text-info"></i>
                                     </a>
@@ -89,6 +88,11 @@
                         </div>
                         <div class="col-sm-6 pagination-sm" uib-pagination total-items="items.length" max-size="maxSize"
                             ng-model="curPage" rotate="false"></div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button ng-click="submit()" class="btn btn-success">
+                            <i class="far fa-save"></i> Update
+                        </button>
                     </div>
                 </div>
             </div>

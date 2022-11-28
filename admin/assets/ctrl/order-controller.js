@@ -1,4 +1,4 @@
-app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
+app.controller("order-ctrl", function ($scope,$timeout, $location, $http, $route, orderService) {
     var url = "http://localhost:8080/api/order";
     var urlOrderApproval = "http://localhost:8080/api/orderdetail/approval";
     var urlOrderDetail = "http://localhost:8080/api/orderdetail";
@@ -7,8 +7,10 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
     $scope.status = '1';
     $scope.orderdata = orderService.get();
     $scope.itemsApproval = [];
-    $scope.itemsApproval = []
     $scope.isRowCollapsed=true;
+
+    $scope.selectedList = {};
+    $scope.itemSelected = {};
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -73,6 +75,23 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
         });
     });
 
+    //Duyệt đơn
+    $scope.submit = function () {
+        angular.forEach($scope.selectedList, function (selected, itemid) {
+            if (selected) {
+                $http.get(`${urlOrderDetail}/${itemid}`).then(resp => {
+                    $scope.itemSelected = resp.data;
+                    var item = $scope.itemSelected;
+                    item.status = 2;
+                    $http.put(`${urlOrderDetail}/${itemid}`, item).then(resp => {
+                        sweetalert_success("Cập nhật sản phẩm thành công!");
+                        $timeout($route.reload, 2000);
+                    })
+                })
+            }
+        });
+        
+    };
     
     //xoa form
     $scope.reset = function () {
