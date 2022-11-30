@@ -12,7 +12,6 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/product-form", { templateUrl: "admin/pages/product-form.html", controller: "product-ctrl" })
 
         .when("/order-approval", { templateUrl: "admin/pages/order-approval.html", controller: "order-ctrl" })
-        .when("/order-cancel", { templateUrl: "admin/pages/order-cancel.html", controller: "order-ctrl" })
         .when("/order-list", { templateUrl: "admin/pages/order-list.html", controller: "order-ctrl" })
         .when("/orderdetail", { templateUrl: "admin/pages/orderdetail.html", controller: "order-ctrl" })
 
