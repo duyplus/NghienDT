@@ -132,10 +132,10 @@
                                                 </td>
                                                 <td class="cart-info">
                                                     <a class="text-reset" href="#!product">{{item.name}}</a>
-                                                    <span>{{item.quantity}} x</span> {{item.price}} vnđ
+                                                    <span>{{item.quantity}} x</span> {{item.price}}₫
                                                 </td>
                                                 <td class="text-end">
-                                                    <div class="del-icon btn" ng-click="removeCartItem(item)">
+                                                    <div class="del-icon btn p-0" ng-click="removeCartItem(item)">
                                                         <i class="fa fa-times-circle"></i>
                                                     </div>
                                                 </td>
@@ -143,8 +143,9 @@
                                         </li>
                                         <li>
                                             <div class="subtotal-text">Tổng:</div>
-                                            <div class="subtotal-price"><span class="text-danger">{{cart.total}}
-                                                    vnđ</span></div>
+                                            <div class="subtotal-price">
+                                                <span class="text-danger">{{cart.total}}₫</span>
+                                            </div>
                                         </li>
                                         <li class="mt-30">
                                             <a class="cart-button" href="#!cart">Xem giỏ hàng</a>
@@ -190,22 +191,6 @@
                                                         <li><a href="#!shop">Mirrorless Cameras</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="cat-mega-title">
-                                                    <ul>
-                                                        <li><a href="#!shop">DSLR Cameras</a></li>
-                                                        <li><a href="#!shop">Lense Camera</a></li>
-                                                        <li><a href="#!shop">Digital Cameras</a></li>
-                                                        <li><a href="#!shop">Mirrorless Cameras</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="cat-mega-title">
-                                                    <ul>
-                                                        <li><a href="#!shop">DSLR Cameras</a></li>
-                                                        <li><a href="#!shop">Lense Camera</a></li>
-                                                        <li><a href="#!shop">Digital Cameras</a></li>
-                                                        <li><a href="#!shop">Mirrorless Cameras</a></li>
-                                                    </ul>
-                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -222,20 +207,26 @@
                                         </li>
                                         <li><a href="#!contact-us">Liên hệ</a></li>
                                         <li>
-                                            <a href="#">Tài khoản<span class="lnr lnr-chevron-down"></span></a>
+                                            <a href="#" onclick="return false;">Tài khoản<span
+                                                    class="lnr lnr-chevron-down"></span></a>
                                             <ul class="dropdown">
-                                                <li ng-hide="isAuthed()" style="background-color: #e0ffe5;"><a
-                                                        style="color: #000;">Xin chào, <b>Khách</b></a></li>
-                                                <li ng-hide="isAuthed()"><a href="#!login">Đăng nhập</a></li>
-                                                <li ng-hide="isAuthed()"><a href="#!register">Đăng ký</a></li>
-                                                <li ng-hide="isAuthed()"><a href="#!forgot-password">Quên mật khẩu?</a>
-                                                </li>
-                                                <li ng-show="isAuthed()" style="background-color: #e0ffe5;"><a
-                                                        style="color: #000;">Xin chào, <b>Duy</b></a></li>
-                                                <li ng-show="isAuthed()"><a href="/admin">Bảng quản trị</a></li>
-                                                <li ng-show="isAuthed()"><a href="#!my-account">Tài khoản</a></li>
-                                                <li ng-show="isAuthed()"><a href="javascript:void(0);"
-                                                        ng-click="logout()">Đăng xuất</a></li>
+                                                <span ng-hide="isAuthed()">
+                                                    <li style="background-color: #e0ffe5;"><a style="color: #000;">Xin
+                                                            chào, <b>Khách</b></a></li>
+                                                    <li><a href="#!login">Đăng nhập</a></li>
+                                                    <li><a href="#!register">Đăng ký</a></li>
+                                                    <li><a href="#!forgot-password">Quên mật
+                                                            khẩu?</a>
+                                                    </li>
+                                                </span>
+                                                <span ng-show="isAuthed()">
+                                                    <li style="background-color: #e0ffe5;"><a style="color: #000;">Xin
+                                                            chào, <b>Duy</b></a></li>
+                                                    <li><a href="/admin">Bảng quản trị</a></li>
+                                                    <li><a href="#!my-account">Tài khoản</a></li>
+                                                    <li><a href="" ng-click="logout()">Đăng xuất</a>
+                                                    </li>
+                                                </span>
                                             </ul>
                                         </li>
                                     </ul>

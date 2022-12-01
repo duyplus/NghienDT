@@ -35,11 +35,11 @@
                                 <th class="d-none">Mã SP</th>
                                 <th>Tên SP</th>
                                 <th>Giá bán</th>
-                                <th>Có sẵn</th>
                                 <th>Danh mục</th>
                                 <th>Hãng</th>
+                                <th>Giảm giá</th>
                                 <th>Người bán</th>
-                                <th>Discount</th>
+                                <th>Có sẵn</th>
                                 <th>Đăng lúc</th>
                                 <th>Cập nhật lúc</th>
                                 <th>Tuỳ chọn</th>
@@ -50,18 +50,18 @@
                                 <td class="d-none">{{item.id}}</td>
                                 <td>{{item.name}}</td>
                                 <td>{{item.price}}</td>
-                                <td>
-                                    <span class="badge badge-soft-warning px-2" ng-if="item.available == true">Còn
-                                        hàng</span>
-                                    <span class="badge badge-soft-primary px-2" ng-if="item.available != true">Hết
-                                        hàng</span>
-                                </td>
                                 <td>{{item.category.name}}</td>
                                 <td>{{item.company.name}}</td>
+                                <td class="text-warning">{{item.discount}}%</td>
                                 <td>{{item.user.username}}</td>
-                                <td>{{item.discount}}</td>
-                                <td>{{item.createdAt | date: 'HH:mm - dd/MM/yyyy'}}</td>
-                                <td>{{item.updatedAt | date: 'HH:mm - dd/MM/yyyy'}}</td>
+                                <td>
+                                    <span class="badge badge-soft-primary px-2" ng-if="item.available == true">Còn
+                                        hàng</span>
+                                    <span class="badge badge-soft-secondary px-2" ng-if="item.available != true">Hết
+                                        hàng</span>
+                                </td>
+                                <td>{{item.createdAt}}</td>
+                                <td>{{item.updatedAt}}</td>
                                 <td>
                                     <a href="admin/#!/product-form" ng-click="edit(item)">
                                         <i class="las la-pen text-info"></i>

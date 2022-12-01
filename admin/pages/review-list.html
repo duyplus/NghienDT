@@ -32,23 +32,28 @@
                     <table id="table" class="table table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th class="d-none">Mã ID</th>
-                                <th>Đơn hàng</th>
+                                <th>ID</th>
                                 <th>Nội dung</th>
                                 <th>Điểm số</th>
                                 <th>Trạng thái</th>
                                 <th>Đăng lúc</th>
+                                <th>Mã đơn hàng</th>
                                 <th>Tuỳ chọn</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in filteredItems | filter:search">
-                                <td class="d-none">{{item.id}}</td>
-                                <td>{{item.orderDetail.id}}</td>
+                                <td>{{item.id}}</td>
                                 <td>{{item.content}}</td>
                                 <td>{{item.mark}}</td>
-                                <td>{{item.enable}}</td>
-                                <td>{{item.createdAt | date: 'HH:mm - dd/MM/yyyy'}}</td>
+                                <td>
+                                    <span class="badge badge-soft-primary px-2" ng-if="item.enable == true">Đã
+                                        duyệt</span>
+                                    <span class="badge badge-soft-secondary px-2" ng-if="item.enable != true">Chưa
+                                        duyệt</span>
+                                </td>
+                                <td>{{item.createdAt}}</td>
+                                <td>{{item.orderDetail.id}}</td>
                                 <td>
                                     <a href="admin/#!/review-form" ng-click="edit(item)">
                                         <i class="las la-pen text-info"></i>

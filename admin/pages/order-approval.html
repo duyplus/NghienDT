@@ -16,111 +16,88 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            
-            <div class="container">
-              <br>
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item mr-3">
-                  <a href="#" class="nav-link text-warning active" data-toggle="tab" data-target="#l1">Chờ xét duyệt</a>
-                </li>
-                <li class="nav-item mr-3">
-                  <a href="#" class="nav-link text-primary" data-toggle="tab" data-target="#d1">Đang xử lí</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link text-success" data-toggle="tab" data-target="#m1">Đã hoàn thành</a>
-                </li>
-              </ul>
-            
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <!----------------------------- Tab 1 ------------------------------>
-                <div id="l1" class="container tab-pane card active"><br>
-                    
-                        <div class="card-body table-responsive">
-                            <div class="row my-3">
-                                <div class="col-sm-6 form-inline justify-content-start">
-                                    <label class="pr-2">Tìm kiếm:</label>
-                                    <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
-                                </div>
-                                <div class="col-sm-6 form-inline justify-content-end">
-                                    <button type="button" class="btn btn-sm btn-secondary" id="saveAsExcel">
-                                        <i class="fa-regular fa-file-export"></i> Excel
-                                    </button>
-                                </div>
-                            </div>
-                            <table id="table" class="table table-bordered dt-responsive nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>ID đơn hàng</th>
-                                        <th>Người đặt</th>
-                                        <th>Trạng thái</th>
-                                        <th>Đặt ngày</th>
-                                        <th>Cập nhật ngày</th>
-                                        <th>Tuỳ chọn</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in filteredItemsApproval | filter : search ">
-                                        <td >{{item.id}}</td>
-                                        <td>{{item.user.username}}</td>
-                                        <td>
-                                            <span class="badge badge-soft-warning px-2" ng-if="item.status == 1">Chờ xét duyệt</span>
-                                            <span class="badge badge-soft-primary px-2" ng-if="item.status == 2">Đang xử lí</span>
-                                            <span class="badge badge-soft-danger px-2" ng-if="item.status == 3">Đã hủy</span>
-                                            <span class="badge badge-soft-success px-2" ng-if="item.status == 4">Đã hoàn thành</span>
-                                        </td>
-                                        <td>{{item.createdat | date: 'HH:mm - dd/MM/yyyy'}}</td>
-                                        <td>{{item.updatedat | date: 'HH:mm - dd/MM/yyyy'}}</td>
-                                        <td>
-                                            <a href="admin/#!/orderdetail" ng-click="detail(item)">
-                                                <i class="las la-pen text-info"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col-sm-6 ">Đang xem <b>{{curPage}}</b> đến <b>{{itemsPerPage}}</b> trong tổng số
-                                    <b>{{items.length}}</b> mục
-                                </div>
-                                <div class="col-sm-6 pagination-sm" uib-pagination total-items="items.length" max-size="maxSize"
-                                    ng-model="curPage" rotate="false"></div>
-                            </div>
+            <div class="card">
+                <div class="card-body table-responsive">
+                    <div class="row my-3">
+                        <div class="col-sm-4 form-inline justify-content-start">
+                            <button ng-click="submit(2)" class="btn btn-lg btn-success" ng-show="status == 1">
+                                <i class="fas fa-check"></i> Duyệt
+                            </button>
+                            <button ng-click="submit(3)" class="btn btn-lg btn-danger ml-2" ng-show="status == 1 || status == 2">
+                                <i class="fas fa-window-close"></i> Hủy
+                            </button>
                         </div>
-                    
+                        <div class="col-sm-4 form-inline">
+                            <label class="pr-2">Trạng thái:</label>
+                            <select class="form-control" ng-model="status" ng-init="loadOrderApproval()" ng-change="loadOrderbyStatus()">
+                                <option value="1" >Đơn chờ duyệt</option>
+                                <option value="2">Đơn đang xử lí</option>
+                                <option value="3">Đơn đã hủy</option>
+                                <option value="4">Đơn đã hoàn thành</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 form-inline justify-content-end">
+                            <button type="button" class="btn btn-sm btn-secondary" id="saveAsExcel">
+                                <i class="fa-regular fa-file-export"></i> Excel
+                            </button>
+                        </div>
+                    </div>
+                    <table id="table" class="table table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th class="d-none">ID Chi tiết</th>
+                                <th>Chi tiết</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th>Trạng thái</th>
+                                <th ng-show="status == 1 || status == 2" style="text-align: center;">Chọn</th>
+                                <th ng-show="status == 3 || status == 4" style="text-align: center;">Ngày cập nhật</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="item in filteredItemsApproval track by $index ">
+                            <tr>
+                                <td class="d-none">{{item.id}}</td>
+                                <td><i class="las la-folder-plus text-success" style=" font-size : 24px;" ng-click="isRowCollapsed=!isRowCollapsed"></i></td>
+                                <td>{{item.product.name}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.price | number:0}} VNĐ</td>
+                                <td>
+                                    <span class="badge badge-soft-warning px-2" ng-if="item.status == 1">Chờ xét duyệt</span>
+                                    <span class="badge badge-soft-primary px-2" ng-if="item.status == 2">Đang xử lí</span>
+                                    <span class="badge badge-soft-danger px-2" ng-if="item.status == 3">Đã hủy</span>
+                                    <span class="badge badge-soft-success px-2" ng-if="item.status == 4">Đã hoàn thành</span>
+                                </td>
+                                <td ng-show="item.status == 1 || item.status ==  2" class="form-inline justify-content-center">
+                                    <input type="checkbox" id="{{item.id}}" ng-model="selectedList[item.id]" style="width: 20px; height: 20px;"/>
+                                </td>
+                                <td ng-show="status == 3 || status == 4" style="text-align: center;">
+                                    {{item.order.updatedat}}
+                                </td>
+                            </tr>
+                            <tr ng-hide="isRowCollapsed">
+                                <td class="bg-warning">Đơn hàng</td>
+                                <td >ID: {{item.order.id}}</td>
+                                <td>Người đặt: {{item.order.user.username}}</td>
+                                <td>Ngày đặt: {{item.order.createdat}}</td>
+                                <td>Cập nhật: {{item.order.updatedat}}</td>
+                                <td class="form-inline justify-content-center">
+                                    <a href="admin/#!/orderdetail" ng-click="detail(item.order)" style="font-size: 20px;">
+                                        <i class="las la-sticky-note text-info"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-6 ">Đang xem <b>{{curPage}}</b> đến <b>{{itemsPerPage}}</b> trong tổng số
+                            <b>{{items.length}}</b> mục
+                        </div>
+                        <div class="col-sm-6 pagination-sm" uib-pagination total-items="items.length" max-size="maxSize"
+                            ng-model="curPage" rotate="false"></div>
+                    </div>
                 </div>
-                <!----------------------------- Tab 2 ------------------------------>
-                <div id="d1" class="container tab-pane fade "><br>
-                  <h3>Dubai Place One</h3>
-                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <!----------------------------- Tab 3 ------------------------------>
-                <div id="m1" class="container tab-pane fade "><br>
-                  <h3>Mumbai Place One</h3>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-              </div>
             </div>
         </div>
     </div>
 </div>
-<!-- <script>
-$(document).on('click','.tab_Multiple a',function (e) {
-	otherTabs2 = $(this).attr('data-one').split(',');
-	for (i = 0; i < otherTabs2.length; i++) {
-		nav = $('<ul class="nav d-none" id="tmp1_tab_Multiple"></ul>');
-		nav.append('<li class="nav-item"><a href="#" data-toggle="tab" data-target="' + otherTabs2[i] + '">nav</a></li>"');
-		nav.find('a').tab('show');
-	}
-	otherTabs3 = $(this).attr('data-two').split(',');
-	for (i = 0; i < otherTabs3.length; i++) {
-		nav = $('<ul class="nav d-none" id="tmp2_tab_Multiple"></ul>');
-		nav.append('<li class="nav-item"><a href="#" data-toggle="tab" data-target="' + otherTabs3[i] + '">nav</a></li>"');
-		nav.find('a').tab('show');
-	}
-});</script> -->

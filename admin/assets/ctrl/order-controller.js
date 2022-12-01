@@ -1,11 +1,19 @@
-app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $filter, orderService) {
+app.controller("order-ctrl", function ($scope,$timeout, $http, $route, orderService,  $location) {
     var url = "http://localhost:8080/api/order";
-    var urlOrderApproval = "http://localhost:8080/api/order/approval/1";
+    var urlOrderApproval = "http://localhost:8080/api/orderdetail/approval";
     var urlOrderDetail = "http://localhost:8080/api/orderdetail";
-    var url2 = "http://localhost:8080/api/upload/images";
-    $scope.items = [];
+    var urlDetailOfOrder = "http://localhost:8080/api/orderdetail/pro"
+
     $scope.orderdata = orderService.get();
-    $scope.itemsApproval= [];
+    $scope.items = [];
+    $scope.itemsApproval = [];
+    $scope.details = [];
+    $scope.selectedList = {};
+    $scope.itemSelected = {};
+    $scope.status = '1';
+    $scope.isRowCollapsed = true;
+
+
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -24,8 +32,9 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
         });
     }
 
-    //load data order approval
-    $http.get(url).then(resp => {
+    //load data order approval - Xử lí đơn hàng
+    $scope.loadOrderApproval = function () {
+    $http.get(`${urlOrderApproval}/${$scope.status}`).then(resp => {
         $scope.itemsApproval = resp.data;
         // paginate
         $scope.curPage = 1;
@@ -41,9 +50,15 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
             $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
         });
     });
+    }
 
-    //load data order
-    $http.get(urlOrderApproval).then(resp => {
+    //load order by status - Xử lí đơn hàng
+    $scope.loadOrderbyStatus = function () {
+        $scope.loadOrderApproval();
+    }
+
+    //load data order - Tất cả đơn hàng
+    $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
         $scope.curPage = 1;
@@ -60,80 +75,45 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
         });
     });
 
-    
-    //xoa form
-    $scope.reset = function () {
-        $scope.orderdata = {};
-    }
+    //Duyệt đơn - Xử lí đơn hàng
+    $scope.submit = function (flag) {
+        angular.forEach($scope.selectedList, function (selected, itemid) {
+            if (selected) {
+                $http.get(`${urlOrderDetail}/${itemid}`).then(resp => {
+                    $scope.itemSelected = resp.data;
+                    var item = $scope.itemSelected;
+                    item.status = flag;
+                    $http.put(`${urlOrderDetail}/${itemid}`, item).then(resp => {
+                        if(flag == 2){
+                            sweetalert_success("Duyệt đơn thành công!");
+                        }else{
+                            sweetalert_success("Hủy đơn thành công!");
+                        }
+                        $timeout($route.reload, 2000);
+                    })
+                })
+            }
+        });
+        
+    };
 
-    //hien thi len form
+    //load detail data - chi tiết đơn hàng
+    $scope.getDetail = function (id) {
+        if(id ==null)
+        {
+            sweetalert_error("Chọn đơn hàng để xem chi tiết!");
+            $location.path('order-list');
+        }else{
+            $http.get(`${urlDetailOfOrder}/${id}`).then(resp => {
+                $scope.details = resp.data;
+            })  
+        }
+    };
+
+    //hien thi len chi tiết - chi tiết đơn hàng
     $scope.detail = function (item) {
         orderService.set(item);
-    }
-
-    //them sp moi
-    $scope.create = function () {
-        $scope.orderdata.createdAt = new Date().toJSON();
-        $scope.orderdata.updatedAt = new Date().toJSON();
-        $scope.orderdata.discount = 12;
-        $scope.orderdata.image = "null.png";
-        $scope.orderdata.Company = $scope.company[$scope.orderdata.Company.id];
-        $scope.orderdata.Category = $scope.cate[$scope.orderdata.Category.id];
-        var item = angular.copy($scope.orderdata);
-        $http.post(`${url}`, item).then(resp => {
-            $scope.items.push(resp.data);
-            $scope.reset();
-            sweetalert_success("Thêm mới thành công!");
-            $location.path('order-list');
-        }).catch(error => {
-            sweetalert_error("Lỗi thêm mới sản phẩm!");
-            console.log("Error", error);
-        });
-    }
-
-    //cap nhat sp
-    $scope.update = function () {
-        $scope.orderdata.updatedat = new Date().toJSON();
-        var item = angular.copy($scope.orderdata);
-        $http.put(`${url}/${item.id}`, item).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
-            $scope.items[index] = item;
-            $scope.reset();
-            sweetalert_success("Cập nhật sản phẩm thành công!");
-            $location.path('order-list');
-        }).catch(error => {
-            sweetalert_error("Lỗi cập nhật sản phẩm!");
-            console.log("Error", error);
-        });
-    }
-
-    //xoa sp
-    $scope.delete = function (item) {
-        $http.delete(`${url}/${$scope.orderdata.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == $scope.orderdata.id);
-            $scope.items.splice(index, 1);
-            $scope.reset();
-            sweetalert_success("Xóa sản phẩm thành công!");
-            $location.path('order-list');
-        }).catch(error => {
-            sweetalert_error("Lỗi xóa sản phẩm!");
-            console.log("Error", error);
-        });
-    }
-
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.orderdata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
+          
     }
 
     // Export xcel
@@ -150,5 +130,17 @@ app.controller("order-ctrl", function ($scope, $rootScope, $location, $http, $fi
     })
     function exportExcelFile(workbook) {
         return XLSX.writeFile(workbook, "order_List.xlsx");
+    }
+})
+.directive('dir', function() {
+    return {
+        link: function(scope, elem, attrs) {
+            $(elem).on('click', function() {
+               $(this)
+               .parent('tr')
+               .next('tr')
+               .toggle();
+            })   
+        }
     }
 });
