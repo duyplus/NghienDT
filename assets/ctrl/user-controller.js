@@ -3,6 +3,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     const { $http, $data, $serverUrl, $message } = $utility;
     $scope.items = [];
     $scope.userdata = {};
+
     $scope.id = "";
     $scope.username = "";
     $scope.password = "";
@@ -10,8 +11,30 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     $scope.phone = "";
     $scope.fullname = "";
 
+    $scope.cates = [];
+    $scope.companys = [];
+    $scope.products = []
+    $scope.product = {};
+    $scope.productByUserId = [];
+
     $http.get(HOST + "/api/user").then((resp) => {
         $scope.items = resp.data;
+    });
+
+    $http.get(HOST + "/api/company").then((resp) => {
+        $scope.companys = resp.data;
+    });
+    $http.get(HOST + "/api/category").then((resp) => {
+        $scope.cates = resp.data;
+    });
+
+    $http.get(HOST + "/api/product").then((resp) => {
+        $scope.products = resp.data;
+        console.log($scope.products)
+    });
+
+    $http.get(HOST + "/api/product/userid/11").then((resp) => {
+        $scope.productByUserId = resp.data;
     });
 
     function handleRequest(res) {
@@ -74,6 +97,44 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             if (status === 500) $scope.email = "";
         });
     };
+
+    $("#btnAddProd").click(() => {
+        // $scope.product.createdAt = moment().format('YYYY-MM-DD HH:mm');
+        // $scope.product.updatedAt = moment().format('YYYY-MM-DD HH:mm');
+        // $scope.product.user = 11;
+        // $scope.product.image = "null.png";
+
+        // var item = angular.copy($scope.product);
+        // $http.post(HOST + "/api/product", item).then(resp => {
+        //     $scope.products.push(resp.data);
+        //     $scope.reset();
+        // }).catch(err => {
+        //     console.log("Error", err)
+        // })
+    })
+
+    $scope.createProd = () => {
+        $scope.product.createdAt = moment().format('YYYY-MM-DD HH:mm');
+        $scope.product.updatedAt = moment().format('YYYY-MM-DD HH:mm');
+        $scope.product.user = 11;
+        $scope.product.image = "null.png";
+        $scope.product.available = true;
+
+        var item = angular.copy($scope.product);
+        $http.post(`${"http://localhost:8080/api/product"}`, item).then(resp => {
+            // $scope.products.push(resp.data);
+            // $scope.reset();
+        }).catch(err => {
+            console.log("Error", err)
+        })
+    }
+
+    // $scope.equa = function(prop, val) {
+    //     return function(item) {
+    //         console.log(item[prop])
+    //         return item[prop] == val;
+    //     }
+    // }
 });
 
 app.controller("reset-password-ctrl", function ($scope, $utility) {
