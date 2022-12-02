@@ -44,7 +44,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         sweetalert_error("Has Errors!");
     });
 
-     
+
 
     //load category
     $http.get(urlcate).then(resp => {
@@ -78,12 +78,12 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     $http.get(urluser).then(resp => {
         $scope.user = resp.data;
     });
-    $scope.findUser = function(){
-        $scope.productdata.user = $scope.user.filter(function(item) {
+    $scope.findUser = function () {
+        $scope.productdata.user = $scope.user.filter(function (item) {
             return item.username === $scope.productdata.user.username;
-          })[0];
+        })[0];
     }
-    
+
     //xoa form
     $scope.reset = function () {
         $scope.productdata = {};
@@ -97,8 +97,8 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
 
     //them sp moi
     $scope.create = function () {
-        $scope.productdata.createdAt = new Date().toJSON();
-        $scope.productdata.updatedAt =  new Date().toJSON();
+        $scope.productdata.createdAt = moment().format('YYYY-MM-DD HH:mm');
+        $scope.productdata.updatedAt = moment().format('YYYY-MM-DD HH:mm');
         $scope.productdata.image = "null.png";
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
         $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];
