@@ -5,13 +5,10 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window) {
     $scope.users = [];
     $scope.orderdetails = [];
     $scope.orders = [];
-    $scope.products = [];
-    $scope.ordercard = [];
 
     $scope.orderdetail = {};
     $scope.order = {};
     $scope.userid = {};
-    $scope.product = {};
 
     $http.get(HOST + "/api/user").then((resp) => {
         $scope.users = resp.data;
@@ -23,10 +20,6 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window) {
 
     $http.get(HOST + "/api/order").then((resp) => {
         $scope.orders = resp.data;
-    });
-
-    $http.get(HOST + "/api/product").then((resp) => {
-        $scope.products = resp.data;
     });
 
     $scope.checkout = async () => {
