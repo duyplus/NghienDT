@@ -503,7 +503,6 @@ app.factory("$cart", ($utility) => {
         }
 
         saveToLocal() {
-            console.log("save to local");
             $local.set(this.#cart_local, this.values);
         }
 

@@ -1,4 +1,4 @@
-app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window) {
+app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, authService) {
     var urlorder = "http://localhost:8080/api/order";
     var urlorderdetail = "http://localhost:8080/api/orderdetail";
 
@@ -9,6 +9,10 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window) {
     $scope.orderdetail = {};
     $scope.order = {};
     $scope.userid = {};
+
+    $scope.isAuthed = function () {
+        return authService.isAuthed ? authService.isAuthed() : false;
+    };
 
     $http.get(HOST + "/api/user").then((resp) => {
         $scope.users = resp.data;

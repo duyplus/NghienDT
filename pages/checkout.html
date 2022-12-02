@@ -15,7 +15,30 @@
     </div>
 </div>
 
-<div class="checkout-wrapper pt-10 pb-70" ng-mousemove="findUserAndProd()">
+<div class="checkout-wrapper pt-10 pb-70" ng-hide="isAuthed()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <main id="primary" class="site-main">
+                    <div class="checkout-area">
+                        <div class="row">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="checkout-form">
+                                    <div class="contact2-title text-center">
+                                        <h3>Vui lòng <a href="#!login">đăng nhập</a> để thực hiện thanh toán hoá đơn
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="checkout-wrapper pt-10 pb-70" ng-mousemove="findUserAndProd()" ng-show="isAuthed()">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -27,51 +50,50 @@
                                     <div class="section-title left-aligned">
                                         <h3>Chi tiết thanh toán</h3>
                                     </div>
-
-                                    <form action="#">
+                                    <form>
                                         <div class="row g-2 mb-3">
                                             <div class="mb-3 col-12 col-sm-12 col-md-12">
-                                                <label for="full_name">Họ và tên <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" ng-model="userid.fullname"
-                                                    id="full_name" required>
+                                                <label>
+                                                    Họ và tên <span class="text-danger">*</span>
+                                                </label>
+                                                <input class="form-control" ng-model="userid.fullname" readonly>
                                             </div>
                                         </div>
                                         <div class="row g-2 mb-3">
                                             <div class="mb-3 col-12 col-sm-12 col-md-6">
-                                                <label for="tel_number">Số điện thoại <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="tel" class="form-control" ng-model="userid.phone"
-                                                    id="tel_number">
+                                                <label>
+                                                    Số điện thoại <span class="text-danger">*</span>
+                                                </label>
+                                                <input class="form-control" ng-model="userid.phone" readonly>
                                             </div>
                                             <div class="mb-3 col-12 col-sm-12 col-md-6">
-                                                <label for="email_address">Email <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="email" class="form-control" ng-model="userid.email"
-                                                    id="email_address" required>
+                                                <label>
+                                                    Email <span class="text-danger">*</span>
+                                                </label>
+                                                <input class="form-control" ng-model="userid.email" readonly>
                                             </div>
                                         </div>
                                         <div class="row g-2 mb-3">
                                             <div class="mb-3 col-12">
-                                                <label for="p_address">Địa chỉ <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" ng-model="userid.address"
-                                                    id="p_address" required>
+                                                <label>
+                                                    Địa chỉ <span class="text-danger">*</span>
+                                                </label>
+                                                <input class="form-control" ng-model="userid.address" readonly>
                                             </div>
                                         </div>
                                         <div class="row g-2 mb-3">
                                             <div class="form-group col-12">
-                                                <label for="order_notes">Ghi chú đơn hàng</label>
-                                                <textarea class="form-control" id="order_notes"
-                                                    placeholder="Ghi chú cho đơn hàng của bạn."></textarea>
+                                                <label>Ghi chú đơn hàng</label>
+                                                <textarea class="form-control"
+                                                    laceholder="Ghi chú cho đơn hàng của bạn."></textarea>
                                             </div>
                                         </div>
                                         <div class="row" hidden>
                                             <div class="mb-3 col-12 col-sm-12 col-md-12">
-                                                <label for="first_name">Orderid <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" ng-model="order.id"
-                                                    id="first_name" required>
+                                                <label>
+                                                    ID hoá đơn <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" ng-model="order.id" readonly>
                                             </div>
                                         </div>
                                     </form>
@@ -87,12 +109,12 @@
                                             <div class="product-inner d-flex align-items-center">
                                                 <div class="product-image me-4 me-sm-5 me-md-4 me-lg-5">
                                                     <a href="#">
-                                                        <img src="{{item.image}}" referrerpolicy="no-referrer">
+                                                        <img ng-src="{{item.image}}" referrerpolicy="no-referrer">
                                                     </a>
                                                 </div>
                                                 <div class="media-body">
                                                     <h5>{{item.name}}</h5>
-                                                    <p class="product-quantity">Quantity: {{item.quantity}}</p>
+                                                    <p class="product-quantity">Số lượng: {{item.quantity}}</p>
                                                     <p class="product-final-price">{{item.price}}đ</p>
                                                 </div>
                                             </div>

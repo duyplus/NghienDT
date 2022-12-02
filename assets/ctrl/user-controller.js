@@ -30,7 +30,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $http.get(HOST + "/api/product").then((resp) => {
         $scope.products = resp.data;
-        console.log($scope.products)
     });
 
     $http.get(HOST + "/api/product/userid/11").then((resp) => {
