@@ -1,4 +1,4 @@
-app.controller("order-ctrl", function ($scope,$timeout, $http, $route, orderService,  $location) {
+app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location) {
     var url = "http://localhost:8080/api/order";
     var urlOrderApproval = "http://localhost:8080/api/orderdetail/approval";
     var urlOrderDetail = "http://localhost:8080/api/orderdetail";
@@ -34,22 +34,22 @@ app.controller("order-ctrl", function ($scope,$timeout, $http, $route, orderServ
 
     //load data order approval - Xử lí đơn hàng
     $scope.loadOrderApproval = function () {
-    $http.get(`${urlOrderApproval}/${$scope.status}`).then(resp => {
-        $scope.itemsApproval = resp.data;
-        // paginate
-        $scope.curPage = 1;
-        $scope.itemsPerPage = 10;
-        $scope.maxSize = 5;
-        this.items = $scope.itemsApproval;
-        $scope.numOfPages = function () {
-            return Math.ceil($scope.itemsApproval.length / $scope.itemsPerPage);
-        };
-        $scope.$watch('curPage + numPerPage', function () {
-            var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
-            var end = begin + $scope.itemsPerPage;
-            $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
+        $http.get(`${urlOrderApproval}/${$scope.status}`).then(resp => {
+            $scope.itemsApproval = resp.data;
+            // paginate
+            $scope.curPage = 1;
+            $scope.itemsPerPage = 10;
+            $scope.maxSize = 5;
+            this.items = $scope.itemsApproval;
+            $scope.numOfPages = function () {
+                return Math.ceil($scope.itemsApproval.length / $scope.itemsPerPage);
+            };
+            $scope.$watch('curPage + numPerPage', function () {
+                var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
+                var end = begin + $scope.itemsPerPage;
+                $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
+            });
         });
-    });
     }
 
     //load order by status - Xử lí đơn hàng
@@ -83,37 +83,40 @@ app.controller("order-ctrl", function ($scope,$timeout, $http, $route, orderServ
                     $scope.itemSelected = resp.data;
                     var item = $scope.itemSelected;
                     item.status = flag;
+                    item.order.updatedat = moment().valueOf();
+                    console.log(item);
                     $http.put(`${urlOrderDetail}/${itemid}`, item).then(resp => {
-                        if(flag == 2){
+                        if (flag == 2) {
                             sweetalert_success("Duyệt đơn thành công!");
-                        }else{
+                        } else {
                             sweetalert_success("Hủy đơn thành công!");
                         }
+                        $http.put(`${url}/${item.order.id}`, item.order).then(resp => {
+                        })
                         $timeout($route.reload, 2000);
                     })
                 })
             }
         });
-        
+
     };
 
     //load detail data - chi tiết đơn hàng
     $scope.getDetail = function (id) {
-        if(id ==null)
-        {
+        if (id == null) {
             sweetalert_error("Chọn đơn hàng để xem chi tiết!");
             $location.path('order-list');
-        }else{
+        } else {
             $http.get(`${urlDetailOfOrder}/${id}`).then(resp => {
                 $scope.details = resp.data;
-            })  
+            })
         }
     };
 
     //hien thi len chi tiết - chi tiết đơn hàng
     $scope.detail = function (item) {
         orderService.set(item);
-          
+
     }
 
     // Export xcel
@@ -132,15 +135,29 @@ app.controller("order-ctrl", function ($scope,$timeout, $http, $route, orderServ
         return XLSX.writeFile(workbook, "order_List.xlsx");
     }
 })
-.directive('dir', function() {
-    return {
-        link: function(scope, elem, attrs) {
-            $(elem).on('click', function() {
-               $(this)
-               .parent('tr')
-               .next('tr')
-               .toggle();
-            })   
+    .directive('dir', function () {
+        return {
+            link: function (scope, elem, attrs) {
+                $(elem).on('click', function () {
+                    $(this)
+                        .parent('tr')
+                        .next('tr')
+                        .toggle();
+                })
+            }
         }
-    }
-});
+    })
+    .directive('date', function (dateFilter) {
+        return {
+            require:'ngModel',
+            link:function (scope, elm, attrs, ctrl) {
+    
+                var dateFormat = attrs['date'] || 'yyyy-MM-dd';
+               
+                ctrl.$formatters.unshift(function (modelValue) {
+                    return dateFilter(modelValue, dateFormat);
+                });
+            }
+        };
+    })
+    
