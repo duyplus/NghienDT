@@ -1,43 +1,46 @@
 var app = angular.module("app", []);
 
-
-app.factory('imgService', function () {
-    var savedData = {}
-    function set(data) {
-        savedData = data;
-    }
-    function get() {
-        return savedData;
-    }
-    return {
-        set: set,
-        get: get
-    }
-});
-
-app.controller("ctrl", function ($scope, $http, imgService, $interval) {
+app.controller("ctrl", function ($scope, $http) {
     var url = "http://localhost:8082/rest/images";
     $scope.items = [];
-    $scope.imgdata1 = imgService.get();
+    $scope.imgdata1 = {};
 
     //load data
     $http.get(url).then((result) => {
         $scope.items = result.data;
-    }).catch((err) => {
-        console.log("Error", err)
     })
 
     //xoa form
     $scope.reset = function () {
         $scope.imgdata1 = {};
+        const getdiv = document.getElementById("myDIV");
+        while (getdiv.hasChildNodes()) {
+            getdiv.removeChild(getdiv.firstChild);
+        }
     }
 
     //hien thi len form
     $scope.edit = function (item) {
-        $scope.imgdata = angular.copy($scope.items[item])
-        imgService.set($scope.imgdata)
-        $scope.imgdata1 = imgService.get()
-        $scope.updateImg();
+        const getdiv = document.getElementById("myDIV");
+        var item1 = angular.copy($scope.items[item])
+        $scope.imgdata1 = item1;
+        while (getdiv.hasChildNodes()) {
+            getdiv.removeChild(getdiv.firstChild);
+        }
+        setTimeout(() => { $scope.updateImg() }, 1000)
+    }
+
+    $scope.updateImg = () => {
+        var listImg = document.getElementById("imgs").value.split(',');
+        // setTimeout(() => {
+        for (let index = 0; index < listImg.length; index++) {
+            const para = document.createElement("img");
+            para.setAttribute("src", listImg[index]);
+            para.setAttribute("referrerpolicy", "no-referrer");
+            para.style.width = '300px';
+            document.getElementById("myDIV").appendChild(para);
+        }
+        // }, 2000)
     }
 
     //them moi
@@ -74,10 +77,6 @@ app.controller("ctrl", function ($scope, $http, imgService, $interval) {
             console.log("Error", error);
         });
     }
-
-    // $scope.changeImg = function () {
-    //     document.getElementById("img").value = $scope.imgdata1.image
-    // }
 
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
@@ -129,27 +128,4 @@ app.controller("ctrl", function ($scope, $http, imgService, $interval) {
             }
         });
     });
-    $scope.updateImg = () => {
-        var listImg = document.getElementById("imgs").value.split(',');
-        for (let index = 0; index < listImg.length; index++) {
-            const para = document.createElement("img");
-            para.setAttribute("src", listImg[index]);
-            para.setAttribute("referrerpolicy", "no-referrer");
-            para.style.width = '300px';
-            document.getElementById("myDIV").appendChild(para);
-        }
-    }
-
-    $(".btnEdit").click(() => {
-        alert("Please enter a")
-    })
-
-    // Load n images
-    // if (document.getElementById("imgs").value == "") {
-    //     console.log("Loading images...");
-    // } else {
-
-    //     console.log("Imag")
-    // }
-    // console.log(document.getElementById("imgs").value)
 });
