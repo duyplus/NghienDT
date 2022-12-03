@@ -120,7 +120,7 @@
                                                 </td>
                                                 <td class="cart-info">
                                                     <a class="text-reset" href="#!product">{{item.name}}</a>
-                                                    <span>{{item.quantity}} x</span> {{item.price}}₫
+                                                    <span>{{item.quantity}} x</span> {{item.price|number:0}}₫
                                                 </td>
                                                 <td class="text-end">
                                                     <div class="del-icon btn p-0" ng-click="removeCartItem(item)">
@@ -132,7 +132,7 @@
                                         <li>
                                             <div class="subtotal-text">Tổng:</div>
                                             <div class="subtotal-price">
-                                                <span class="text-danger">{{cart.total}}₫</span>
+                                                <span class="text-danger">{{cart.total|number:0}}₫</span>
                                             </div>
                                         </li>
                                         <li class="mt-30">

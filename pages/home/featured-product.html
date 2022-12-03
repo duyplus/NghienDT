@@ -7,7 +7,7 @@
                     <li role="presentation">
                         <button class="active" type="button" id="module-one-tab" data-bs-toggle="tab"
                             data-bs-target="#module-one" role="tab" aria-controls="module-one"
-                            aria-selected="true">Featured Products</button>
+                            aria-selected="true">Sản phẩm nổi bật</button>
                     </li>
                 </ul>
             </div>
@@ -15,12 +15,12 @@
         <div class="tab-content">
             <div class="tab-pane fade show active" id="module-one" role="tabpanel" aria-labelledby="module-one-tab">
                 <div class="module-four-wrapper custom-seven-column row">
-                    <div class="col mb-30">
+                    <div class="col mb-30" ng-repeat="item in featuredProducts">
                         <div class="product-item h-100">
                             <div class="product-thumb">
                                 <a href="#!product">
-                                    <img src="assets/img/product/product-2.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-3.jpg" class="sec-img" alt="">
+                                    <img ng-src="{{item.product_image}}" class="pri-img">
+                                    <img ng-src="{{item.product_image}}" class="sec-img">
                                 </a>
                                 <div class="box-label">
                                     <div class="label-product label_sale">
@@ -34,306 +34,15 @@
                             </div>
                             <div class="product-caption">
                                 <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
+                                    <p>{{item.company_name}}</p>
                                 </div>
                                 <div class="product-name">
-                                    <h4><a href="#!product">office uses Wireless Speaker</a></h4>
+                                    <h4><a href="#!product">{{item.product_name}}</a></h4>
                                 </div>
                                 <div class="price-box">
-                                    <span class="regular-price">£10.00</span>
+                                    <span class="regular-price">{{item.product_price|number:0}}₫</span>
                                 </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div><!-- single item end -->
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-2.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-3.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_sale">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">office uses Wireless Speaker</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£10.00</span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div><!-- single item end -->
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-2.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-3.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_sale">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">office uses Wireless Speaker</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£10.00</span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div><!-- single item end -->
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-4.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-5.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">jony</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">sumsang XB10 Portable headphone</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£60.99</span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-6.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-7.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                    <div class="label-product label_sale">
-                                        <span>-20%</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">jony XB10 Wireless color printer</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price"><span class="special-price">£50.00</span></span>
-                                    <span class="old-price"><del>£60.00</del></span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-8.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-9.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">walton smart watch with blutooth</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£99.99</span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-10.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-11.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                    <div class="label-product label_sale">
-                                        <span>-8%</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">Nokia</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">Nokia smart phone with 32gb rom</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price"><span class="special-price">£78.99</span></span>
-                                    <span class="old-price"><del>£99.99</del></span>
-                                </div>
-                                <button class="btn-cart mb-1" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-30">
-                        <div class="product-item h-100">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-12.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-13.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">walton Portable Wireless Speaker</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£33.33</span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-30">
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-14.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-1.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">apple</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">jamuna XB10 Portable Speaker</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price">£30.31</span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-30">
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <a href="#!product">
-                                    <img src="assets/img/product/product-5.jpg" class="pri-img" alt="">
-                                    <img src="assets/img/product/product-6.jpg" class="sec-img" alt="">
-                                </a>
-                                <div class="box-label">
-                                    <div class="label-product label_new">
-                                        <span>new</span>
-                                    </div>
-                                    <div class="label-product label_sale">
-                                        <span>-12%</span>
-                                    </div>
-                                </div>
-                                <div class="action-links">
-                                    <a href="#!wishlist" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    <a href="javascript:void(0);" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-caption">
-                                <div class="manufacture-product">
-                                    <p><a href="#!shop">walton</a></p>
-                                </div>
-                                <div class="product-name">
-                                    <h4><a href="#!product">jony XB10 Wireless Speaker</a></h4>
-                                </div>
-                                <div class="price-box">
-                                    <span class="regular-price"><span class="special-price">£50.00</span></span>
-                                    <span class="old-price"><del>£60.00</del></span>
-                                </div>
-                                <button class="btn-cart" type="button">add to cart</button>
+                                <button class="btn-cart" type="button">Thêm vào giỏ</button>
                             </div>
                         </div>
                     </div>

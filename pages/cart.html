@@ -65,7 +65,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>${{item.price * item.quantity}}</td>
+                                                    <td>${{item.price*item.quantity|number:0}}₫</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -114,15 +114,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><strong>Tổng phụ:</strong></td>
-                                                        <td>{{cart.total | number : 2}} vnđ</td>
+                                                        <td>{{cart.total|number:0}}₫</td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Mã giảm giá:</strong></td>
-                                                        <td>$0.00</td>
+                                                        <td>0.00₫</td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Tổng tiền:</strong></td>
-                                                        <td><span class="color-primary">{{cart.total | number : 2}} vnđ</span></td>
+                                                        <td><span class="color-primary">{{cart.total|number:0}}₫</span></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

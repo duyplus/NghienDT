@@ -49,7 +49,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>${{item.product_price}}</td>
+                                    <td>${{item.product_price|number:0}}₫</td>
                                     <td>{{item.company_name}}</td>
                                     <td>{{item.full_name}}</td>
                                     <td>
@@ -92,7 +92,7 @@
                     <div class="card-body border-bottom-dashed my-1">
                         <div class="earning-data text-center">
                             <img src="admin/assets/images/money-beg.png" class="money-bag my-3" height="75">
-                            <h5 class="earn-money mb-1">{{item.sum_revenue | number}}đ</h5>
+                            <h5 class="earn-money mb-1">{{item.sum_revenue|number:0}}₫</h5>
                             <p class="text-muted font-15 mb-4">Tổng doanh thu</p>
                             <div class="text-center my-2">
                                 <h6 class="text-primary bg-soft-primary p-3 mb-0 font-13 rounded">
@@ -107,7 +107,7 @@
                                 <div class="media">
                                     <i data-feather="shopping-cart" class="align-self-center icon-md mr-2"></i>
                                     <div class="media-body align-self-center">
-                                        <h6 class="m-0 font-24">{{item.order_quantity | number}}</h6>
+                                        <h6 class="m-0 font-24">{{item.order_quantity|number:0}}₫</h6>
                                         <p class="text-muted mb-0">Đơn hàng hôm nay</p>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                 <div class="media">
                                     <i data-feather="dollar-sign" class="align-self-center icon-md mr-2"></i>
                                     <div class="media-body align-self-center">
-                                        <h6 class="m-0 font-24">{{item.revenue_order | number}}đ</h6>
+                                        <h6 class="m-0 font-24">{{item.revenue_order|number:0}}₫</h6>
                                         <p class="text-muted mb-0">Doanh thu hôm nay</p>
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@
                                     <td>{{item1.user_phone}}</td>
                                     <td>{{item1.user_address}}</td>
                                     <td class="text-danger">{{item1.order_quantity}}</td>
-                                    <td commaseparator>{{item1.sum_order | number}}đ</td>
+                                    <td commaseparator>{{item1.sum_order|number:0}}₫</td>
                                 </tr>
                             </tbody>
                         </table>
