@@ -21,9 +21,9 @@ app.controller("ctrl", function ($scope, $http) {
 
     //hien thi len form
     $scope.edit = function (item) {
-        const getdiv = document.getElementById("myDIV");
         var item1 = angular.copy($scope.items[item])
         $scope.imgdata1 = item1;
+        const getdiv = document.getElementById("myDIV");
         while (getdiv.hasChildNodes()) {
             getdiv.removeChild(getdiv.firstChild);
         }
@@ -32,15 +32,21 @@ app.controller("ctrl", function ($scope, $http) {
 
     $scope.updateImg = () => {
         var listImg = document.getElementById("imgs").value.split(',');
-        // setTimeout(() => {
         for (let index = 0; index < listImg.length; index++) {
             const para = document.createElement("img");
             para.setAttribute("src", listImg[index]);
             para.setAttribute("referrerpolicy", "no-referrer");
             para.style.width = '300px';
+            para.style.marginRight = '10px';
             document.getElementById("myDIV").appendChild(para);
         }
-        // }, 2000)
+    }
+
+    $scope.deleteImg = () => {
+        console.log("2")
+        // var item1 = angular.copy($scope.items[0])
+        // let item2 = item1.image.split(',');
+        // console.log(item2[1])
     }
 
     //them moi
@@ -57,7 +63,9 @@ app.controller("ctrl", function ($scope, $http) {
 
     //cap nhat sp
     $scope.update = function () {
+        $scope.imgdata1.image = document.getElementById("imgs").value;
         var item = angular.copy($scope.imgdata1);
+        console.log(item)
         $http.put(`${url}/${item.stt}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.stt == item.stt);
             $scope.items[index] = item;
@@ -88,6 +96,11 @@ app.controller("ctrl", function ($scope, $http) {
                         return false;
                     }
                 }
+                document.getElementById("imgs").value = '';
+                const getdiv = document.getElementById("myDIV");
+                while (getdiv.hasChildNodes()) {
+                    getdiv.removeChild(getdiv.firstChild);
+                }
                 console.log('Đang upload hình ảnh lên imgur...');
                 const arr = [];
                 for (let index = 0; index < $files.length; index++) {
@@ -117,6 +130,7 @@ app.controller("ctrl", function ($scope, $http) {
                         arr.push(cut.slice(1, cut.length - 1));
                         const para = document.createElement("img");
                         para.setAttribute("src", cut.slice(1, cut.length - 1));
+                        para.setAttribute("id", index);
                         para.setAttribute("referrerpolicy", "no-referrer");
                         para.style.width = '300px';
                         document.getElementById("myDIV").appendChild(para);
