@@ -115,7 +115,7 @@
                                                 <div class="media-body">
                                                     <h5>{{item.name}}</h5>
                                                     <p class="product-quantity">Số lượng: {{item.quantity}}</p>
-                                                    <p class="product-final-price">{{item.price}}đ</p>
+                                                    <p class="product-final-price">{{item.price|number:0}}₫</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,7 +126,7 @@
                                                 <tbody>
                                                     <tr class="order-total">
                                                         <th>Tổng</th>
-                                                        <td class="text-center"><strong>{{cart.total}}₫</strong></td>
+                                                        <td class="text-center"><strong>{{cart.total|number:0}}₫</strong></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

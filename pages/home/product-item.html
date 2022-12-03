@@ -24,7 +24,7 @@
             <h4><a href="#!product" ng-click="viewProduct($event, product)">{{product.name}}</a></h4>
         </div>
         <div class="price-box">
-            <span class="regular-price">{{product.price}}₫</span>
+            <span class="regular-price">{{product.price|number:0}}₫</span>
         </div>
         <button class="btn-cart" type="button" ng-click="addCart(product)">
             Thêm vào giỏ

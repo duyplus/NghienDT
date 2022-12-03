@@ -49,7 +49,7 @@
                             <tr ng-repeat="item in filteredItems | filter:search">
                                 <td class="d-none">{{item.id}}</td>
                                 <td>{{item.name}}</td>
-                                <td>{{item.price}}</td>
+                                <td>{{item.price|number:0}}₫</td>
                                 <td>{{item.category.name}}</td>
                                 <td>{{item.company.name}}</td>
                                 <td class="text-warning">{{item.discount}}%</td>

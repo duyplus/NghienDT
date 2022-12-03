@@ -1,6 +1,6 @@
 app.controller("dashboard-ctrl", function ($scope, $http, $compile, $filter) {
-    var url = "http://localhost:8080/api/product/getTop5Product";
-    var url1 = "http://localhost:8080/api/product/getTop5Customer";
+    var url = "http://localhost:8080/api/product/getTopProduct";
+    var url1 = "http://localhost:8080/api/product/getTopCustomer";
     var url2 = "http://localhost:8080/api/product/getDailyRevenue";
     $scope.items = [];
     $scope.items1 = [];

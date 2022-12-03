@@ -220,15 +220,19 @@ app.factory("$utility", ($window, $http, $routeParams, HOST) => {
             return new UrlService();
         },
         get $serverUrl() {
+            const featuredProductsUrl = `${HOST}/api/product/getFeaturedProducts`;
             const categoriesUrl = `${HOST}/api/category`;
             const productsUrl = `${HOST}/api/product`;
+            const bannersUrl = `${HOST}/api/banner`;
             const usersUrl = `${HOST}/api/user`;
             const forgotPasswordUrl = `${HOST}/auth/forgot-password`;
             const resetPasswordUrl = `${HOST}/auth/reset-password`;
             return {
                 apiUrls: {
+                    featuredProducts: featuredProductsUrl,
                     categories: categoriesUrl,
                     products: productsUrl,
+                    banners: bannersUrl,
                     users: usersUrl,
                 },
                 forgotPasswordUrl: forgotPasswordUrl,
