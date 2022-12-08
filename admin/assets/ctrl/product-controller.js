@@ -87,6 +87,11 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     //xoa form
     $scope.reset = function () {
         $scope.productdata = {};
+
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
     }
 
     //hien thi len form
@@ -106,20 +111,38 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     $scope.updateImg = () => {
         var listImg = document.getElementById("imgs").value.split(',');
         for (let index = 0; index < listImg.length; index++) {
-            const para = document.createElement("img");
-            para.setAttribute("src", listImg[index]);
-            para.setAttribute("referrerpolicy", "no-referrer");
-            para.style.width = '300px';
-            para.style.marginRight = '10px';
-            document.getElementById("myDIV").appendChild(para);
+            const outImg = document.createElement("div");
+            outImg.setAttribute("class", "outImg")
+            const img = document.createElement("img");
+            img.setAttribute("src", listImg[index]);
+            img.setAttribute("ondblclick", `angular.element(this).scope().deleteImg(` + index + `)`);
+            img.setAttribute("referrerpolicy", "no-referrer");
+            img.style.width = '300px';
+            outImg.appendChild(img);
+            document.getElementById("myDIV").appendChild(outImg);
         }
+    }
+
+    $scope.deleteImg = (index) => {
+        console.log(document.getElementById("imgs").value.split(','))
+        var arrImg = document.getElementById("imgs").value.split(',');
+        arrImg.splice(index, 1);
+        document.getElementById("imgs").value = arrImg;
+        console.log(index)
+
+        // * Delete all element in class "myDIV"
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
+        // * After 1s, function updateImg() is execute
+        setTimeout(() => { $scope.updateImg() }, 2000)
     }
 
     //them sp moi
     $scope.create = function () {
         $scope.productdata.createdAt = moment().format('YYYY-MM-DD HH:mm');
         $scope.productdata.updatedAt = moment().format('YYYY-MM-DD HH:mm');
-        $scope.productdata.image = "null.png";
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
         $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];
 
@@ -243,12 +266,15 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
                         var obj = JSON.parse(response);
                         var cut = JSON.stringify(obj.data.link);
                         arr.push(cut.slice(1, cut.length - 1));
-                        const para = document.createElement("img");
-                        para.setAttribute("src", cut.slice(1, cut.length - 1));
-                        para.setAttribute("id", index);
-                        para.setAttribute("referrerpolicy", "no-referrer");
-                        para.style.width = '300px';
-                        document.getElementById("myDIV").appendChild(para);
+                        const outImg = document.createElement("div");
+                        outImg.setAttribute("class", "outImg")
+                        const img = document.createElement("img");
+                        img.setAttribute("src", cut.slice(1, cut.length - 1));
+                        img.setAttribute("ondblclick", `angular.element(this).scope().deleteImg(` + index + `)`);
+                        img.setAttribute("referrerpolicy", "no-referrer");
+                        img.style.width = '300px';
+                        outImg.appendChild(img);
+                        document.getElementById("myDIV").appendChild(outImg);
                     });
                 }
                 console.log(arr.toString().split(','))
