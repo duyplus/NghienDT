@@ -61,7 +61,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
     //hien thi len form
     $scope.edit = function (item) {
         userService.set(item);
-        
+
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
@@ -106,9 +106,9 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
     $scope.update = function () {
         var datetime = new Date();
         $scope.userdata.updatedat = moment(datetime).format("YYYY-MM-DD HH:mm");
-        
+
         // * Get img
-        $scope.productdata.image = document.getElementById("imgs").value;
+        $scope.userdata.image = document.getElementById("imgs").value;
 
         var item = angular.copy($scope.userdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
@@ -167,7 +167,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
     function exportExcelFile(workbook) {
         return XLSX.writeFile(workbook, "User_List.xlsx");
     }
-    
+
     // Upload IMG to imgur api
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
