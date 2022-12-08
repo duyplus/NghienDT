@@ -25,8 +25,9 @@
                             <div class="row align-items-center no-gutters">
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                     <div class="single-info">
-                                        <p class="user-name">Xin chào <span>NAME</span> <br>không phải NAME? <a
-                                                class="log-out" href="javascript:void(0)" ng-click="logout()">Đăng
+                                        <p class="user-name">Xin chào <span ng-bind="nameUser">NAME</span> <br>không
+                                            phải {{nameUser}}? <a class="log-out" href="javascript:void(0)"
+                                                ng-click="logout()">Đăng
                                                 xuất</a></p>
                                     </div>
                                 </div>
@@ -199,7 +200,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="register-box d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-secondary" id="btnAddProd"
+                                                    <button type="submit" class="btn btn-secondary"
                                                         ng-click="createProd()">Thêm</button>
                                                 </div>
                                             </form>
@@ -243,7 +244,7 @@
                                             aria-labelledby="account-details-tab">
                                             <h3>Thông tin tài khoản </h3>
                                             <div class="login-form">
-                                                <form action="#">
+                                                <form>
                                                     <div class="form-group row mb-3 d-none">
                                                         <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">ID</label>
@@ -258,7 +259,16 @@
                                                             khoản</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                             <input type="text" class="form-control"
-                                                                ng-model="userdata.username" required>
+                                                                ng-model="userdata.username" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-3" hidden>
+                                                        <label
+                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mật
+                                                            khẩu</label>
+                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                            <input type="text" class="form-control"
+                                                                ng-model="userdata.password">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
@@ -302,8 +312,8 @@
                                                             sinh</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                             <input type="date" class="form-control"
-                                                                ng-model="userdata.birthday"
-                                                                placeholder="DD / MM / YYYY" required>
+                                                                ng-model="userdata.birthday" placeholder="YYYY-MM-DD"
+                                                                convert-date>
                                                         </div>
                                                     </div>
                                                     <div class="form-check row p-0 mt-3">

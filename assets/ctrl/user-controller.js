@@ -28,10 +28,14 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $http.get(HOST + "/api/category").then((resp) => {
         $scope.cates = resp.data;
+        $scope.st = $scope.cates[0];
+        $scope.product.category = $scope.st.id;
     });
 
     $http.get(HOST + "/api/company").then((resp) => {
         $scope.companys = resp.data;
+        $scope.st = $scope.companys[0];
+        $scope.product.company = $scope.st.id;
     });
 
     $http.get(HOST + "/api/product").then((resp) => {
@@ -53,10 +57,19 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     //     })[0];
     // }
 
+    $scope.nameUser;
+
     setTimeout(() => {
         $scope.product.user = $scope.items.filter(function (item) {
             return item.username == localStorage.getItem('currentUser');
         })[0];
+        var item = $scope.product.user;
+        $scope.nameUser = item.username;
+        $scope.userdata = item;
+
+        // $http.get(HOST + "/api/product").then((resp) => {
+        //     $scope.products = resp.data;
+        // });
     }, 200)
 
     $scope.login = function () {
@@ -98,6 +111,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             var index = $scope.items.findIndex((p) => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
+            alert("Updated your info success!!")
             $location.path("my-account");
         }).catch((error) => {
             console.log("Error", error);
@@ -129,7 +143,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         var item = angular.copy($scope.product);
         console.log(item)
         $http.post(`${urlProd}`, item).then(resp => {
-            $scope.products.push(resp.data);
             $scope.reset();
             alert("Created product success!!")
         }).catch(err => {
