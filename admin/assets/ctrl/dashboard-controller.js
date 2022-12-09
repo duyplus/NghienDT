@@ -1,7 +1,7 @@
-app.controller("dashboard-ctrl", function ($scope, $http, $compile, $filter) {
-    var url = "http://157.245.157.128/v1/api/product/getTopProduct";
-    var url1 = "http://157.245.157.128/v1/api/product/getTopCustomer";
-    var url2 = "http://157.245.157.128/v1/api/product/getDailyRevenue";
+app.controller("dashboard-ctrl", function ($scope, $http, HOST) {
+    var url = HOST + "/api/product/getTopProduct";
+    var url1 = HOST + "/api/product/getTopCustomer";
+    var url2 = HOST + "/api/product/getDailyRevenue";
     $scope.items = [];
     $scope.items1 = [];
     $scope.items2 = [];

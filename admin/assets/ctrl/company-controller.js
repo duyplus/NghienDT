@@ -1,6 +1,6 @@
-app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, companyService) {
-    var url = "http://157.245.157.128/v1/api/company";
-    var url2 = "http://157.245.157.128/v1/api/upload/images";
+app.controller("company-ctrl", function ($scope, $location, $http, HOST, companyService) {
+    var url = HOST + "/api/company";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.companydata = companyService.get();
 

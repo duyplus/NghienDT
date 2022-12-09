@@ -1,7 +1,7 @@
-app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $filter, reviewService) {
-    var url = "http://157.245.157.128/v1/api/review";
-    var urlorder = "http://157.245.157.128/v1/api/orderdetail";
-    var url2 = "http://157.245.157.128/v1/api/upload/images";
+app.controller("review-ctrl", function ($scope, $location, $http, reviewService, HOST) {
+    var url = HOST + "/api/review";
+    var urlorder = HOST + "/api/orderdetail";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.reviewdata = reviewService.get();
 
@@ -36,7 +36,7 @@ app.controller("review-ctrl", function ($scope, $rootScope, $location, $http, $f
         sweetalert_error("Has Errors!");
     });
 
-     
+
 
     //load orderDetails
     $http.get(urlorder).then(resp => {

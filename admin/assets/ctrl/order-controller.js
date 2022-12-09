@@ -1,8 +1,8 @@
-app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location) {
-    var url = "http://157.245.157.128/v1/api/order";
-    var urlOrderApproval = "http://157.245.157.128/v1/api/orderdetail/approval";
-    var urlOrderDetail = "http://157.245.157.128/v1/api/orderdetail";
-    var urlDetailOfOrder = "http://157.245.157.128/v1/api/orderdetail/pro"
+app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location, HOST) {
+    var url = "/api/order";
+    var urlOrderApproval = HOST + "/api/orderdetail/approval";
+    var urlOrderDetail = HOST + "/api/orderdetail";
+    var urlDetailOfOrder = HOST + "/api/orderdetail/pro"
 
     $scope.orderdata = orderService.get();
     $scope.items = [];
@@ -148,15 +148,14 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
     })
     .directive('date', function (dateFilter) {
         return {
-            require:'ngModel',
-            link:function (scope, elm, attrs, ctrl) {
-    
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+
                 var dateFormat = attrs['date'] || 'yyyy-MM-dd';
-               
+
                 ctrl.$formatters.unshift(function (modelValue) {
                     return dateFilter(modelValue, dateFormat);
                 });
             }
         };
     })
-    

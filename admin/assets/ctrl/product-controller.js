@@ -1,9 +1,9 @@
-app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService) {
-    var url = "http://157.245.157.128/v1/api/product";
-    var urlcate = "http://157.245.157.128/v1/api/category";
-    var urlcompany = "http://157.245.157.128/v1/api/company";
-    var urluser = "http://157.245.157.128/v1/api/user";
-    var url2 = "http://157.245.157.128/v1/api/upload/images";
+app.controller("product-ctrl", function ($scope, $location, $http, productService, HOST) {
+    var url = HOST + "/api/product";
+    var urlcate = HOST + "/api/category";
+    var urlcompany = HOST + "/api/company";
+    var urluser = HOST + "/api/user";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.cate = [];
     $scope.user = [];

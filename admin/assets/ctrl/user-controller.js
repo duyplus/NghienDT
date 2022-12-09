@@ -1,6 +1,6 @@
-app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $filter, userService) {
-    var url = "http://157.245.157.128/v1/api/user";
-    var url2 = "http://157.245.157.128/v1/api/upload/images";
+app.controller("user-ctrl", function ($scope, $location, $http, userService, HOST) {
+    var url = HOST + "/api/user";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.userdata = userService.get();
 

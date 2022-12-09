@@ -1,6 +1,6 @@
-app.controller("category-ctrl", function ($scope, $rootScope, $location, $http, $filter, cateService) {
-    var url = "http://157.245.157.128/v1/api/category";
-    var url2 = "http://157.245.157.128/v1/api/upload/images";
+app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateService) {
+    var url = HOST + "/api/category";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.categorydata = cateService.get();
 
