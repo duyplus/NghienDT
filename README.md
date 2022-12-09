@@ -3,7 +3,7 @@ Xây dựng ứng dụng web nhằm mục đích bán hàng online
 ## Backend
 Link: https://github.com/duyplus/eCommerceNghienDT
 ## Website
-Link: https://nghiendt.me
+Link: http://nghiendt.me
 
 ### Git clone
 ```
