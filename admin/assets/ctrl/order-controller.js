@@ -1,5 +1,5 @@
 app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location, HOST) {
-    var url = "/api/order";
+    var url = HOST + "/api/order";
     var urlOrderApproval = HOST + "/api/orderdetail/approval";
     var urlOrderDetail = HOST + "/api/orderdetail";
     var urlDetailOfOrder = HOST + "/api/orderdetail/pro"
