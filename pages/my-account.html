@@ -25,8 +25,9 @@
                             <div class="row align-items-center no-gutters">
                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                     <div class="single-info">
-                                        <p class="user-name">Xin chào <span>NAME</span> <br>không phải NAME? <a
-                                                class="log-out" href="javascript:void(0)" ng-click="logout()">Đăng
+                                        <p class="user-name">Xin chào <span ng-bind="nameUser">NAME</span> <br>không
+                                            phải {{nameUser}}? <a class="log-out" href="javascript:void(0)"
+                                                ng-click="logout()">Đăng
                                                 xuất</a></p>
                                     </div>
                                 </div>
@@ -108,7 +109,7 @@
                                                         <td>{{item.category.name}}</td>
                                                         <td>{{item.company.name}}</td>
                                                         <td>{{item.name}}</td>
-                                                        <td>{{item.price}} vnđ</td>
+                                                        <td>{{item.price|number:0}}₫</td>
                                                         <td>{{item.quantity}}</td>
                                                         <td>
                                                             <img ng-src="{{item.image}}" width="15%">
@@ -130,12 +131,13 @@
                                             <h3>Thêm sản phẩm</h3>
                                             <form>
                                                 <div class="form-group row mb-3">
+                                                    <input type="text" ng-model="product.user" hidden>
                                                     <label
                                                         class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Loại
                                                         sản phẩm</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                         <select class="form-control" ng-model="product.category">
-                                                            <option ng-repeat="item in cates" value="{{item.id}}">
+                                                            <option ng-repeat='item in cates' ng-value="{{item.id}}">
                                                                 {{item.name}}</option>
                                                         </select>
                                                     </div>
@@ -145,8 +147,9 @@
                                                         class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Hãng</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                         <select class="form-control" ng-model="product.company">
-                                                            <option ng-repeat="item in companys" value="{{item.id}}">
-                                                                {{item.name}}</option>
+                                                            <option ng-repeat='item in companys' ng-value="{{item.id}}">
+                                                                {{item.name}}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -163,7 +166,7 @@
                                                         class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Giá</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                         <input type="number" class="form-control"
-                                                            ng-model="product.price" required>
+                                                            ng-model="product.price" min="0" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
@@ -171,15 +174,15 @@
                                                         lượng</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                         <input type="number" class="form-control"
-                                                            ng-model="product.quantity" required>
+                                                            ng-model="product.quantity" min="0" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mã
                                                         giảm giá</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                        <input type="text" class="form-control"
-                                                            ng-model="product.discount">
+                                                        <input type="number" class="form-control"
+                                                            ng-model="product.discount" min="0">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
@@ -197,10 +200,12 @@
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                         <input type="file" class="form-control" accept="image/*"
                                                             multiple>
+                                                        <div id="myDIV"></div>
+                                                        <input type="text" ng-model="product.image" id="imgs" hidden>
                                                     </div>
                                                 </div>
                                                 <div class="register-box d-flex justify-content-end">
-                                                    <button type="submit" class="btn btn-secondary" id="btnAddProd"
+                                                    <button type="submit" class="btn btn-secondary"
                                                         ng-click="createProd()">Thêm</button>
                                                 </div>
                                             </form>
@@ -447,7 +452,7 @@
                                             aria-labelledby="account-details-tab">
                                             <h3>Thông tin tài khoản </h3>
                                             <div class="login-form">
-                                                <form action="#">
+                                                <form>
                                                     <div class="form-group row mb-3 d-none">
                                                         <label
                                                             class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">ID</label>
@@ -462,7 +467,16 @@
                                                             khoản</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                             <input type="text" class="form-control"
-                                                                ng-model="userdata.username" required>
+                                                                ng-model="userdata.username" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-3" hidden>
+                                                        <label
+                                                            class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Mật
+                                                            khẩu</label>
+                                                        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                            <input type="text" class="form-control"
+                                                                ng-model="userdata.password">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row mb-3">
@@ -506,8 +520,8 @@
                                                             sinh</label>
                                                         <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                             <input type="date" class="form-control"
-                                                                ng-model="userdata.birthday"
-                                                                placeholder="DD / MM / YYYY" required>
+                                                                ng-model="userdata.birthday" placeholder="YYYY-MM-DD"
+                                                                convert-date>
                                                         </div>
                                                     </div>
                                                     <div class="form-check row p-0 mt-3">

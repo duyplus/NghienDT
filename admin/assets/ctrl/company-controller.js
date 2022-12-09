@@ -1,6 +1,6 @@
-app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, companyService) {
-    var url = "http://localhost:8080/api/company";
-    var url2 = "http://localhost:8080/api/upload/images";
+app.controller("company-ctrl", function ($scope, $location, $http, HOST, companyService) {
+    var url = HOST + "/api/company";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.companydata = companyService.get();
 
@@ -61,6 +61,27 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
     //hien thi len form
     $scope.edit = function (item) {
         companyService.set(item);
+
+        // * Delete all element in class "myDIV"
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
+        // * After 1s, function updateImg() is execute
+        setTimeout(() => { $scope.updateImg() }, 1000)
+    }
+
+    // list IMG
+    $scope.updateImg = () => {
+        var listImg = document.getElementById("imgs").value.split(',');
+        for (let index = 0; index < listImg.length; index++) {
+            const para = document.createElement("img");
+            para.setAttribute("src", listImg[index]);
+            para.setAttribute("referrerpolicy", "no-referrer");
+            para.style.width = '300px';
+            para.style.marginRight = '10px';
+            document.getElementById("myDIV").appendChild(para);
+        }
     }
 
     //them sp moi
@@ -81,6 +102,10 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
     //cap nhat sp
     $scope.update = function () {
         $scope.companydata.logo = "null.png";
+
+        // * Get img
+        $scope.productdata.image = document.getElementById("imgs").value;
+
         var item = angular.copy($scope.companydata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
@@ -138,4 +163,55 @@ app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $
     function exportExcelFile(workbook) {
         return XLSX.writeFile(workbook, "Company_List.xlsx");
     }
+
+    // Upload IMG to imgur api
+    $('document').ready(function () {
+        $('input[type=file]').on('change', function () {
+            var $files = $(this).get(0).files;
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+            if ($files.length) {
+                for (let index = 0; index < $files.length; index++) {
+                    if ($files[index].size > $(this).data('max-size') * 1024) {
+                        return false;
+                    }
+                }
+                document.getElementById("imgs").value = '';
+                const arr = [];
+                for (let index = 0; index < $files.length; index++) {
+                    var apiUrl = 'https://api.imgur.com/3/image';
+                    var apiKey = '146def7f79c7a87';
+                    var settings = {
+                        async: false,
+                        crossDomain: true,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        url: apiUrl,
+                        headers: {
+                            Authorization: 'Client-ID ' + apiKey,
+                            Accept: 'application/json',
+                        },
+                        mimeType: 'multipart/form-data',
+                    };
+                    var formData = new FormData();
+                    formData.append('image', $files[index]);
+                    settings.data = formData;
+
+                    $.ajax(settings).done(function (response) {
+                        var obj = JSON.parse(response);
+                        var cut = JSON.stringify(obj.data.link);
+                        arr.push(cut.slice(1, cut.length - 1));
+                        const para = document.createElement("img");
+                        para.setAttribute("src", cut.slice(1, cut.length - 1));
+                        para.setAttribute("id", index);
+                        para.setAttribute("referrerpolicy", "no-referrer");
+                        para.style.width = '300px';
+                        document.getElementById("myDIV").appendChild(para);
+                    });
+                }
+                document.getElementById("imgs").value = arr.toString().split(',')
+            }
+        });
+    });
 });

@@ -61,7 +61,7 @@
                                 <td><i class="las la-folder-plus text-success" style=" font-size : 24px;" ng-click="isRowCollapsed=!isRowCollapsed"></i></td>
                                 <td>{{item.product.name}}</td>
                                 <td>{{item.quantity}}</td>
-                                <td>{{item.price | number:0}} VNĐ</td>
+                                <td>{{item.price|number:0}}₫</td>
                                 <td>
                                     <span class="badge badge-soft-warning px-2" ng-if="item.status == 1">Chờ xét duyệt</span>
                                     <span class="badge badge-soft-primary px-2" ng-if="item.status == 2">Đang xử lí</span>

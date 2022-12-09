@@ -1,9 +1,9 @@
-app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService) {
-    var url = "http://localhost:8080/api/product";
-    var urlcate = "http://localhost:8080/api/category";
-    var urlcompany = "http://localhost:8080/api/company";
-    var urluser = "http://localhost:8080/api/user";
-    var url2 = "http://localhost:8080/api/upload/images";
+app.controller("product-ctrl", function ($scope, $location, $http, productService, HOST) {
+    var url = HOST + "/api/product";
+    var urlcate = HOST + "/api/category";
+    var urlcompany = HOST + "/api/company";
+    var urluser = HOST + "/api/user";
+    var url2 = HOST + "/api/upload/images";
     $scope.items = [];
     $scope.cate = [];
     $scope.user = [];
@@ -87,19 +87,60 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     //xoa form
     $scope.reset = function () {
         $scope.productdata = {};
+
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
     }
 
     //hien thi len form
     $scope.edit = function (item) {
         productService.set(item);
+
+        // * Delete all element in class "myDIV"
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
+        // * After 1s, function updateImg() is execute
+        setTimeout(() => { $scope.updateImg() }, 1000)
     }
 
+    // list IMG
+    $scope.updateImg = () => {
+        var listImg = document.getElementById("imgs").value.split(',');
+        for (let index = 0; index < listImg.length; index++) {
+            const outImg = document.createElement("div");
+            outImg.setAttribute("class", "outImg")
+            const img = document.createElement("img");
+            img.setAttribute("src", listImg[index]);
+            img.setAttribute("ondblclick", `angular.element(this).scope().deleteImg(` + index + `)`);
+            img.setAttribute("referrerpolicy", "no-referrer");
+            img.style.width = '300px';
+            outImg.appendChild(img);
+            document.getElementById("myDIV").appendChild(outImg);
+        }
+    }
+
+    $scope.deleteImg = (index) => {
+        var arrImg = document.getElementById("imgs").value.split(',');
+        arrImg.splice(index, 1);
+        document.getElementById("imgs").value = arrImg;
+
+        // * Delete all element in class "myDIV"
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
+        // * After 1s, function updateImg() is execute
+        setTimeout(() => { $scope.updateImg() }, 2000)
+    }
 
     //them sp moi
     $scope.create = function () {
         $scope.productdata.createdAt = moment().format('YYYY-MM-DD HH:mm');
         $scope.productdata.updatedAt = moment().format('YYYY-MM-DD HH:mm');
-        $scope.productdata.image = "null.png";
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
         $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];
 
@@ -120,6 +161,10 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
         $scope.productdata.updatedat = new Date().toJSON();
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
         $scope.productdata.category = $scope.cate[$scope.productdata.category - 1];
+
+        // * Get img
+        $scope.productdata.image = document.getElementById("imgs").value;
+
         var item = angular.copy($scope.productdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
@@ -177,4 +222,58 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     function exportExcelFile(workbook) {
         return XLSX.writeFile(workbook, "Product_List.xlsx");
     }
+
+    // Upload IMG to imgur api
+    $('document').ready(function () {
+        $('input[type=file]').on('change', function () {
+            var $files = $(this).get(0).files;
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+            if ($files.length) {
+                for (let index = 0; index < $files.length; index++) {
+                    if ($files[index].size > $(this).data('max-size') * 1024) {
+                        return false;
+                    }
+                }
+                document.getElementById("imgs").value = '';
+                const arr = [];
+                for (let index = 0; index < $files.length; index++) {
+                    var apiUrl = 'https://api.imgur.com/3/image';
+                    var apiKey = '146def7f79c7a87';
+                    var settings = {
+                        async: false,
+                        crossDomain: true,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        url: apiUrl,
+                        headers: {
+                            Authorization: 'Client-ID ' + apiKey,
+                            Accept: 'application/json',
+                        },
+                        mimeType: 'multipart/form-data',
+                    };
+                    var formData = new FormData();
+                    formData.append('image', $files[index]);
+                    settings.data = formData;
+
+                    $.ajax(settings).done(function (response) {
+                        var obj = JSON.parse(response);
+                        var cut = JSON.stringify(obj.data.link);
+                        arr.push(cut.slice(1, cut.length - 1));
+                        const outImg = document.createElement("div");
+                        outImg.setAttribute("class", "outImg")
+                        const img = document.createElement("img");
+                        img.setAttribute("src", cut.slice(1, cut.length - 1));
+                        img.setAttribute("ondblclick", `angular.element(this).scope().deleteImg(` + index + `)`);
+                        img.setAttribute("referrerpolicy", "no-referrer");
+                        img.style.width = '300px';
+                        outImg.appendChild(img);
+                        document.getElementById("myDIV").appendChild(outImg);
+                    });
+                }
+                document.getElementById("imgs").value = arr.toString().split(',')
+            }
+        });
+    });
 });

@@ -17,14 +17,14 @@
     <meta name="keywords" content="NghienDT là trang thương mại điện tử chuyên mua bán máy tính, laptop, điện thoại." />
     <!-- Twitter data -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="http://127.0.0.1:5500">
+    <meta name="twitter:site" content="https://nghiendt.me">
     <meta name="twitter:image" content="assets/img/nghiendt.png">
     <meta name="twitter:title" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam">
     <meta name="twitter:description" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam">
     <!-- Open Graph data -->
     <meta property="og:title" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://127.0.0.1:5500" />
+    <meta property="og:url" content="https://nghiendt.me" />
     <meta property="og:image" content="assets/img/nghiendt.png" />
     <meta property="og:description" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam" />
     <meta property="og:site_name" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam" />
@@ -120,7 +120,7 @@
                                                 </td>
                                                 <td class="cart-info">
                                                     <a class="text-reset" href="#!product">{{item.name}}</a>
-                                                    <span>{{item.quantity}} x</span> {{item.price}}₫
+                                                    <span>{{item.quantity}} x</span> {{item.price|number:0}}₫
                                                 </td>
                                                 <td class="text-end">
                                                     <div class="del-icon btn p-0" ng-click="removeCartItem(item)">
@@ -132,7 +132,7 @@
                                         <li>
                                             <div class="subtotal-text">Tổng:</div>
                                             <div class="subtotal-price">
-                                                <span class="text-danger">{{cart.total}}₫</span>
+                                                <span class="text-danger">{{cart.total|number:0}}₫</span>
                                             </div>
                                         </li>
                                         <li class="mt-30">
@@ -170,16 +170,6 @@
                                             <a href="#!shop">
                                                 {{item.name}} <span class="lnr lnr-chevron-right"></span>
                                             </a>
-                                            <ul class="cat-submenu category-mega">
-                                                <li class="cat-mega-title">
-                                                    <ul>
-                                                        <li><a href="#!shop">DSLR Cameras</a></li>
-                                                        <li><a href="#!shop">Lense Camera</a></li>
-                                                        <li><a href="#!shop">Digital Cameras</a></li>
-                                                        <li><a href="#!shop">Mirrorless Cameras</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </nav>
@@ -390,6 +380,7 @@
     <script type="text/javascript" src="assets/ctrl/user-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/wishlist-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/checkout-controller.js"></script>
+    <script type="text/javascript" src="assets/ctrl/shop-controller.js"></script>
 
     <script type="text/javascript" src="https://bit.ly/ui-bootstrap-tpls"></script>
     <script type="text/javascript" src="https://bit.ly/googleTranslateElementInit2"></script>

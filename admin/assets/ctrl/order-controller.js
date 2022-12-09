@@ -1,8 +1,8 @@
-app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location) {
-    var url = "http://localhost:8080/api/order";
-    var urlOrderApproval = "http://localhost:8080/api/orderdetail/approval";
-    var urlOrderDetail = "http://localhost:8080/api/orderdetail";
-    var urlDetailOfOrder = "http://localhost:8080/api/orderdetail/pro"
+app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location, HOST) {
+    var url = HOST + "/api/order";
+    var urlOrderApproval = HOST + "/api/orderdetail/approval";
+    var urlOrderDetail = HOST + "/api/orderdetail";
+    var urlDetailOfOrder = HOST + "/api/orderdetail/pro"
 
     $scope.orderdata = orderService.get();
     $scope.items = [];
@@ -84,7 +84,6 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
                     var item = $scope.itemSelected;
                     item.status = flag;
                     item.order.updatedat = moment().valueOf();
-                    console.log(item);
                     $http.put(`${urlOrderDetail}/${itemid}`, item).then(resp => {
                         if (flag == 2) {
                             sweetalert_success("Duyệt đơn thành công!");
@@ -149,15 +148,14 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
     })
     .directive('date', function (dateFilter) {
         return {
-            require:'ngModel',
-            link:function (scope, elm, attrs, ctrl) {
-    
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+
                 var dateFormat = attrs['date'] || 'yyyy-MM-dd';
-               
+
                 ctrl.$formatters.unshift(function (modelValue) {
                     return dateFilter(modelValue, dateFormat);
                 });
             }
         };
     })
-    
