@@ -11,6 +11,7 @@ app.config(function ($routeProvider, $httpProvider, $qProvider) {
         .when("/cart", { templateUrl: "pages/cart.html", controller: "cart-ctrl" })
         .when("/checkout", { templateUrl: "pages/checkout.html", controller: "checkout-ctrl" })
         .when("/my-account", { templateUrl: "pages/my-account.html", controller: "user-ctrl" })
+        .when("/orderdetail", { templateUrl: "pages/orderdetail.html", controller: "order-ctrl" })
         .when("/forgot-password", { templateUrl: "pages/forgot-password.html", controller: "user-ctrl" })
         .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "reset-password-ctrl" })
         .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })

@@ -14,6 +14,22 @@ app.factory("myService", function () {
     };
 });
 
+app.factory("orderService", function () {
+    var savedData = {};
+
+    function set(data) {
+        savedData = data;
+    }
+
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get,
+    };
+});
+
 app.factory("authInterceptor", function (HOST, authService) {
     return {
         request: function (config) {
@@ -88,6 +104,7 @@ app.factory("$utility", ($window, $http, $routeParams, HOST) => {
         },
         get $params() {
             return $routeParams;
+            
         },
         get $message() {
             return {
