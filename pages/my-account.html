@@ -61,7 +61,12 @@
                                         <li>
                                             <button class="nav-link" id="orders-tab" data-bs-toggle="tab"
                                                 data-bs-target="#orders" role="tab" aria-controls="orders"
-                                                aria-selected="false">Đơn hàng</button>
+                                                aria-selected="false">Đơn hàng đã mua</button>
+                                        </li>
+                                        <li>
+                                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab"
+                                                data-bs-target="#orderssell" role="tab" aria-controls="orderssell"
+                                                aria-selected="false">Đơn hàng cần xử lí</button>
                                         </li>
                                         <li>
                                             <button class="nav-link" id="account-details-tab" data-bs-toggle="tab"
@@ -86,7 +91,7 @@
                                         <div id="dashboard" class="tab-pane fade" role="tabpanel"
                                             aria-labelledby="dashboard-tab">
                                             <h3>Sản phẩm của tôi </h3>
-                                            <table class="table table-bordered dt-responsive nowrap">
+                                            <table class="table  table-bordered dt-responsive nowrap">
                                                 <thead>
                                                     <tr>
                                                         <th>Loại sản phẩm</th>
@@ -201,39 +206,242 @@
                                             </form>
                                         </div>
                                         <div id="orders" class="tab-pane fade" role="tabpanel"
-                                            aria-labelledby="orders-tab">
-                                            <h3>Đơn hàng</h3>
+                                            ng-controller="order-ctrl" aria-labelledby="orders-tab">
+                                            <!-- <h3>Đơn hàng</h3>
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
                                                             <th>STT</th>
-                                                            <th>Ngày</th>
-                                                            <th>Trạng</th>
-                                                            <th>Tổng</th>
+                                                            <th>Mã đơn hàng</th>
+                                                            <th>Ngày đặt</th>
+                                                            <th>Trạng thái</th>
                                                             <th>Hành động</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>September 10, 2019</td>
-                                                            <td>Processing</td>
-                                                            <td>$25.00 for 1 item </td>
-                                                            <td><a class="btn btn-secondary" href="#!cart">Xem</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>October 4, 2019</td>
-                                                            <td>Processing</td>
-                                                            <td>$17.00 for 1 item </td>
-                                                            <td><a class="btn btn-secondary" href="#!cart">Xem</a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
+                                                    <tr ng-repeat="item in items">
+                                                        <td>{{$index +1}}</td>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                        <td>Temp</td>
+                                                        <td class="align-middle ">
+                                                            <a class="btn btn-dark" href="#!/orderdetail"
+                                                                ng-click="detail(item)"> Xem chi tiết</a>
+                                                        </td>
+                                                    </tr>
                                                 </table>
-                                            </div>
+                                            </div> -->
+                                            <nav>
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                  <button class="nav-link active" id="nav-processing-tab" data-bs-toggle="tab" data-bs-target="#nav-processing" type="button" role="tab" aria-controls="nav-processing" aria-selected="true">Đang xử lí</button>
+                                                  <button class="nav-link" id="nav-finished-tab" data-bs-toggle="tab" data-bs-target="#nav-finished" type="button" role="tab" aria-controls="nav-finished" aria-selected="false">Đã hoàn thành</button>
+                                                  <button class="nav-link" id="nav-cancel-tab" data-bs-toggle="tab" data-bs-target="#nav-cancel" type="button" role="tab" aria-controls="nav-cancel" aria-selected="false">Đơn bị hủy</button>
+                                                </div>
+                                              </nav>
+                                              <div class="tab-content" id="nav-tabContent" ng-init="loadOrderData()">
+                                                <div class="tab-pane fade show active" id="nav-processing" role="tabpanel" aria-labelledby="nav-processing-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table ">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Chi tiết</th>
+                                                                    <th>Mã đơn hàng</th>
+                                                                    <th>Ngày đặt</th>
+                                                                    <th>Tổng tiền</th>
+                                                                    <th>Hành động</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody ng-repeat="item in orders | filter : filterOrder">
+                                                                <tr>
+                                                                    <td><i class="lnr lnr-chevron-down-circle" style=" font-size : 24px;" ng-click="isRowCollapsed=!isRowCollapsed"></i></td>
+                                                                    <td>{{item.id}}</td>
+                                                                    <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                                    <td>{{item.totalPrice | number:0}}</td>
+                                                                    <td class="align-middle ">
+                                                                        <a class="btn btn-dark" href="#!/orderdetail"
+                                                                            ng-click="detail(item)"> Xem chi tiết</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="detail in item.detail" ng-hide="isRowCollapsed">
+                                                                    <td class="bg-warning">Sản phẩm</td>
+                                                                    <td>Tên SP: {{detail.product.name}}</td>
+                                                                    <td>Giảm giá: {{detail.product.discount}}%</td>
+                                                                    <td>Giá bán: {{detail.product.price| number:0}}/1 SP</td>
+                                                                    <td>
+                                                                        <span class="badge bg-warning px-2" ng-if="detail.status == 1">Chờ xét duyệt</span>
+                                                                        <span class="badge bg-primary px-2" ng-if="detail.status == 2">Đang xử lí</span>
+                                                                        <span class="badge bg-danger px-2" ng-if="detail.status == 3">Đã hủy</span>
+                                                                        <span class="badge bg-success px-2" ng-if="detail.status == 4">Đã hoàn thành</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="nav-finished" role="tabpanel" aria-labelledby="nav-finished-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>STT</th>
+                                                                    <th>Mã đơn hàng</th>
+                                                                    <th>Ngày đặt</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Hành động</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tr ng-repeat="item in orders">
+                                                                <td>{{$index +1}}</td>
+                                                                <td>{{item.id}}</td>
+                                                                <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                                <td>Temp</td>
+                                                                <td class="align-middle ">
+                                                                    <a class="btn btn-dark" href="#!/orderdetail"
+                                                                        ng-click="detail(item)"> Xem chi tiết</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="nav-cancel" role="tabpanel" aria-labelledby="nav-cancel-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>STT</th>
+                                                                    <th>Mã đơn hàng</th>
+                                                                    <th>Ngày đặt</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Hành động</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tr ng-repeat="item in orders">
+                                                                <td>{{$index +1}}</td>
+                                                                <td>{{item.id}}</td>
+                                                                <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                                <td >Temp</td>
+                                                                <td class="align-middle ">
+                                                                    <a class="btn btn-dark" href="#!/orderdetail"
+                                                                        ng-click="detail(item)"> Xem chi tiết</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              
+                                        </div>
+                                        <div id="orderssell" class="tab-pane fade" role="tabpanel"
+                                            ng-controller="order-ctrl" aria-labelledby="orderssell-tab">
+                                            <!-- <h3>Đơn hàng</h3>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>STT</th>
+                                                            <th>Mã đơn hàng</th>
+                                                            <th>Ngày đặt</th>
+                                                            <th>Trạng thái</th>
+                                                            <th>Hành động</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tr ng-repeat="item in items">
+                                                        <td>{{$index +1}}</td>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                        <td>Temp</td>
+                                                        <td class="align-middle ">
+                                                            <a class="btn btn-dark" href="#!/orderdetail"
+                                                                ng-click="detail(item)"> Xem chi tiết</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div> -->
+                                            <nav>
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                  <button class="nav-link active" id="nav-processing-tab" data-bs-toggle="tab" data-bs-target="#nav-processing" type="button" role="tab" aria-controls="nav-processing" aria-selected="true">Đang xử lí</button>
+                                                  <button class="nav-link" id="nav-finished-tab" data-bs-toggle="tab" data-bs-target="#nav-finished" type="button" role="tab" aria-controls="nav-finished" aria-selected="false">Đã hoàn thành</button>
+                                                  <button class="nav-link" id="nav-cancel-tab" data-bs-toggle="tab" data-bs-target="#nav-cancel" type="button" role="tab" aria-controls="nav-cancel" aria-selected="false">Đơn bị hủy</button>
+                                                </div>
+                                              </nav>
+                                              <div class="tab-content" id="nav-tabContent" ng-init="loadOrderData()">
+                                                <div class="tab-pane fade show active" id="nav-processing" role="tabpanel" aria-labelledby="nav-processing-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Chi tiết</th>
+                                                                    <th>Mã đơn hàng</th>
+                                                                    <th>Ngày đặt</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Hành động</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tr ng-repeat="item in orders">
+                                                                <td>{{$index +1}}</td>
+                                                                <td>{{item.id}}</td>
+                                                                <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                                <td>Temp</td>
+                                                                <td class="align-middle ">
+                                                                    <a class="btn btn-dark" href="#!/orderdetail"
+                                                                        ng-click="detail(item)"> Xem chi tiết</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="nav-finished" role="tabpanel" aria-labelledby="nav-finished-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>STT</th>
+                                                                    <th>Mã đơn hàng</th>
+                                                                    <th>Ngày đặt</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Hành động</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tr ng-repeat="item in orders">
+                                                                <td>{{$index +1}}</td>
+                                                                <td>{{item.id}}</td>
+                                                                <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                                <td>Temp</td>
+                                                                <td class="align-middle ">
+                                                                    <a class="btn btn-dark" href="#!/orderdetail"
+                                                                        ng-click="detail(item)"> Xem chi tiết</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="nav-cancel" role="tabpanel" aria-labelledby="nav-cancel-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>STT</th>
+                                                                    <th>Mã đơn hàng</th>
+                                                                    <th>Ngày đặt</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Hành động</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tr ng-repeat="item in orders">
+                                                                <td>{{$index +1}}</td>
+                                                                <td>{{item.id}}</td>
+                                                                <td>{{item.createdat | date: 'yyyy/MM/dd HH:mm'}}</td>
+                                                                <td >Temp</td>
+                                                                <td class="align-middle ">
+                                                                    <a class="btn btn-dark" href="#!/orderdetail"
+                                                                        ng-click="detail(item)"> Xem chi tiết</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              
                                         </div>
                                         <div id="account-details" class="tab-pane fade" role="tabpanel"
                                             aria-labelledby="account-details-tab">
@@ -366,3 +574,25 @@
         </div>
     </div>
 </div>
+<script>
+    const nextBtn = document.querySelectorAll(".btnNext");
+    const prevBtn = document.querySelectorAll(".btnPrev");
+
+    nextBtn.forEach(function (item, index) {
+        item.addEventListener('click', function () {
+            let id = index + 1;
+            let tabElement = document.querySelectorAll("#myTab li a")[id];
+            var lastTab = new bootstrap.Tab(tabElement);
+            lastTab.show();
+        });
+    });
+
+    prevBtn.forEach(function (item, index) {
+        item.addEventListener('click', function () {
+            let id = index;
+            let tabElement = document.querySelectorAll("#myTab li a")[id];
+            var lastTab = new bootstrap.Tab(tabElement);
+            lastTab.show();
+        });
+    });
+</script>
