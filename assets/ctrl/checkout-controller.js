@@ -1,6 +1,6 @@
 app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, authService) {
-    var urlorder = "http://localhost:8080/api/order";
-    var urlorderdetail = "http://localhost:8080/api/orderdetail";
+    var urlorder = "http://157.245.157.128/v1/api/order";
+    var urlorderdetail = "http://157.245.157.128/v1/api/orderdetail";
 
     $scope.users = [];
     $scope.orderdetails = [];

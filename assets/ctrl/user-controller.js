@@ -2,7 +2,7 @@
 app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, HOST, userService, authService) {
     const { $http, $data, $serverUrl, $message } = $utility;
 
-    var urlProd = "http://localhost:8080/api/product";
+    var urlProd = "http://157.245.157.128/v1/api/product";
     $scope.items = [];
     $scope.userdata = {};
 
@@ -106,7 +106,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $scope.updateInfo = function () {
         var item = angular.copy($scope.userdata);
-        console.log(item)
         $http.put(`${HOST}/api/user/${item.id}`, item).then((resp) => {
             var index = $scope.items.findIndex((p) => p.id == item.id);
             $scope.items[index] = item;
@@ -175,12 +174,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             if ($files.length) {
                 for (let index = 0; index < $files.length; index++) {
                     if ($files[index].size > $(this).data('max-size') * 1024) {
-                        console.log('Vui lòng chọn file có dung lượng nhỏ hơn!');
                         return false;
                     }
                 }
                 document.getElementById("imgs").value = '';
-                console.log('Đang upload hình ảnh lên imgur...');
                 const arr = [];
                 for (let index = 0; index < $files.length; index++) {
                     var apiUrl = 'https://api.imgur.com/3/image';
@@ -218,9 +215,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
                         document.getElementById("myDIV").appendChild(outImg);
                     });
                 }
-                console.log(arr.toString().split(','))
                 document.getElementById("imgs").value = arr.toString().split(',')
-                console.log(document.getElementById("imgs").value)
             }
         });
     });

@@ -1,9 +1,9 @@
 app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $filter, productService) {
-    var url = "http://localhost:8080/api/product";
-    var urlcate = "http://localhost:8080/api/category";
-    var urlcompany = "http://localhost:8080/api/company";
-    var urluser = "http://localhost:8080/api/user";
-    var url2 = "http://localhost:8080/api/upload/images";
+    var url = "http://157.245.157.128/v1/api/product";
+    var urlcate = "http://157.245.157.128/v1/api/category";
+    var urlcompany = "http://157.245.157.128/v1/api/company";
+    var urluser = "http://157.245.157.128/v1/api/user";
+    var url2 = "http://157.245.157.128/v1/api/upload/images";
     $scope.items = [];
     $scope.cate = [];
     $scope.user = [];
@@ -124,11 +124,9 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
     }
 
     $scope.deleteImg = (index) => {
-        console.log(document.getElementById("imgs").value.split(','))
         var arrImg = document.getElementById("imgs").value.split(',');
         arrImg.splice(index, 1);
         document.getElementById("imgs").value = arrImg;
-        console.log(index)
 
         // * Delete all element in class "myDIV"
         setTimeout(() => {
@@ -234,12 +232,10 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
             if ($files.length) {
                 for (let index = 0; index < $files.length; index++) {
                     if ($files[index].size > $(this).data('max-size') * 1024) {
-                        console.log('Vui lòng chọn file có dung lượng nhỏ hơn!');
                         return false;
                     }
                 }
                 document.getElementById("imgs").value = '';
-                console.log('Đang upload hình ảnh lên imgur...');
                 const arr = [];
                 for (let index = 0; index < $files.length; index++) {
                     var apiUrl = 'https://api.imgur.com/3/image';
@@ -262,7 +258,6 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
                     settings.data = formData;
 
                     $.ajax(settings).done(function (response) {
-                        console.log('done');
                         var obj = JSON.parse(response);
                         var cut = JSON.stringify(obj.data.link);
                         arr.push(cut.slice(1, cut.length - 1));
@@ -277,9 +272,7 @@ app.controller("product-ctrl", function ($scope, $rootScope, $location, $http, $
                         document.getElementById("myDIV").appendChild(outImg);
                     });
                 }
-                console.log(arr.toString().split(','))
                 document.getElementById("imgs").value = arr.toString().split(',')
-                console.log(document.getElementById("imgs").value)
             }
         });
     });

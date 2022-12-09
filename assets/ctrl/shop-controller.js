@@ -30,17 +30,4 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
     $scope.numberOfPages = function () {
         return Math.ceil($scope.products.length / $scope.pageSize);
     }
-
-    // setTimeout(() => {
-    //     $(document).ready(function () {
-    //         if ($scope.currentPage == 0) {
-    //             console.log('1')
-    //         } else {
-    //             console.log('2')
-    //         }
-    //         $("#btnPreShop").click(function () {
-    //             console.log("sd")
-    //         })
-    //     })
-    // }, 1000)
 });

@@ -1,8 +1,8 @@
 app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location) {
-    var url = "http://localhost:8080/api/order";
-    var urlOrderApproval = "http://localhost:8080/api/orderdetail/approval";
-    var urlOrderDetail = "http://localhost:8080/api/orderdetail";
-    var urlDetailOfOrder = "http://localhost:8080/api/orderdetail/pro"
+    var url = "http://157.245.157.128/v1/api/order";
+    var urlOrderApproval = "http://157.245.157.128/v1/api/orderdetail/approval";
+    var urlOrderDetail = "http://157.245.157.128/v1/api/orderdetail";
+    var urlDetailOfOrder = "http://157.245.157.128/v1/api/orderdetail/pro"
 
     $scope.orderdata = orderService.get();
     $scope.items = [];
@@ -84,7 +84,6 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
                     var item = $scope.itemSelected;
                     item.status = flag;
                     item.order.updatedat = moment().valueOf();
-                    console.log(item);
                     $http.put(`${urlOrderDetail}/${itemid}`, item).then(resp => {
                         if (flag == 2) {
                             sweetalert_success("Duyệt đơn thành công!");

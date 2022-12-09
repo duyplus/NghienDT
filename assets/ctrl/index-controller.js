@@ -1,7 +1,7 @@
 app.controller("index-ctrl", ($scope, $http, $cart, $utility, authService) => {
 	const { $owlSlick } = $utility;
-	var cate = "http://localhost:8080/api/category";
-	var brand = "http://localhost:8080/api/category";
+	var cate = "http://157.245.157.128/v1/api/category";
+	var brand = "http://157.245.157.128/v1/api/category";
 	$scope.cates = [];
 	$scope.brands = [];
 	

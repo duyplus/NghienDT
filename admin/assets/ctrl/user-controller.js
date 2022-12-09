@@ -1,6 +1,6 @@
 app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $filter, userService) {
-    var url = "http://localhost:8080/api/user";
-    var url2 = "http://localhost:8080/api/upload/images";
+    var url = "http://157.245.157.128/v1/api/user";
+    var url2 = "http://157.245.157.128/v1/api/upload/images";
     $scope.items = [];
     $scope.userdata = userService.get();
 
@@ -177,12 +177,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
             if ($files.length) {
                 for (let index = 0; index < $files.length; index++) {
                     if ($files[index].size > $(this).data('max-size') * 1024) {
-                        console.log('Vui lòng chọn file có dung lượng nhỏ hơn!');
                         return false;
                     }
                 }
                 document.getElementById("imgs").value = '';
-                console.log('Đang upload hình ảnh lên imgur...');
                 const arr = [];
                 for (let index = 0; index < $files.length; index++) {
                     var apiUrl = 'https://api.imgur.com/3/image';
@@ -205,7 +203,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
                     settings.data = formData;
 
                     $.ajax(settings).done(function (response) {
-                        console.log('done');
                         var obj = JSON.parse(response);
                         var cut = JSON.stringify(obj.data.link);
                         arr.push(cut.slice(1, cut.length - 1));
@@ -217,9 +214,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $http, $fil
                         document.getElementById("myDIV").appendChild(para);
                     });
                 }
-                console.log(arr.toString().split(','))
                 document.getElementById("imgs").value = arr.toString().split(',')
-                console.log(document.getElementById("imgs").value)
             }
         });
     });

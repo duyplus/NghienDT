@@ -20,7 +20,7 @@ app.config(function ($routeProvider, $httpProvider, $qProvider) {
         .otherwise({ redirectTo: "/", });
 });
 
-app.constant("HOST", "http://localhost:8080");
+app.constant("HOST", "http://157.245.157.128/v1");
 
 app.directive("convertDate", function () {
     return {
