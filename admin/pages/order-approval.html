@@ -50,7 +50,7 @@
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
                                 <th>Thành tiền</th>
-                                <th>Trạng thái/ Thuộc đơn số</th>
+                                <th>Trạng thái<span class="float-right">Thuộc đơn số</span></th>
                                 <th ng-show="status == 1 || status == 2" style="text-align: center;">Chọn</th>
                                 <th ng-show="status == 3 || status == 4" style="text-align: center;">Ngày cập nhật</th>
                             </tr>
@@ -67,7 +67,7 @@
                                     <span class="badge badge-soft-primary px-2" ng-if="item.status == 2">Đang xử lí</span>
                                     <span class="badge badge-soft-danger px-2" ng-if="item.status == 3">Đã hủy</span>
                                     <span class="badge badge-soft-success px-2" ng-if="item.status == 4">Đã hoàn thành</span>
-                                    <span class="badge badge-soft-info px-3">{{item.order.id}}</span>
+                                    <span class="badge badge-soft-info px-3 float-right">Đơn hàng: {{item.order.id}}</span>
                                 </td>
                                 <td ng-show="item.status == 1 || item.status ==  2" class="form-inline justify-content-center">
                                     <input type="checkbox" id="{{item.id}}" ng-model="selectedList[item.id]" style="width: 20px; height: 20px;"/>
