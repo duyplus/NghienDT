@@ -1,6 +1,5 @@
 app.controller("company-ctrl", function ($scope, $location, $http, HOST, companyService) {
-    var url = HOST + "/api/company";
-    var url2 = HOST + "/api/upload/images";
+    var url = `${HOST}/api/company`
     $scope.items = [];
     $scope.companydata = companyService.get();
 
@@ -21,23 +20,9 @@ app.controller("company-ctrl", function ($scope, $location, $http, HOST, company
         });
     }
 
-    // Dropify
-    $('.dropify').dropify();
-    var drEvent = $('.dropify-event').dropify();
-    drEvent.on('dropify.beforeClear', function (event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-    });
-    drEvent.on('dropify.afterClear', function (event, element) {
-        sweetalert("File deleted!");
-    });
-    drEvent.on('dropify.errors', function (event, element) {
-        sweetalert_error("Has Errors!");
-    });
-
-    //load data
+    // load data
     $http.get(url).then(resp => {
         $scope.items = resp.data;
-
         // paginate
         $scope.curPage = 1;
         $scope.itemsPerPage = 10;
@@ -53,15 +38,14 @@ app.controller("company-ctrl", function ($scope, $location, $http, HOST, company
         });
     });
 
-    //xoa form
+    // xoa form
     $scope.reset = function () {
         $scope.companydata = {};
     }
 
-    //hien thi len form
+    // hien thi len form
     $scope.edit = function (item) {
         companyService.set(item);
-
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
@@ -84,7 +68,7 @@ app.controller("company-ctrl", function ($scope, $location, $http, HOST, company
         }
     }
 
-    //them sp moi
+    // them hang moi
     $scope.create = function () {
         $scope.companydata.logo = "null.png";
         var item = angular.copy($scope.companydata);
@@ -99,13 +83,11 @@ app.controller("company-ctrl", function ($scope, $location, $http, HOST, company
         });
     }
 
-    //cap nhat sp
+    // cap nhat hang
     $scope.update = function () {
         $scope.companydata.logo = "null.png";
-
         // * Get img
         $scope.productdata.image = document.getElementById("imgs").value;
-
         var item = angular.copy($scope.companydata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
@@ -119,7 +101,7 @@ app.controller("company-ctrl", function ($scope, $location, $http, HOST, company
         });
     }
 
-    //xoa sp
+    // xoa hang
     $scope.delete = function () {
         $http.delete(`${url}/${$scope.companydata.id}`).then(resp => {
             var index = $scope.items.findIndex(p => p.id == $scope.companydata.id);
@@ -133,28 +115,12 @@ app.controller("company-ctrl", function ($scope, $location, $http, HOST, company
         });
     }
 
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.companydata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
-    }
-
-    // Export xcel
+    // Export excel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
             var workbook = XLSX.utils.book_new();
             var worksheet_data = document.getElementById("table");
             var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
-
             workbook.SheetNames.push("Company");
             workbook.Sheets["Company"] = worksheet;
             exportExcelFile(workbook);

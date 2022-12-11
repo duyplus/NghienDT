@@ -1,6 +1,5 @@
 app.controller("user-ctrl", function ($scope, $location, $http, userService, HOST) {
-    var url = HOST + "/api/user";
-    var url2 = HOST + "/api/upload/images";
+    var url = `${HOST}/api/user`
     $scope.items = [];
     $scope.userdata = userService.get();
 
@@ -21,23 +20,9 @@ app.controller("user-ctrl", function ($scope, $location, $http, userService, HOS
         });
     }
 
-    // Dropify
-    $('.dropify').dropify();
-    var drEvent = $('.dropify-event').dropify();
-    drEvent.on('dropify.beforeClear', function (event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-    });
-    drEvent.on('dropify.afterClear', function (event, element) {
-        sweetalert("File deleted!");
-    });
-    drEvent.on('dropify.errors', function (event, element) {
-        sweetalert_error("Has Errors!");
-    });
-
     //load data
     $http.get(url).then(resp => {
         $scope.items = resp.data;
-
         // paginate
         $scope.curPage = 1;
         $scope.itemsPerPage = 10;
@@ -61,7 +46,6 @@ app.controller("user-ctrl", function ($scope, $location, $http, userService, HOS
     //hien thi len form
     $scope.edit = function (item) {
         userService.set(item);
-
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
@@ -137,22 +121,7 @@ app.controller("user-ctrl", function ($scope, $location, $http, userService, HOS
         });
     }
 
-    //upload hinh (cũ)
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.userdata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
-    }
-
-    // Export xcel
+    // Export excel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
             var workbook = XLSX.utils.book_new();

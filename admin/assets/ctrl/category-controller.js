@@ -1,6 +1,5 @@
 app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateService) {
-    var url = HOST + "/api/category";
-    var url2 = HOST + "/api/upload/images";
+    var url = `${HOST}/api/category`
     $scope.items = [];
     $scope.categorydata = cateService.get();
 
@@ -21,23 +20,9 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         });
     }
 
-    // Dropify
-    $('.dropify').dropify();
-    var drEvent = $('.dropify-event').dropify();
-    drEvent.on('dropify.beforeClear', function (event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-    });
-    drEvent.on('dropify.afterClear', function (event, element) {
-        sweetalert("File deleted!");
-    });
-    drEvent.on('dropify.errors', function (event, element) {
-        sweetalert_error("Has Errors!");
-    });
-
-    //load data
+    // load data
     $http.get(url).then(resp => {
         $scope.items = resp.data;
-
         // paginate
         $scope.curPage = 1;
         $scope.itemsPerPage = 10;
@@ -53,15 +38,14 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         });
     });
 
-    //xoa form
+    // xoa form
     $scope.reset = function () {
         $scope.categorydata = {};
     }
 
-    //hien thi len form
+    // hien thi len form
     $scope.edit = function (item) {
         cateService.set(item);
-
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
@@ -84,7 +68,7 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         }
     }
 
-    //them sp moi
+    // them danh muc moi
     $scope.create = function () {
         $scope.categorydata.image = "null.png";
         var item = angular.copy($scope.categorydata);
@@ -99,11 +83,10 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         });
     }
 
-    //cap nhat sp
+    // cap nhat danh muc
     $scope.update = function () {
         // * Get img
         $scope.productdata.image = document.getElementById("imgs").value;
-
         var item = angular.copy($scope.categorydata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
@@ -117,7 +100,7 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         });
     }
 
-    //xoa sp
+    // xoa danh muc
     $scope.delete = function () {
         $http.delete(`${url}/${$scope.categorydata.id}`).then(resp => {
             var index = $scope.items.findIndex(p => p.id == $scope.categorydata.id);
@@ -131,28 +114,12 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         });
     }
 
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.categorydata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
-    }
-
-    // Export xcel
+    // Export excel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
             var workbook = XLSX.utils.book_new();
             var worksheet_data = document.getElementById("table");
             var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
-
             workbook.SheetNames.push("Category");
             workbook.Sheets["Category"] = worksheet;
             exportExcelFile(workbook);

@@ -38,11 +38,11 @@
         <div class="brand">
             <a href="/admin" class="logo">
                 <span>
-                    <img src="admin/assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
+                    <img ng-src="admin/assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
                 </span>
                 <span>
-                    <img src="admin/assets/images/logo.png" alt="logo-large" class="logo-lg logo-light">
-                    <img src="admin/assets/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark">
+                    <img ng-src="admin/assets/images/logo.png" alt="logo-large" class="logo-lg logo-light">
+                    <img ng-src="admin/assets/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark">
                 </span>
             </a>
         </div>
@@ -184,20 +184,14 @@
                     <li class="dropdown">
                         <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown"
                             href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
-                            <span class="ml-1 nav-user-name hidden-sm">Xin chào, <b>Duy</b></span>
+                            <span class="ml-1 nav-user-name hidden-sm" ng-show="isAuthed()">Xin chào, <b>{{currentUser}}</b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="admin/#!login">
-                                <i data-feather="log-in" class="icon-xs icon-dual mr-1"></i> Đăng nhập
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i data-feather="user" class="icon-xs icon-dual mr-1"></i> Cá nhân
-                            </a>
                             <a class="dropdown-item" href="admin/#!setting">
                                 <i data-feather="settings" class="icon-xs icon-dual mr-1"></i> Cài đặt
                             </a>
                             <div class="dropdown-divider mb-0"></div>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" ng-click="logout()">
                                 <i data-feather="power" class="icon-xs icon-dual mr-1"></i> Đăng xuất
                             </a>
                         </div>
@@ -228,12 +222,13 @@
     <script type="text/javascript" src="admin/assets/js/plugins.min.js"></script>
     <script type="text/javascript" src="admin/assets/js/main.min.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/app-controller.js"></script>
+    <script type="text/javascript" src="admin/assets/ctrl/statistic-controller.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/dashboard-controller.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/category-controller.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/company-controller.js"></script>
-    <script type="text/javascript" src="admin/assets/ctrl/order-controller.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/product-controller.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/review-controller.js"></script>
+    <script type="text/javascript" src="admin/assets/ctrl/order-controller.js"></script>
     <script type="text/javascript" src="admin/assets/ctrl/user-controller.js"></script>
 
 </body>

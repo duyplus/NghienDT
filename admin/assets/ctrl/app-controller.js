@@ -62,6 +62,33 @@ app.directive('stringToNumber', function () {
     };
 });
 
+app.directive('dir', function () {
+    return {
+        link: function (scope, elem, attrs) {
+            $(elem).on('click', function () {
+                $(this)
+                    .parent('tr')
+                    .next('tr')
+                    .toggle();
+            })
+        }
+    }
+});
+
+app.directive('date', function (dateFilter) {
+    return {
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ctrl) {
+
+            var dateFormat = attrs['date'] || 'yyyy-MM-dd';
+
+            ctrl.$formatters.unshift(function (modelValue) {
+                return dateFilter(modelValue, dateFormat);
+            });
+        }
+    };
+});
+
 app.factory('userService', function () {
     var savedData = {}
     function set(data) {

@@ -1,10 +1,8 @@
 app.controller("review-ctrl", function ($scope, $location, $http, reviewService, HOST) {
-    var url = HOST + "/api/review";
-    var urlorder = HOST + "/api/orderdetail";
-    var url2 = HOST + "/api/upload/images";
+    var url = `${HOST}/api/review`
+    var urlorder = `${HOST}/api/orderdetail`
     $scope.items = [];
     $scope.reviewdata = reviewService.get();
-
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -23,27 +21,12 @@ app.controller("review-ctrl", function ($scope, $location, $http, reviewService,
         });
     }
 
-    // Dropify
-    $('.dropify').dropify();
-    var drEvent = $('.dropify-event').dropify();
-    drEvent.on('dropify.beforeClear', function (event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-    });
-    drEvent.on('dropify.afterClear', function (event, element) {
-        sweetalert("File deleted!");
-    });
-    drEvent.on('dropify.errors', function (event, element) {
-        sweetalert_error("Has Errors!");
-    });
-
-
-
-    //load orderDetails
+    // load orderDetails
     $http.get(urlorder).then(resp => {
         $scope.cate = resp.data;
     });
 
-    //load data review
+    // load data review
     $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
@@ -61,17 +44,17 @@ app.controller("review-ctrl", function ($scope, $location, $http, reviewService,
         });
     });
 
-    //xoa form
+    // xoa form
     $scope.reset = function () {
         $scope.reviewdata = {};
     }
 
-    //hien thi len form
+    // hien thi len form
     $scope.edit = function (item) {
         reviewService.set(item);
     }
 
-    //cap nhat review
+    // cap nhat review
     $scope.update = function () {
         var item = angular.copy($scope.reviewdata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
@@ -86,7 +69,7 @@ app.controller("review-ctrl", function ($scope, $location, $http, reviewService,
         });
     }
 
-    //xoa review
+    // xoa review
     $scope.delete = function (item) {
         $http.delete(`${url}/${$scope.reviewdata.id}`).then(resp => {
             var index = $scope.items.findIndex(p => p.id == $scope.reviewdata.id);
@@ -100,22 +83,7 @@ app.controller("review-ctrl", function ($scope, $location, $http, reviewService,
         });
     }
 
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.reviewdata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
-    }
-
-    // Export xcel
+    // Export excel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
             var workbook = XLSX.utils.book_new();
