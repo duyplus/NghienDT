@@ -45,7 +45,7 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
             $scope.$watch('curPage + numPerPage', function () {
                 var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
                 var end = begin + $scope.itemsPerPage;
-                $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
+                $scope.pagingItemsApproval = $scope.itemsApproval.slice(begin, end);
             });
         });
     }
@@ -69,7 +69,7 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
         $scope.$watch('curPage + numPerPage', function () {
             var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
             var end = begin + $scope.itemsPerPage;
-            $scope.filteredItems = $scope.items.slice(begin, end);
+            $scope.pagingItems = $scope.items.slice(begin, end);
         });
     });
 

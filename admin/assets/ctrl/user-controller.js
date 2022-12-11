@@ -34,7 +34,7 @@ app.controller("user-ctrl", function ($scope, $location, $http, userService, HOS
         $scope.$watch('curPage + numPerPage', function () {
             var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
             var end = begin + $scope.itemsPerPage;
-            $scope.filteredItems = $scope.items.slice(begin, end);
+            $scope.pagingItems = $scope.items.slice(begin, end);
         });
     });
 
