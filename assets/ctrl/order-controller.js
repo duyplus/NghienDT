@@ -1,17 +1,70 @@
-app.controller('order-ctrl', function ($scope, $location, $http, $rootScope, orderService,$timeout) {
-    var urlOrder = "http://localhost:8080/api/order";
-    var urlOrderDetail = "http://localhost:8080/api/orderdetail";
-    var urlDetailOfOrder = "http://localhost:8080/api/orderdetail/pro"
+app.controller('order-ctrl', function ($scope, $location, $http, orderService, HOST , $cart) {
+    var urlOrder = `${HOST}/api/order`;
+    var urlOrderDetail = `${HOST}/api/orderdetail`;
+    var urlDetailOfOrder = `${HOST}/api/orderdetail/pro`
+    var urlOrderApproval = `${HOST}/api/orderdetail/approval`
 
     $scope.orderdata = orderService.get();
     $scope.items = [];
     $scope.item = {};
+    $scope.orderFinish = [];
+    $scope.orderCancel = [];
     $scope.itemDetail = [];
     $scope.orders = [];
+    $scope.orderseller = [];
     $scope.isRowCollapsed = true;
-    $scope.statusCode;
     $scope.currentUser = localStorage.getItem('currentUser');
     $scope.itemsd = {};
+
+    var orderLength = 0;
+    var sweetalert_success = function (text) {
+        Swal.fire({
+            icon: "success",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+    var sweetalert_error = function (text) {
+        Swal.fire({
+            icon: "error",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+
+    var sweetalert_topPU_success = function (text) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: text,
+        })
+    }
+
+    //load order detail by status 
+    $scope.loadOrderDetailByStatus = function (status) {
+        $http.get(`${urlOrderApproval}/${status}`).then(resp => {
+            if(status == 3){
+                $scope.orderCancel = resp.data.filter(item => item.order.user.username == $scope.currentUser);
+            }else if(status == 4){
+                $scope.orderFinish = resp.data.filter(item => item.order.user.username == $scope.currentUser);
+            }
+           
+        });
+
+    }
 
     //load order data 
     $scope.loadOrderData = function () {
@@ -20,46 +73,70 @@ app.controller('order-ctrl', function ($scope, $location, $http, $rootScope, ord
             for (var i = 0; i < $scope.items.length; i++) {
                 this.getDetailItem($scope.items[i].id);
             }
-            
         });
+
     }
- console.log($scope.orders)
+
+    //load order seller data 
+    $scope.loadOrderSellerData = function () {
+        $http.get(urlOrderDetail).then(resp => {
+            $scope.orderseller = resp.data.filter(item => item.product.user.username == $scope.currentUser);
+        });
+
+    }
+
     //load detail for order
     $scope.getDetailItem = function (id) {
         var tempItem = {};
         $http.get(`${urlOrder}/${id}`).then(resp => {
             $scope.itemsd = resp.data;
-
             tempItem = null;
             tempItem = $scope.itemsd;
-
             $http.get(`${urlDetailOfOrder}/${tempItem.id}`).then(respose => {
                 $scope.itemDetail = respose.data;
-
                 var tempDetail = $scope.itemDetail;
                 tempItem.detail = tempDetail;
-
                 //get Total Price
-                var status = 0;
                 var TempPrice = 0;
                 for (var i = 0; i < $scope.itemDetail.length; i++) {
                     TempPrice += $scope.itemDetail[i].price;
                     $scope.totalPrice = TempPrice;
-                    // status =$scope.itemDetail[i].status;
-                    // if($scope.itemDetail[i].status == 1 || $scope.itemDetail[i].status == 2){
-                    //     return status;
-                    // }
                 }
-
-                // tempItem.status = status;
-                tempItem.totalPrice =  $scope.totalPrice;
+                tempItem.totalPrice = $scope.totalPrice;
                 $scope.totalPrice = 0;
-              
+                tempItem.status = this.getOrderStatus(tempDetail);
             });
             $scope.itemsd = tempItem;
             $scope.orders.push($scope.itemsd);
         });
     }
+
+    //get Order Status
+    $scope.getOrderStatus = function (detail) {
+        for (var k = 0; k < detail.length; k++) {
+            var odetail = detail[k];
+            if (odetail != undefined && odetail != null) {
+                var status;
+                var detailst = odetail.status;
+                if (detailst == 1 || detailst == 2) {
+                    return status = 1;
+                } else {
+                    status = 2;
+                }
+            } else if (odetail == undefined || odetail == null) {
+                return status = 0;
+            }
+        }
+        return status;
+    }
+
+    //reorder
+    $scope.addCart = (product) => {
+        $cart.addItem(product,1);
+        sweetalert_topPU_success('Đã thêm sản phẩm vào giỏ hàng');
+    };
+
+
     //hien thi len chi tiết - chi tiết đơn hàng
     $scope.detail = function (item) {
         orderService.set(item);
@@ -68,7 +145,7 @@ app.controller('order-ctrl', function ($scope, $location, $http, $rootScope, ord
     //load detail data - chi tiết đơn hàng
     $scope.getDetail = function (id) {
         if (id == null) {
-            alert("Id not found");
+            sweetalert_error("Chọn đơn hàng để xem chi tiết");
             $location.path('my-account');
         } else {
             $http.get(`${urlDetailOfOrder}/${id}`).then(resp => {
@@ -83,17 +160,10 @@ app.controller('order-ctrl', function ($scope, $location, $http, $rootScope, ord
             })
         }
     };
-    $scope.filterOrder = function(item){
-        var detail = item.detail;
-        var temp = Object.keys(detail).length;
-        console.log(temp);
-        for(var i = 0 ; i < temp; i++) {
-            var detailst = detail[i].status;
-            return detailst == 1 || detailst == 2;
-        }
-        return item;
-    }
 
+    $scope.filterSellerOrder = function (item){
+        return item.status == 1 || item.status == 2;
+    }
 })
     .directive('date', function (dateFilter) {
         return {
