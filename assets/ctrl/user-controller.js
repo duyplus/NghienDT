@@ -22,6 +22,24 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     $scope.cate = {};
     $scope.company = {};
 
+    var sweetalert_error = function (text) {
+        Swal.fire({
+            icon: "error",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+
+    var sweetalert_success = function (text) {
+        Swal.fire({
+            icon: "success",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+
     $http.get(HOST + "/api/user").then((resp) => {
         $scope.items = resp.data;
     });
@@ -110,10 +128,11 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             var index = $scope.items.findIndex((p) => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
-            alert("Updated your info success!!")
+            sweetalert_success("Cập nhật thông tin thành công!!")
             $location.path("my-account");
         }).catch((error) => {
             console.log("Error", error);
+            sweetalert_error("Cập nhật thông tin thất bại!")
         });
     };
 
@@ -123,10 +142,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         const url = $serverUrl.forgotPasswordUrl;
 
         $http.post(url, $scope.email).then(() => {
-            alert(success.RESET_PASSWORD());
+            sweetalert_success(success.RESET_PASSWORD());
         }).catch((err) => {
             const { status, data } = err;
-            alert(error.RESET_PASSWORD(status, data && data.message));
+            sweetalert_error(error.RESET_PASSWORD(status, data && data.message));
             if (status === 500) $scope.email = "";
         });
     };
@@ -143,9 +162,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         console.log(item)
         $http.post(`${urlProd}`, item).then(resp => {
             $scope.reset();
-            alert("Created product success!!")
+            sweetalert_success("Đã thêm sản phẩm vào hệ thống!")
         }).catch(err => {
             console.log("Error", err)
+            sweetalert_error("Thêm sản phẩm thất bại!")
         })
     };
 
@@ -242,10 +262,10 @@ app.controller("reset-password-ctrl", function ($scope, $utility) {
         if (!id || !password || !confirm || password !== confirm) {
         } else {
             $http.post(url, $scope.forgotUser).then((resp) => {
-                alert(success.CHANGE_PASSWORD());
+                sweetalert_success(success.CHANGE_PASSWORD());
                 $url.redirectToLoginPage();
             }).catch((err) => {
-                alert(error.CHANGE_PASSWORD());
+                sweetalert_error(error.CHANGE_PASSWORD());
             });
         }
     };

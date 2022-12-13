@@ -483,6 +483,15 @@ app.factory("$cart", ($utility) => {
             title: text,
         })
     }
+
+    var sweetalert_warning = function (text) {
+        Swal.fire({
+            icon: "warning",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
     class Cart {
         #items;
         #cart_local = "cart";
@@ -527,7 +536,8 @@ app.factory("$cart", ($utility) => {
             if (item) {
                 quantity = item.quantity + quantityToAdd;
                 if (quantity > product.quantity) {
-                    alert($message.product.error.OVER_QUANTITY);
+                    console.log($message.product.error.OVER_QUANTITY);
+                    sweetalert_warning("Đã vượt quá số lượng tồn kho");
                     return;
                 }
             } else {

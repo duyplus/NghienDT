@@ -10,6 +10,16 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
     $scope.order = {};
     $scope.userid = {};
 
+    var sweetalert_success = function (text) {
+        Swal.fire({
+            icon: "success",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+    
+
     $scope.isAuthed = function () {
         return authService.isAuthed ? authService.isAuthed() : false;
     };
@@ -37,7 +47,7 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
         await $http.post(`${urlorder}`, item).then((resp) => {
             $scope.orders.push(resp.data);
             $scope.order.id = resp.data.id;
-            alert("Succes")
+            sweetalert_success("Thanh toán thành công")
         });
 
         // * Recover Order

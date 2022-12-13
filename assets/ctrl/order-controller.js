@@ -16,14 +16,6 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
     $scope.currentUser = localStorage.getItem('currentUser');
     $scope.itemsd = {};
 
-    var sweetalert_success = function (text) {
-        Swal.fire({
-            icon: "success",
-            title: text,
-            showConfirmButton: false,
-            timer: 2000,
-        });
-    }
     var sweetalert_error = function (text) {
         Swal.fire({
             icon: "error",
@@ -32,26 +24,7 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
             timer: 2000,
         });
     }
-
-    var sweetalert_topPU_success = function (text) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-
-        Toast.fire({
-            icon: 'success',
-            title: text,
-        })
-    }
-
+    
     //load order detail by status 
     $scope.loadOrderDetailByStatus = function (status) {
         $http.get(`${urlOrderApproval}/${status}`).then(resp => {

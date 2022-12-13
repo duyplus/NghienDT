@@ -6,6 +6,15 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
 
   const message = $message.product;
 
+  var sweetalert_error = function (text) {
+    Swal.fire({
+        icon: "error",
+        title: text,
+        showConfirmButton: false,
+        timer: 2000,
+    });
+}
+
   $scope.info = {
     currentProduct: $product.current,
     quantity: 0,
@@ -28,7 +37,8 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
     if (newVal == 0 && maxQuantity != 0) $scope.info.quantity = 1;
     if (newVal != oldVal && newVal > maxQuantity) {
       $scope.info.quantity = oldVal;
-      alert(message.error.OVER_QUANTITY());
+      console.log(message.error.OVER_QUANTITY());
+      sweetalert_error("Đã vượt quá sản phẩm tồn kho!")
     }
   });
 });
