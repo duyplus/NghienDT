@@ -16,7 +16,6 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
     $scope.currentUser = localStorage.getItem('currentUser');
     $scope.itemsd = {};
 
-    var orderLength = 0;
     var sweetalert_success = function (text) {
         Swal.fire({
             icon: "success",
@@ -133,7 +132,6 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
     //reorder
     $scope.addCart = (product) => {
         $cart.addItem(product,1);
-        sweetalert_topPU_success('Đã thêm sản phẩm vào giỏ hàng');
     };
 
 
