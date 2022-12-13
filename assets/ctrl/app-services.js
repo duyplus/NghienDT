@@ -464,6 +464,25 @@ app.factory("$utility", ($window, $http, $routeParams, HOST) => {
 app.factory("$cart", ($utility) => {
     const $message = $utility.$message;
     const $local = $utility.$storage.local;
+
+    var sweetalert_topPU_success = function (text) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: text,
+        })
+    }
     class Cart {
         #items;
         #cart_local = "cart";
@@ -516,6 +535,7 @@ app.factory("$cart", ($utility) => {
             }
             this.#items.set(product.id, { ...product, quantity: quantity });
             this.saveToLocal();
+            sweetalert_topPU_success('Đã thêm sản phẩm vào giỏ hàng');
         }
 
         removeItem(productId) {
