@@ -211,7 +211,7 @@
                                                 <span ng-show="isAuthed()">
                                                     <li style="background-color: #e0ffe5;"><a style="color: #000;">Xin
                                                             chào, <b>Duy</b></a></li>
-                                                    <li><a href="/admin">Bảng quản trị</a></li>
+                                                    <li><a href="/admin" ng-if="currentUser == admin">Bảng quản trị</a></li>
                                                     <li><a href="#!my-account">Tài khoản</a></li>
                                                     <li><a href="" ng-click="logout()">Đăng xuất</a>
                                                     </li>
