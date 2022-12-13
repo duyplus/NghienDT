@@ -110,7 +110,7 @@
                                         <span class="lnr lnr-cart"></span>
                                         <span class="count">{{cart.size}}</span>Giỏ hàng
                                     </button>
-                                    <ul class="mini-cart-drop-down ha-dropdown">
+                                    <ul class="mini-cart-drop-down ha-dropdown" ng-if="cart.size > 0">
                                         <li ng-repeat="(key, item) in cart.values">
                                             <table class="table table-borderless">
                                                 <td class="cart-img">
@@ -141,6 +141,17 @@
                                         <li>
                                             <a class="cart-button" href="#!checkout">Thanh toán</a>
                                         </li>
+                                    </ul>
+                                    <ul class="mini-cart-drop-down ha-dropdown" ng-if="cart.size == 0">
+                                        <span
+                                            class=" col-lg-6 col-md-12 col-12 text-center ">
+                                            <img src="	https://codescandy.com/coach/rtl/assets/images/bag.svg" alt=""
+                                                class="img-fluid mb-4">
+                                            <h5>Giỏ hàng của bạn hiện đang trống</h5>
+                                            <div class="d-flex justify-content-center">
+                                                <a href="#!/shop" class="cart-button mt-30">Mua thôi</a>
+                                            </div>
+                                        </span>
                                     </ul>
                                 </li>
                             </ul>
