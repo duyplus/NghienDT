@@ -2,7 +2,6 @@ app.controller("index-ctrl", ($scope, $http, $cart, $utility, authService) => {
 	const { $owlSlick } = $utility;
 	var cate = "http://157.245.157.128/v1/api/category";
 	var brand = "http://157.245.157.128/v1/api/category";
-	$scope.currentUser = localStorage.getItem('currentUser');
 	$scope.cates = [];
 	$scope.brands = [];
 	
