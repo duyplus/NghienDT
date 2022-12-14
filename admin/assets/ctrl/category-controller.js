@@ -20,6 +20,8 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
         });
     }
 
+    //Error : Incomplete upload image of category
+
     // load data
     $http.get(url).then(resp => {
         $scope.items = resp.data;

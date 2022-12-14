@@ -4,6 +4,8 @@ app.controller("review-ctrl", function ($scope, $location, $http, reviewService,
     $scope.items = [];
     $scope.reviewdata = reviewService.get();
 
+     //Error : Incomplete upload image of review
+
     var sweetalert_success = function (text) {
         Swal.fire({
             icon: "success",
