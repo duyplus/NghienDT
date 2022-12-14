@@ -12,6 +12,8 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
     $scope.getcate = {};
     $scope.getcompany = {};
 
+    ////Error : Cannot set properties of null (setting 'innerHTML')
+
     var sweetalert_success = function (text) {
         Swal.fire({
             icon: "success",
@@ -70,6 +72,8 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
     // xoa form
     $scope.reset = function () {
         $scope.productdata = {};
+        var item = {};
+        productService.set(item);
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
             getdiv.innerHTML = "";
@@ -146,6 +150,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         $scope.productdata.image = document.getElementById("imgs").value;
 
         var item = angular.copy($scope.productdata);
+        console.log(item);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
