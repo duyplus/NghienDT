@@ -47,10 +47,8 @@
                                 <td>{{item.content}}</td>
                                 <td>{{item.mark}}</td>
                                 <td>
-                                    <span class="badge badge-soft-primary px-2" ng-if="item.enable == true">Đã
-                                        duyệt</span>
-                                    <span class="badge badge-soft-secondary px-2" ng-if="item.enable != true">Chưa
-                                        duyệt</span>
+                                    <span class="badge badge-soft-primary px-2" ng-if="item.enable == true">Đang hiển thị</span>
+                                    <span class="badge badge-soft-secondary px-2" ng-if="item.enable != true"> Đang ẩn</span>
                                 </td>
                                 <td>{{item.createdAt}}</td>
                                 <td>{{item.orderDetail.id}}</td>
