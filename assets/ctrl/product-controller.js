@@ -1,4 +1,4 @@
-app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
+app.controller("product-ctrl", function ($scope, $product, $cart, $utility, HOST, $http) {
   const { $message, $templateUrl, $owlSlick } = $utility;
 
   $scope.templateUrl = $templateUrl.getProductTemplates();
@@ -8,12 +8,12 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
 
   var sweetalert_error = function (text) {
     Swal.fire({
-        icon: "error",
-        title: text,
-        showConfirmButton: false,
-        timer: 2000,
+      icon: "error",
+      title: text,
+      showConfirmButton: false,
+      timer: 2000,
     });
-}
+  }
 
   $scope.info = {
     currentProduct: $product.current,
@@ -41,4 +41,25 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility) {
       sweetalert_error("Đã vượt quá sản phẩm tồn kho!")
     }
   });
+
+  /////////////////////////////////////////////Review ///////////////////////////////////////
+  var urlReview = `${HOST}/api/review`;
+
+  $scope.currentProduct = $product.current;
+  $scope.reviews = [];
+  $scope.mark = 0;
+
+  $http.get(urlReview).then(resp => {
+    $scope.reviews = resp.data.filter(item => item.orderDetail.product.id == $scope.currentProduct.id);
+    console.log($scope.reviews)
+    var mark = 0;
+    for(var i = 0; i < $scope.reviews.length; i++) {
+      var review = $scope.reviews[i]
+      mark =+ review.mark;
+    }
+    $scope.mark = (mark/$scope.reviews.length).toFixed();
+    console.log($scope.mark);
+  });
+
+  
 });
