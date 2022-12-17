@@ -49,17 +49,29 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility, HOST
   $scope.reviews = [];
   $scope.mark = 0;
 
+  $scope.rv = [];
   $http.get(urlReview).then(resp => {
     $scope.reviews = resp.data.filter(item => item.orderDetail.product.id == $scope.currentProduct.id);
-    console.log($scope.reviews)
     var mark = 0;
+    console.log($scope.reviews);
     for(var i = 0; i < $scope.reviews.length; i++) {
-      var review = $scope.reviews[i]
-      mark =+ review.mark;
+      var review = $scope.reviews[i];
+      $scope.checkEnableofReview(review);
+      mark += review.mark;
     }
     $scope.mark = (mark/$scope.reviews.length).toFixed();
+    console.log(mark);
     console.log($scope.mark);
   });
 
-  
+
+
+  $scope.checkEnableofReview = function(review) {
+    if(review.enable === true){
+      $scope.rv.push(review);
+    }else{
+      return;
+    }
+    $scope.countReviews = $scope.rv.length;   
+  }
 });
