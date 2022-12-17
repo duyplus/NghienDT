@@ -1,4 +1,4 @@
-app.controller('order-ctrl', function ($scope, $location, $http, orderService, HOST , $cart) {
+app.controller('order-ctrl', function ($scope, $location, $http, orderService, HOST, $cart) {
     var urlOrder = `${HOST}/api/order`;
     var urlOrderDetail = `${HOST}/api/orderdetail`;
     var urlDetailOfOrder = `${HOST}/api/orderdetail/pro`
@@ -24,16 +24,16 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
             timer: 2000,
         });
     }
-    
+
     //load order detail by status 
     $scope.loadOrderDetailByStatus = function (status) {
         $http.get(`${urlOrderApproval}/${status}`).then(resp => {
-            if(status == 3){
+            if (status == 3) {
                 $scope.orderCancel = resp.data.filter(item => item.order.user.username == $scope.currentUser);
-            }else if(status == 4){
+            } else if (status == 4) {
                 $scope.orderFinish = resp.data.filter(item => item.order.user.username == $scope.currentUser);
             }
-           
+
         });
 
     }
@@ -104,7 +104,7 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
 
     //reorder
     $scope.addCart = (product) => {
-        $cart.addItem(product,1);
+        $cart.addItem(product, 1);
     };
 
 
@@ -132,8 +132,53 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
         }
     };
 
-    $scope.filterSellerOrder = function (item){
+    $scope.filterSellerOrder = function (item) {
         return item.status == 1 || item.status == 2;
+    }
+
+    ////////////////////////////////////////////// review order ////////////////////////////////////////
+    var urlReview = `${HOST}/api/review`;
+    var reviewPU = angular.element("#myModal");
+    var temppro = {};
+
+    $scope.itemReview = {
+        content: "",
+        mark: 0,
+        image: "anh1.png",
+        createdAt: moment().format('YYYY-MM-DD HH:mm'),
+        enable: true,
+        orderDetail: {},
+    }
+
+
+
+    $scope.getOdforReview = function (item) {
+        return $scope.itemReview.orderDetail = item;
+    }
+
+    $scope.preLoadModal = function (detail) {
+        this.getOdforReview(detail);
+        temppro = detail.product;
+        document.getElementById("review-image").src = temppro.image;
+        document.getElementById("review-proname").innerText = temppro.name;
+        document.getElementById("review-proprice").innerText = temppro.price.toLocaleString('vn-VN');
+        document.getElementById("review-proquantity").innerText = detail.quantity;
+        document.getElementById("review-prototal").innerText = detail.price.toLocaleString('vn-VN');
+        reviewPU.modal('show');
+    }
+
+    $scope.finish = function () {
+        var item = angular.copy($scope.itemReview);
+        item = JSON.parse(item);
+        console.log(item.orderDetail)
+        $http.post(`${urlReview}`, item).then(resp => {
+            $scope.items.push(resp.data);
+            reviewPU.modal('hide');
+            sweetalert_success("Cám ơn bạn đã góp ý!");
+        }).catch(error => {
+            sweetalert_error("Có lỗi xảy ra!");
+            console.log("Error", error);
+        });
     }
 })
     .directive('date', function (dateFilter) {
