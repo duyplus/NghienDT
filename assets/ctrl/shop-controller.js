@@ -4,9 +4,19 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
     $scope.templateUrl = $templateUrl.getHomeTemplates();
     // Paging
     $scope.products = [];
+    $scope.categories = [];
+    $scope.companies = [];
 
     $http.get(HOST + "/api/product").then((resp) => {
         $scope.products = resp.data;
+    });
+
+    $http.get(HOST + "/api/category").then((resp) => {
+        $scope.categories = resp.data;
+    });
+
+    $http.get(HOST + "/api/company").then((resp) => {
+        $scope.companies = resp.data;
     });
 
     $scope.addCart = (product) => {
@@ -17,6 +27,14 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
         event.preventDefault();
         $product.current = product;
         $url.redirectToProductPage();
+    };
+
+    $scope.propertyName = '';
+    $scope.reverse = true;
+
+    $scope.sortBy = function(propertyName) {
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
     };
 
     $scope.currentPage = 0;

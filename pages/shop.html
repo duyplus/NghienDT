@@ -25,29 +25,7 @@
                             <h3>Fillter by price</h3>
                         </div>
                         <div class="sidebar-content-box">
-                            <div class="filter-price-content">
-                                <form action="#" method="post">
-                                    <div id="price-slider"
-                                        class="price-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"
-                                            style="left: 16.6667%; width: 79.1667%;"></div><span
-                                            class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                            style="left: 16.6667%;"></span><span
-                                            class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                            style="left: 95.8333%;"></span>
-                                    </div>
-                                    <div class="filter-price-wapper">
-                                        <div class="filter-price-cont">
-                                            <div class="input-type">
-                                                <input id="min-price" readonly="" type="text">
-                                            </div>
-                                            <div class="input-type">
-                                                <input id="max-price" readonly="" type="text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
                         </div>
                     </div>
                     <div class="single-sidebar mb-45">
@@ -56,43 +34,22 @@
                         </div>
                         <div class="sidebar-content-box">
                             <div class="filter-attribute-container">
-                                <ul>
-                                    <li><a class="active" href="#!shop">Categories 1 (05)</a>
+                                <ul ng-repeat="category in categories">
+                                    <li><a href="#!shop">{{category.name}}</a>
                                     </li>
-                                    <li><a href="#!shop">Categories 2 (03)</a></li>
-                                    <li><a href="#!shop">Categories 3 (10)</a></li>
-                                    <li><a href="#!shop">Categories 4 (02)</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="single-sidebar mb-45">
                         <div class="sidebar-inner-title mb-25">
-                            <h3>Manufacturer</h3>
+                            <h3>Company</h3>
                         </div>
                         <div class="sidebar-content-box">
                             <div class="filter-attribute-container">
-                                <ul>
-                                    <li><a class="active" href="#!shop">Christian Dior (2)</a>
+                                <ul ng-repeat="company in companies">
+                                    <li><a href="#!shop">{{company.name}}</a></li>
                                     </li>
-                                    <li><a href="#!shop">ferragamo (7)</a></li>
-                                    <li><a href="#!shop">hermes (7)</a></li>
-                                    <li><a href="#!shop">louis vuitton (6)</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-sidebar mb-45">
-                        <div class="sidebar-inner-title mb-25">
-                            <h3>Select by color</h3>
-                        </div>
-                        <div class="sidebar-content-box">
-                            <div class="filter-attribute-container">
-                                <ul>
-                                    <li><a class="active" href="#!shop">Black (2)</a></li>
-                                    <li><a href="#!shop">blue (7)</a></li>
-                                    <li><a href="#!shop">brown (7)</a></li>
-                                    <li><a href="#!shop">white (6)</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -111,23 +68,31 @@
                     </div>
                     <div class="shop-top-bar mb-30">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6" hidden>
                                 <div class="pagination-area">
-                                    <p>Showing 1 to 12 of 12 (1 Pages)</p>
+                                    <p>Sort by = {{propertyName}}; reverse = {{reverse}}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="top-bar-right">
-                                    <div class="per-page">
-
-                                    </div>
                                     <div class="product-short">
-                                        <p>Sort By : </p>
-                                        <select class="nice-select" name="sortby">
-                                            <option value="trending">Relevance</option>
-                                            <option value="sales">Name (A - Z)</option>
-                                            <option value="sales">Name (Z - A)</option>
-                                        </select>
+                                        <p>Sắp xếp theo : </p>
+                                        <span>
+                                            <button class="btn btn-outline-danger" ng-click="sortBy('name')">Tên
+                                                <span ng-show="propertyName === 'name' && !reverse"
+                                                    class="lnr lnr-arrow-up"></span>
+                                                <span ng-show="propertyName === 'name' && reverse"
+                                                    class="lnr lnr-arrow-down"></span>
+                                            </button>
+                                        </span>
+                                        <span class="ps-2">
+                                            <button class="btn btn-outline-danger" ng-click="sortBy('price')">Giá
+                                                <span ng-show="propertyName === 'price' && !reverse"
+                                                    class="lnr lnr-arrow-up"></span>
+                                                <span ng-show="propertyName === 'price' && reverse"
+                                                    class="lnr lnr-arrow-down"></span>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +101,7 @@
                     </div>
                     <div class="shop-product-wrap grid row">
                         <div class="col-lg-3 col-md-4 col-sm-6"
-                            ng-repeat="product in products| filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
+                            ng-repeat="product in products| filter:q | orderBy:propertyName:reverse | startFrom:currentPage*pageSize | limitTo:pageSize">
                             <div class=" product-item mb-30">
                                 <div class="product-thumb">
                                     <a href="#!product" ng-click="viewProduct($event, product)">
