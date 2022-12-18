@@ -35,7 +35,7 @@
                         <div class="sidebar-content-box">
                             <div class="filter-attribute-container">
                                 <ul ng-repeat="category in categories">
-                                    <li><a href="#!shop">{{category.name}}</a>
+                                    <li><a href="#!shop" ng-click="filter(category.name)">{{category.name}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -48,7 +48,7 @@
                         <div class="sidebar-content-box">
                             <div class="filter-attribute-container">
                                 <ul ng-repeat="company in companies">
-                                    <li><a href="#!shop">{{company.name}}</a></li>
+                                    <li><a href="#!shop" ng-click="filter(company.name)">{{company.name}}</a></li>
                                     </li>
                                 </ul>
                             </div>
@@ -94,6 +94,11 @@
                                             </button>
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" hidden>
+                                <div class="product-short">
+                                    <span>Tìm kiếm nhanh:</span> <span><input type="text" ng-model="q"></span>
                                 </div>
                             </div>
                         </div>

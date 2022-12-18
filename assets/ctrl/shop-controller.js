@@ -37,6 +37,10 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
         $scope.propertyName = propertyName;
     };
 
+    $scope.filter = (name) => {
+        $scope.q = name;
+    }
+
     $scope.currentPage = 0;
     $scope.pageSize = 12;
     $scope.q = '';
