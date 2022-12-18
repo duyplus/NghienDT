@@ -2,7 +2,7 @@
 app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, HOST, userService, authService) {
     const { $http, $data, $serverUrl, $message } = $utility;
 
-    var urlProd = "http://157.245.157.128/v1/api/product";
+    var urlProd = "http://localhost:8080/api/product";
     $scope.items = [];
     $scope.userdata = {};
 
@@ -51,26 +51,54 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         $scope.message = res.data.message;
     }
 
-    // $scope.findUser = function () {
-    //     $scope.product.user = $scope.items.filter(function (item) {
-    //         return item.username === $scope.productdata.user.username;
-    //     })[0];
-    // }
+    $scope.edit = function (item) {
+        var item1 = angular.copy(item);
+        $scope.product = item1;
+        $scope.product.category = (item1.category.id)
+        $scope.product.company = (item1.company.id)
+        $scope.moveTabAddProd();
+    }
 
-    $scope.nameUser;
+    $scope.loadNameLogin = () => {
+        if (authService.isAuthed ? authService.isAuthed() : false) {
+            setTimeout(() => {
+                $scope.product.user = $scope.items.filter(function (item) {
+                    return item.username === localStorage.getItem('currentUser');
+                })[0];
+                var un = $scope.product.user;
+                $("#nameUser").html("<b>" + un.username + "</b>");
+                $("#nameUser1").text(un.username);
+                $scope.userdata = un;
+                $scope.userdata.password = "";
 
-    setTimeout(() => {
-        $scope.product.user = $scope.items.filter(function (item) {
-            return item.username == localStorage.getItem('currentUser');
-        })[0];
-        var item = $scope.product.user;
-        $scope.nameUser = item.username;
-        $scope.userdata = item;
+                $scope.findProd();
+            }, 1000)
+        }
+    }
 
-        // $http.get(HOST + "/api/product").then((resp) => {
-        //     $scope.products = resp.data;
-        // });
-    }, 200)
+    $scope.findProd = function () {
+        $scope.productByUserId = $scope.products.filter(item => {
+            return item.user.id === $scope.userdata.id;
+        });
+        const i1 = $scope.productByUserId;
+        for (let index = 0; index < i1.length; index++) {
+            // console.log(i1[index].image);
+        }
+    }
+
+    $scope.moveTabMyProd = () => {
+        $("#dashboard-tab").attr("class", "nav-link active");
+        $("#add-tab").attr("class", "nav-link");
+        $("#dashboard").attr("class", "tab-pane fade show active");
+        $("#add").attr("class", "tab-pane fade show");
+    }
+
+    $scope.moveTabAddProd = () => {
+        $("#dashboard-tab").attr("class", "nav-link");
+        $("#add-tab").attr("class", "nav-link active");
+        $("#dashboard").attr("class", "tab-pane fade show");
+        $("#add").attr("class", "tab-pane fade show active");
+    }
 
     $scope.login = function () {
         userService
@@ -105,7 +133,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     };
 
     $scope.updateInfo = function () {
+        var datetime = new Date();
+        $scope.userdata.updatedat = moment(datetime).format("YYYY-MM-DD HH:mm");
         var item = angular.copy($scope.userdata);
+        console.log("id:" + item.id);
         $http.put(`${HOST}/api/user/${item.id}`, item).then((resp) => {
             var index = $scope.items.findIndex((p) => p.id == item.id);
             $scope.items[index] = item;
@@ -131,6 +162,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         });
     };
 
+    // Create Product
     $scope.createProd = () => {
         $scope.product.createdAt = moment().format('YYYY-MM-DD HH:mm');
         $scope.product.updatedAt = moment().format('YYYY-MM-DD HH:mm');
@@ -142,12 +174,15 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         var item = angular.copy($scope.product);
         console.log(item)
         $http.post(`${urlProd}`, item).then(resp => {
+            $scope.products.push(resp.data);
             $scope.reset();
+            $scope.moveTabMyProd();
             alert("Created product success!!")
         }).catch(err => {
             console.log("Error", err)
         })
     };
+
 
     // list IMG
     $scope.updateImg = () => {
