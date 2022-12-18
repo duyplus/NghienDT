@@ -70,11 +70,20 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     }
 
     $scope.edit = function (item) {
+        $scope.index = true;
+        console.log($scope.index);
         var item1 = angular.copy(item);
         $scope.product = item1;
         $scope.product.category = (item1.category.id)
         $scope.product.company = (item1.company.id)
         $scope.moveTabAddProd();
+        // * Delete all element in class "myDIV"
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
+        // * After 1s, function updateImg() is execute
+        setTimeout(() => { $scope.updateImg() }, 1000)
     }
 
     $scope.loadNameLogin = () => {
@@ -141,7 +150,11 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     };
 
     $scope.reset = function () {
+        $scope.index = false;
+        console.log($scope.index);
         $scope.product = {};
+        $scope.product.category = 1;
+        $scope.product.company = 1;
 
         // * Delete all element in class "myDIV"
         setTimeout(() => {
@@ -188,6 +201,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         $scope.product.category = $scope.cates[$scope.product.category - 1];
         $scope.product.company = $scope.companys[$scope.product.company - 1];
         $scope.product.image = document.getElementById("imgs").value;
+        $scope.product.discount = 0;
         $scope.product.available = false;
 
         var item = angular.copy($scope.product);
@@ -202,6 +216,43 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         })
     };
 
+    //cap nhat san pham
+    $scope.updateProd = function () {
+        $scope.product.updatedat = moment().format('YYYY-MM-DD HH:mm');
+        $scope.product.company = $scope.companys[$scope.product.company - 1];
+        $scope.product.category = $scope.cates[$scope.product.category - 1];
+        $scope.product.discount = 0;
+        $scope.product.available = false;
+
+        // * Get img
+        $scope.product.image = document.getElementById("imgs").value;
+
+        var item = angular.copy($scope.product);
+        $http.put(`${urlProd}/${item.id}`, item).then(resp => {
+            var index = $scope.products.findIndex(p => p.id == item.id);
+            $scope.products[index] = item;
+            $scope.reset();
+            sweetalert_success("Cập nhật sản phẩm thành công!");
+        }).catch(error => {
+            sweetalert_error("Lỗi cập nhật sản phẩm!");
+            console.log("Error", error);
+        });
+    }
+
+    // xoa san pham
+    $scope.deleteProd = function (item) {
+        console.log(item)
+        $http.delete(`${urlProd}/${item.id}`).then(resp => {
+            var index = $scope.products.findIndex(p => p.id == $scope.product.id);
+            $scope.products.splice(index, 1);
+            $scope.reset();
+            sweetalert_success("Xóa sản phẩm thành công!");
+            location.reload();
+        }).catch(error => {
+            sweetalert_error("Lỗi xóa sản phẩm!");
+            console.log("Error", error);
+        });
+    }
 
     // list IMG
     $scope.updateImg = () => {
@@ -210,7 +261,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             const outImg = document.createElement("div");
             outImg.setAttribute("class", "outImg")
             const img = document.createElement("img");
-            para.setAttribute("src", listImg[index]);
+            img.setAttribute("src", listImg[index]);
             img.setAttribute("ondblclick", `angular.element(this).scope().deleteImg(` + index + `)`);
             img.setAttribute("referrerpolicy", "no-referrer");
             img.style.width = '300px';
