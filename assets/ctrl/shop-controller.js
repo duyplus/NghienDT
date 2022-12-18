@@ -32,7 +32,7 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
     $scope.propertyName = '';
     $scope.reverse = true;
 
-    $scope.sortBy = function(propertyName) {
+    $scope.sortBy = function (propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
     };
@@ -40,6 +40,13 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
     $scope.filter = (name) => {
         $scope.q = name;
     }
+
+    //Add class active for cate & compa
+    const divs = document.querySelectorAll('.filter-attribute-container');
+
+    divs.forEach(el => el.addEventListener('click', event => {
+        event.target.classList.toggle("active");
+    }));
 
     $scope.currentPage = 0;
     $scope.pageSize = 12;
