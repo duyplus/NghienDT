@@ -20,11 +20,9 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="col-form-label">Thời gian</label>
-                        <select class="custom-select" name="example">
-                            <option selected="">Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select ng-model="search.year" ng-options="year for year in years | orderBy: '-year'"
+                            class="custom-select" name="example" ng-change="filterByYear()">
+                            <option value="">Tất cả</option>
                         </select>
                         <label class="font-12">Lựa chọn để hiện thị chi tiết</label>
                     </div>
@@ -36,11 +34,9 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="col-form-label">Danh mục</label>
-                        <select class="custom-select" name="example">
-                            <option selected="">Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select ng-model="search.category" ng-options="cate as cate.name for cate in categories"
+                            class="custom-select" name="example" ng-change="log()">
+                            <option value="">Tất cả</option>
                         </select>
                         <label class="font-12">Lựa chọn để hiện thị chi tiết</label>
                     </div>
@@ -51,12 +47,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="col-form-label">Hãng</label>
-                        <select class="custom-select" name="example">
-                            <option selected="">Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <label class="col-form-label">Hãng sản xuất</label>
+                        <select ng-model="search.company" ng-options="com as com.name for com in companies"
+                            class="custom-select" name="example">
+                            <option value="">Tất cả</option>
                         </select>
                         <label class="font-12">Lựa chọn để hiện thị chi tiết</label>
                     </div>
@@ -69,7 +63,8 @@
                     <div class="row my-3">
                         <div class="col-sm-6 form-inline justify-content-start">
                             <label class="pr-2">Tìm kiếm:</label>
-                            <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
+                            <input type="text" class="form-control" ng-model="search.name"
+                                placeholder="Nhập tìm kiếm..." />
                         </div>
                         <div class="col-sm-6 form-inline justify-content-end">
                             <button type="button" class="btn btn-sm btn-secondary" id="saveAsExcel">
@@ -80,110 +75,26 @@
                     <table id="table" class="table table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Pics</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Avai.Color</th>
-                                <th>Action</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>Hãng</th>
+                                <th>Tổng số đã bán</th>
+                                <th>Năm</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat="prod in productSold| orderBy: '-soldCount' | filter: search">
                                 <td>
-                                    <img src="assets/images/products/img-1.png" alt="" height="40">
+                                    <img ng-src="{{prod.image}}" height="40" referrerpolicy="no-referrer">
                                     <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">Apple
-                                            Watch</a>
+                                        <b class="d-inline-block align-middle product-name">{{prod.name}}</b>
                                         <br>
-                                        <span class="text-muted font-13">Size-05 (Model 2019)</span>
                                     </p>
                                 </td>
-                                <td>Sports</td>
-                                <td>32</td>
-                                <td>$39</td>
-                                <td><span class="badge badge-soft-warning">Stock</span></td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-success"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-danger"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-info"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-dark"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-warning"></i></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a href="#" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-danger font-18"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/images/products/img-1.png" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">Morden
-                                            Chair</a>
-                                        <br>
-                                        <span class="text-muted font-13">Size-Mediam (Model 2019)</span>
-                                    </p>
-                                </td>
-                                <td>Interior</td>
-                                <td>10</td>
-                                <td>$99</td>
-                                <td><span class="badge badge-soft-pink">Sold</span></td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-success"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-danger"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-info"></i></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a href="#" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-danger font-18"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/images/products/img-1.png" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">Reebok
-                                            Shoes</a>
-                                        <br>
-                                        <span class="text-muted font-13">size-08 (Model 2019)</span>
-                                    </p>
-                                </td>
-                                <td>Footwear</td>
-                                <td>24</td>
-                                <td>$49</td>
-                                <td><span class="badge badge-soft-secondary">Stock</span></td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-success"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-danger"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-info"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-dark"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-warning"></i></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a href="#" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-danger font-18"></i></a>
-                                </td>
+                                <td>{{prod.category.name}}</td>
+                                <td>{{prod.company.name}}</td>
+                                <td>{{prod.soldCount}}</td>
+                                <td>{{prod.year}}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in filteredItems | filter:search">
+                            <tr ng-repeat="item in pagingItems | filter:search">
                                 <td >{{item.id}}</td>
                                 <td>{{item.name}}</td>
                                 <td>{{item.image}}</td>

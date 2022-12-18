@@ -55,7 +55,7 @@
                                 <th ng-show="status == 3 || status == 4" style="text-align: center;">Ngày cập nhật</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="item in filteredItemsApproval track by $index ">
+                        <tbody ng-repeat="item in pagingItemsApproval track by $index ">
                             <tr>
                                 <td class="d-none">{{item.id}}</td>
                                 <td><i class="las la-folder-plus text-success" style=" font-size : 24px;" ng-click="isRowCollapsed=!isRowCollapsed"></i></td>

@@ -464,6 +464,34 @@ app.factory("$utility", ($window, $http, $routeParams, HOST) => {
 app.factory("$cart", ($utility) => {
     const $message = $utility.$message;
     const $local = $utility.$storage.local;
+
+    var sweetalert_topPU_success = function (text) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: text,
+        })
+    }
+
+    var sweetalert_warning = function (text) {
+        Swal.fire({
+            icon: "warning",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
     class Cart {
         #items;
         #cart_local = "cart";
@@ -508,7 +536,8 @@ app.factory("$cart", ($utility) => {
             if (item) {
                 quantity = item.quantity + quantityToAdd;
                 if (quantity > product.quantity) {
-                    alert($message.product.error.OVER_QUANTITY);
+                    console.log($message.product.error.OVER_QUANTITY);
+                    sweetalert_warning("Đã vượt quá số lượng tồn kho");
                     return;
                 }
             } else {
@@ -516,6 +545,7 @@ app.factory("$cart", ($utility) => {
             }
             this.#items.set(product.id, { ...product, quantity: quantity });
             this.saveToLocal();
+            sweetalert_topPU_success('Đã thêm sản phẩm vào giỏ hàng');
         }
 
         removeItem(productId) {

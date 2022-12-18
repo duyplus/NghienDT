@@ -1,9 +1,8 @@
 app.controller("product-ctrl", function ($scope, $location, $http, productService, HOST) {
-    var url = HOST + "/api/product";
-    var urlcate = HOST + "/api/category";
-    var urlcompany = HOST + "/api/company";
-    var urluser = HOST + "/api/user";
-    var url2 = HOST + "/api/upload/images";
+    var url = `${HOST}/api/product`
+    var urlcate = `${HOST}/api/category`
+    var urlcompany = `${HOST}/api/company`
+    var urluser = `${HOST}/api/user`
     $scope.items = [];
     $scope.cate = [];
     $scope.user = [];
@@ -13,6 +12,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
     $scope.getcate = {};
     $scope.getcompany = {};
 
+    ////Error : Cannot set properties of null (setting 'innerHTML')
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -31,32 +31,17 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         });
     }
 
-    // Dropify
-    $('.dropify').dropify();
-    var drEvent = $('.dropify-event').dropify();
-    drEvent.on('dropify.beforeClear', function (event, element) {
-        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-    });
-    drEvent.on('dropify.afterClear', function (event, element) {
-        sweetalert("File deleted!");
-    });
-    drEvent.on('dropify.errors', function (event, element) {
-        sweetalert_error("Has Errors!");
-    });
-
-
-
-    //load category
+    // load category
     $http.get(urlcate).then(resp => {
         $scope.cate = resp.data;
     });
 
-    //load company
+    // load company
     $http.get(urlcompany).then(resp => {
         $scope.company = resp.data;
     });
 
-    //load data product
+    // load data product
     $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
@@ -70,11 +55,11 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         $scope.$watch('curPage + numPerPage', function () {
             var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
             var end = begin + $scope.itemsPerPage;
-            $scope.filteredItems = $scope.items.slice(begin, end);
+            $scope.pagingItems = $scope.items.slice(begin, end);
         });
     });
 
-    //filter user
+    // filter user
     $http.get(urluser).then(resp => {
         $scope.user = resp.data;
     });
@@ -84,20 +69,20 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         })[0];
     }
 
-    //xoa form
+    // xoa form
     $scope.reset = function () {
         $scope.productdata = {};
-
+        var item = {};
+        productService.set(item);
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
             getdiv.innerHTML = "";
         }, 1000)
     }
 
-    //hien thi len form
+    // hien thi len form
     $scope.edit = function (item) {
         productService.set(item);
-
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
@@ -127,7 +112,6 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         var arrImg = document.getElementById("imgs").value.split(',');
         arrImg.splice(index, 1);
         document.getElementById("imgs").value = arrImg;
-
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
@@ -137,7 +121,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         setTimeout(() => { $scope.updateImg() }, 2000)
     }
 
-    //them sp moi
+    //them san pham moi
     $scope.create = function () {
         $scope.productdata.createdAt = moment().format('YYYY-MM-DD HH:mm');
         $scope.productdata.updatedAt = moment().format('YYYY-MM-DD HH:mm');
@@ -156,7 +140,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         });
     }
 
-    //cap nhat sp
+    //cap nhat san pham
     $scope.update = function () {
         $scope.productdata.updatedat = new Date().toJSON();
         $scope.productdata.company = $scope.company[$scope.productdata.company - 1];
@@ -166,6 +150,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         $scope.productdata.image = document.getElementById("imgs").value;
 
         var item = angular.copy($scope.productdata);
+        console.log(item);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
@@ -178,7 +163,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         });
     }
 
-    //xoa sp
+    // xoa san pham
     $scope.delete = function (item) {
         $http.delete(`${url}/${$scope.productdata.id}`).then(resp => {
             var index = $scope.items.findIndex(p => p.id == $scope.productdata.id);
@@ -192,22 +177,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
         });
     }
 
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.productdata.image = resp.data.image;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
-    }
-
-    // Export xcel
+    // Export excel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
             var workbook = XLSX.utils.book_new();

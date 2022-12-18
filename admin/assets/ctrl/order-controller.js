@@ -1,8 +1,8 @@
 app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderService, $location, HOST) {
-    var url = HOST + "/api/order";
-    var urlOrderApproval = HOST + "/api/orderdetail/approval";
-    var urlOrderDetail = HOST + "/api/orderdetail";
-    var urlDetailOfOrder = HOST + "/api/orderdetail/pro"
+    var url = `${HOST}/api/order`
+    var urlOrderApproval = `${HOST}/api/orderdetail/approval`
+    var urlOrderDetail = `${HOST}/api/orderdetail`
+    var urlDetailOfOrder = `${HOST}/api/orderdetail/pro`
 
     $scope.orderdata = orderService.get();
     $scope.items = [];
@@ -12,8 +12,6 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
     $scope.itemSelected = {};
     $scope.status = '1';
     $scope.isRowCollapsed = true;
-
-
 
     var sweetalert_success = function (text) {
         Swal.fire({
@@ -32,7 +30,7 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
         });
     }
 
-    //load data order approval - Xử lí đơn hàng
+    // load data order approval - Xử lí đơn hàng
     $scope.loadOrderApproval = function () {
         $http.get(`${urlOrderApproval}/${$scope.status}`).then(resp => {
             $scope.itemsApproval = resp.data;
@@ -47,17 +45,17 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
             $scope.$watch('curPage + numPerPage', function () {
                 var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
                 var end = begin + $scope.itemsPerPage;
-                $scope.filteredItemsApproval = $scope.itemsApproval.slice(begin, end);
+                $scope.pagingItemsApproval = $scope.itemsApproval.slice(begin, end);
             });
         });
     }
 
-    //load order by status - Xử lí đơn hàng
+    // load order by status - Xử lí đơn hàng
     $scope.loadOrderbyStatus = function () {
         $scope.loadOrderApproval();
     }
 
-    //load data order - Tất cả đơn hàng
+    // load data order - Tất cả đơn hàng
     $http.get(url).then(resp => {
         $scope.items = resp.data;
         // paginate
@@ -71,11 +69,11 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
         $scope.$watch('curPage + numPerPage', function () {
             var begin = (($scope.curPage - 1) * $scope.itemsPerPage);
             var end = begin + $scope.itemsPerPage;
-            $scope.filteredItems = $scope.items.slice(begin, end);
+            $scope.pagingItems = $scope.items.slice(begin, end);
         });
     });
 
-    //Duyệt đơn - Xử lí đơn hàng
+    // Duyệt đơn - Xử lí đơn hàng
     $scope.submit = function (flag) {
         angular.forEach($scope.selectedList, function (selected, itemid) {
             if (selected) {
@@ -97,10 +95,9 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
                 })
             }
         });
-
     };
 
-    //load detail data - chi tiết đơn hàng
+    // load detail data - chi tiết đơn hàng
     $scope.getDetail = function (id) {
         if (id == null) {
             sweetalert_error("Chọn đơn hàng để xem chi tiết!");
@@ -112,19 +109,18 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
         }
     };
 
-    //hien thi len chi tiết - chi tiết đơn hàng
+    // hien thi len chi tiết - chi tiết đơn hàng
     $scope.detail = function (item) {
         orderService.set(item);
 
     }
 
-    // Export xcel
+    // Export excel
     $(document).ready(function () {
         $("#saveAsExcel").click(function () {
             var workbook = XLSX.utils.book_new();
             var worksheet_data = document.getElementById("table");
             var worksheet = XLSX.utils.table_to_sheet(worksheet_data);
-
             workbook.SheetNames.push("order");
             workbook.Sheets["order"] = worksheet;
             exportExcelFile(workbook);
@@ -133,29 +129,4 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
     function exportExcelFile(workbook) {
         return XLSX.writeFile(workbook, "order_List.xlsx");
     }
-})
-    .directive('dir', function () {
-        return {
-            link: function (scope, elem, attrs) {
-                $(elem).on('click', function () {
-                    $(this)
-                        .parent('tr')
-                        .next('tr')
-                        .toggle();
-                })
-            }
-        }
-    })
-    .directive('date', function (dateFilter) {
-        return {
-            require: 'ngModel',
-            link: function (scope, elm, attrs, ctrl) {
-
-                var dateFormat = attrs['date'] || 'yyyy-MM-dd';
-
-                ctrl.$formatters.unshift(function (modelValue) {
-                    return dateFilter(modelValue, dateFormat);
-                });
-            }
-        };
-    })
+});

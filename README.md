@@ -1,12 +1,14 @@
 ## Dự án tốt nghiệp - eCommerceNghienDT
 Xây dựng ứng dụng web nhằm mục đích bán hàng online
 ## Backend
-Link: https://github.com/duyplus/eCommerceNghienDT
-## Website
-Link: http://nghiendt.me
+> Link: **_https://github.com/duyplus/eCommerceNghienDT_**
+## Demo
+> Link: **_https://nghiendt.vercel.app_**
+
+> Link: **_http://nghiendt.me_**
 
 ### Git clone
-```
+```git
   git init
   git clone https://github.com/duyplus/NghienDT.git
 ```

@@ -1,5 +1,7 @@
-app.controller("home-ctrl", function ($scope, $cart, $product, $utility) {
+app.controller("home-ctrl", function ($scope, $cart, $product, $utility,$http, HOST) {
     const { $data, $url, $templateUrl } = $utility;
+
+    var urlProduct = `${HOST}/api/product`;
 
     function numberWithCommas(x) {
         var parts = x.toString().split(".");
@@ -23,4 +25,13 @@ app.controller("home-ctrl", function ($scope, $cart, $product, $utility) {
     function fetchData(...names) {
         names.forEach((name) => $data.fetch($scope, { name: name }));
     }
+
+    $scope.addCartFeature = (id) => {
+        $http.get(`${urlProduct}/${id}`).then(resp => {
+           var product = resp.data;
+           $cart.addItem(product);
+        });
+
+    };
+
 });
