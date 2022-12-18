@@ -55,6 +55,10 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
                 $scope.orderdetails.push(response.data);
             })
         }
+
+        localStorage.removeItem("cart");
+        $window.location.href = 'http://127.0.0.1:5500/#!/';
+        window.location.reload();
     }
 
     $scope.findUserAndProd = () => {

@@ -108,7 +108,7 @@
                                         <div class="product-list" ng-repeat="(key, item) in cart.values">
                                             <div class="product-inner d-flex align-items-center">
                                                 <div class="product-image me-4 me-sm-5 me-md-4 me-lg-5">
-                                                    <a href="#">
+                                                    <a href="#!product" ng-click="viewProduct($event, product)">
                                                         <img ng-src="{{item.image}}" referrerpolicy="no-referrer">
                                                     </a>
                                                 </div>
