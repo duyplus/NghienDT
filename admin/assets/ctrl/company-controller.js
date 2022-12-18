@@ -1,7 +1,8 @@
 app.controller("company-ctrl", function ($scope, $location, $http, HOST, companyService) {
-    var url = `${HOST}/api/company`
+    var url = `${HOST}/api/company`;
     $scope.items = [];
     $scope.companydata = companyService.get();
+    $rootScope.currUser = localStorage.getItem("currentUser");
 
     var sweetalert_success = function (text) {
         Swal.fire({

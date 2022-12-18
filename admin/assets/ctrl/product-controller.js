@@ -1,8 +1,8 @@
 app.controller("product-ctrl", function ($scope, $location, $http, productService, HOST) {
-    var url = `${HOST}/api/product`
-    var urlcate = `${HOST}/api/category`
-    var urlcompany = `${HOST}/api/company`
-    var urluser = `${HOST}/api/user`
+    var url = `${HOST}/api/product`;
+    var urlcate = `${HOST}/api/category`;
+    var urlcompany = `${HOST}/api/company`;
+    var urluser = `${HOST}/api/user`;
     $scope.items = [];
     $scope.cate = [];
     $scope.user = [];
@@ -11,6 +11,7 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
     $scope.getuser = "";
     $scope.getcate = {};
     $scope.getcompany = {};
+    $rootScope.currUser = localStorage.getItem("currentUser");
 
     ////Error : Cannot set properties of null (setting 'innerHTML')
 
