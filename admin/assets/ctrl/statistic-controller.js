@@ -1,9 +1,11 @@
 app.controller('statistic-ctrl', function ($scope, $http, HOST) {
-    const orderUrl = `${HOST}/api/order`
-    const categoryUrl = `${HOST}/api/category`
-    const companyUrl = `${HOST}/api/company`
-    const productUrl = `${HOST}/api/product`
-    const orderDetailUrl = `${HOST}/api/orderdetail`
+    const orderUrl = `${HOST}/api/order`;
+    const categoryUrl = `${HOST}/api/category`;
+    const companyUrl = `${HOST}/api/company`;
+    const productUrl = `${HOST}/api/product`;
+    const orderDetailUrl = `${HOST}/api/orderdetail`;
+    $rootScope.currUser = localStorage.getItem("currentUser");
+    
     $http.get(orderUrl).then((resp) => {
         $scope.orders = resp.data
         $scope.orders.forEach(

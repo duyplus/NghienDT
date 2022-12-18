@@ -41,15 +41,15 @@
                                 <tr ng-repeat="item in items">
                                     <td>
                                         <div class="media">
-                                            <img src="admin/assets/images/products/img-1.png" height="40"
+                                            <img ng-src="{{item.product_image}}" height="40"
                                                 class="mr-3 align-self-center rounded" alt="...">
                                             <div class="media-body align-self-center">
                                                 <h6 class="m-0">{{item.product_name}}</h6>
-                                                <a href="#" class="font-12 text-primary">ID: {{item.id}}</a>
+                                                <a href="#" class="font-12 text-primary">Mã SP: {{item.id}}</a>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>${{item.product_price|number:0}}₫</td>
+                                    <td>{{item.product_price|number:0}}₫</td>
                                     <td>{{item.company_name}}</td>
                                     <td>{{item.full_name}}</td>
                                     <td>
@@ -96,7 +96,7 @@
                             <p class="text-muted font-15 mb-4">Tổng doanh thu</p>
                             <div class="text-center my-2">
                                 <h6 class="text-primary bg-soft-primary p-3 mb-0 font-13 rounded">
-                                    Mục tiêu <b>100,000,000đ</b> <span class="mx-2">/</span> Tháng trước <b>68,550,000đ</b>
+                                    Mục tiêu <b>500,000,000đ</b> <span class="mx-2">/</span> Tháng trước <b>680,550,000đ</b>
                                 </h6>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                 <div class="media">
                                     <i data-feather="shopping-cart" class="align-self-center icon-md mr-2"></i>
                                     <div class="media-body align-self-center">
-                                        <h6 class="m-0 font-24">{{item.order_quantity|number:0}}₫</h6>
+                                        <h6 class="m-0 font-24">{{item.order_quantity|number:0}} đơn</h6>
                                         <p class="text-muted mb-0">Đơn hàng hôm nay</p>
                                     </div>
                                 </div>
