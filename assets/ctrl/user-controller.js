@@ -247,7 +247,9 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             $scope.products.splice(index, 1);
             $scope.reset();
             sweetalert_success("Xóa sản phẩm thành công!");
-            location.reload();
+            setTimeout(() => {
+                location.reload();
+            }, 2500)
         }).catch(error => {
             sweetalert_error("Lỗi xóa sản phẩm!");
             console.log("Error", error);
