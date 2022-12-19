@@ -51,10 +51,10 @@
                         <div class="pro-details-review mb-20">
                             <ul>
                                 <li>
-                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 2 < mark}"></i></span>
-                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 4 < mark}"></i></span>
-                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 6 < mark}"></i></span>
-                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 8 < mark}"></i></span>
+                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 2 <= mark}"></i></span>
+                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 4 <= mark}"></i></span>
+                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 6 <= mark}"></i></span>
+                                    <span><i class="fa fa-star" ng-class="{ 'star_checked' : 8 <= mark}"></i></span>
                                     <span><i class="fa fa-star" ng-class="{ 'star_checked' : 10 == mark}"></i></span>
                                 </li>
                                 <li><a href="javascript:void(0)">{{countReviews || 0}} Reviews</a></li>
@@ -125,13 +125,13 @@
                                                                         </td>
                                                                         <td class="text-end" style="border : none">
                                                                             <span><i class="fa fa-star"
-                                                                                    ng-class="{ 'star_checked' : 2 < item.mark}"></i></span>
+                                                                                    ng-class="{ 'star_checked' : 2 <= item.mark}"></i></span>
                                                                             <span><i class="fa fa-star"
-                                                                                    ng-class="{ 'star_checked' : 4 < item.mark}"></i></span>
+                                                                                    ng-class="{ 'star_checked' : 4 <= item.mark}"></i></span>
                                                                             <span><i class="fa fa-star"
-                                                                                    ng-class="{ 'star_checked' : 6 < item.mark}"></i></span>
+                                                                                    ng-class="{ 'star_checked' : 6 <= item.mark}"></i></span>
                                                                             <span><i class="fa fa-star"
-                                                                                    ng-class="{ 'star_checked' : 8 < item.mark}"></i></span>
+                                                                                    ng-class="{ 'star_checked' : 8 <= item.mark}"></i></span>
                                                                             <span><i class="fa fa-star"
                                                                                     ng-class="{ 'star_checked' : 10 == item.mark}"></i></span>
                                                                         </td>

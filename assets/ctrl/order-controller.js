@@ -16,6 +16,16 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
     $scope.currentUser = localStorage.getItem('currentUser');
     $scope.itemsd = {};
 
+    
+    var sweetalert_success = function (text) {
+        Swal.fire({
+            icon: "success",
+            title: text,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    }
+    
     var sweetalert_error = function (text) {
         Swal.fire({
             icon: "error",
@@ -150,15 +160,9 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
         orderDetail: {},
     }
 
-
-
-    $scope.getOdforReview = function (item) {
-        return $scope.itemReview.orderDetail = item;
-    }
-
     $scope.preLoadModal = function (detail) {
-        this.getOdforReview(detail);
         temppro = detail.product;
+        document.getElementById("detail-id").value = detail.id;
         document.getElementById("review-image").src = temppro.image;
         document.getElementById("review-proname").innerText = temppro.name;
         document.getElementById("review-proprice").innerText = temppro.price.toLocaleString('vn-VN');
@@ -168,13 +172,18 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
     }
 
     $scope.finish = function () {
-        var item = angular.copy($scope.itemReview);
-        item = JSON.parse(item);
-        console.log(item.orderDetail)
-        $http.post(`${urlReview}`, item).then(resp => {
-            $scope.items.push(resp.data);
-            reviewPU.modal('hide');
-            sweetalert_success("Cám ơn bạn đã góp ý!");
+        var did = document.getElementById("detail-id").value;
+        $http.get(`${urlOrderDetail}/${did}`).then(respose => {
+            $scope.itemReview.orderDetail = respose.data;
+            var item = angular.copy($scope.itemReview);
+            $http.post(`${urlReview}`, item).then(resp => {
+                $scope.items.push(resp.data);
+                reviewPU.modal('hide');
+                sweetalert_success("Cám ơn bạn đã góp ý!");
+            }).catch(error => {
+                sweetalert_error("Có lỗi xảy ra!");
+                console.log("Error", error);
+            });
         }).catch(error => {
             sweetalert_error("Có lỗi xảy ra!");
             console.log("Error", error);

@@ -53,15 +53,12 @@ app.controller("product-ctrl", function ($scope, $product, $cart, $utility, HOST
   $http.get(urlReview).then(resp => {
     $scope.reviews = resp.data.filter(item => item.orderDetail.product.id == $scope.currentProduct.id);
     var mark = 0;
-    console.log($scope.reviews);
     for(var i = 0; i < $scope.reviews.length; i++) {
       var review = $scope.reviews[i];
       $scope.checkEnableofReview(review);
       mark += review.mark;
     }
     $scope.mark = (mark/$scope.reviews.length).toFixed();
-    console.log(mark);
-    console.log($scope.mark);
   });
 
 
