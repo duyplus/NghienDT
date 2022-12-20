@@ -3,7 +3,6 @@ app.controller("review-ctrl", function ($scope, $location, $http, reviewService,
     var urlorder = `${HOST}/api/orderdetail`;
     $scope.items = [];
     $scope.reviewdata = reviewService.get();
-    $rootScope.currUser = localStorage.getItem("currentUser");
 
      //Error : Incomplete upload image of review
 

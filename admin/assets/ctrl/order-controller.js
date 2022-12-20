@@ -3,7 +3,6 @@ app.controller("order-ctrl", function ($scope, $timeout, $http, $route, orderSer
     var urlOrderApproval = `${HOST}/api/orderdetail/approval`;
     var urlOrderDetail = `${HOST}/api/orderdetail`;
     var urlDetailOfOrder = `${HOST}/api/orderdetail/pro`;
-    $rootScope.currUser = localStorage.getItem("currentUser");
 
     $scope.orderdata = orderService.get();
     $scope.items = [];
