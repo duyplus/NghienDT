@@ -2,7 +2,6 @@ app.controller("user-ctrl", function ($scope, $location, $http, userService, HOS
     var url = `${HOST}/api/user`;
     $scope.items = [];
     $scope.userdata = userService.get();
-    $rootScope.currUser = localStorage.getItem("currentUser");
 
     var sweetalert_success = function (text) {
         Swal.fire({

@@ -11,7 +11,6 @@ app.controller("product-ctrl", function ($scope, $location, $http, productServic
     $scope.getuser = "";
     $scope.getcate = {};
     $scope.getcompany = {};
-    $rootScope.currUser = localStorage.getItem("currentUser");
 
     ////Error : Cannot set properties of null (setting 'innerHTML')
 

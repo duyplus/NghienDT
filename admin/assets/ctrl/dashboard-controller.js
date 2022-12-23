@@ -2,7 +2,7 @@ app.controller("dashboard-ctrl", function ($scope, $http, $rootScope, HOST) {
     var url = `${HOST}/api/product/getTopProduct`;
     var url1 = `${HOST}/api/product/getTopCustomer`;
     var url2 = `${HOST}/api/product/getDailyRevenue`;
-    $rootScope.currUser = localStorage.getItem("currentUser");
+    
     $scope.items = [];
     $scope.items1 = [];
     $scope.items2 = [];

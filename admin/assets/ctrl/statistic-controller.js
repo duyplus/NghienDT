@@ -3,8 +3,7 @@ app.controller('statistic-ctrl', function ($scope, $http, HOST) {
     const categoryUrl = `${HOST}/api/category`;
     const companyUrl = `${HOST}/api/company`;
     const productUrl = `${HOST}/api/product`;
-    const orderDetailUrl = `${HOST}/api/orderdetail`;
-    $rootScope.currUser = localStorage.getItem("currentUser");
+    const orderDetailUrl = `${HOST}/api/orderdetail`;;
     
     $http.get(orderUrl).then((resp) => {
         $scope.orders = resp.data

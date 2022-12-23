@@ -2,7 +2,7 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
     var url = `${HOST}/api/category`;
     $scope.items = [];
     $scope.categorydata = cateService.get();
-    $rootScope.currUser = localStorage.getItem("currentUser");
+
 
     var sweetalert_success = function (text) {
         Swal.fire({
