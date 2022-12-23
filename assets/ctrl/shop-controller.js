@@ -59,4 +59,25 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
     $scope.numberOfPages = function () {
         return Math.ceil($scope.products.length / $scope.pageSize);
     }
+
+    $scope.showDate = (val) => {
+        var date1 = new Date();
+        var date2 = new Date(val);
+        var diffMonths = date2.getMonth() - date1.getMonth();
+        var diffDays = date2.getDate() - date1.getDate();
+        var diffYears = date2.getYear() - date1.getYear();
+        diffMonths += 12 * diffYears
+
+        if (diffDays < 0) {
+            diffMonths -= 1;
+            var daysInMonth = new Date(date2.getYear(), date2.getMonth() - 1, 0).getDate();
+            diffDays = daysInMonth + diffDays;
+        }
+        console.log('The difference between the two dates is ' + diffMonths + ' months and ' + diffDays + ' days');
+
+        if (diffMonths === 0 && diffDays <= 7) {
+            return true;
+        }
+        return false;
+    }
 });
