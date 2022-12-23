@@ -88,10 +88,9 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $scope.loadNameLogin = () => {
         if (authService.isAuthed ? authService.isAuthed() : false) {
-            setTimeout(() => {
-                $scope.product.user = $scope.items.filter(function (item) {
-                    return item.username === localStorage.getItem('currentUser');
-                })[0];
+            $http.get(HOST + "/api/user").then(resp => {
+                $scope.product.user = resp.data.filter(item => item.username === localStorage.getItem('currentUser'))[0];
+
                 var un = $scope.product.user;
                 $("#nameUser").html("<b>" + un.username + "</b>");
                 $("#nameUser1").text(un.username);
@@ -99,7 +98,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
                 $scope.userdata.password = "";
 
                 $scope.findProd();
-            }, 1000)
+            })
         }
     }
 
