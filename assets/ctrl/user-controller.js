@@ -71,7 +71,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $scope.edit = function (item) {
         $scope.index = true;
-        console.log($scope.index);
+        
         var item1 = angular.copy(item);
         $scope.product = item1;
         $scope.product.category = (item1.category.id)
@@ -150,7 +150,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $scope.reset = function () {
         $scope.index = false;
-        console.log($scope.index);
+        
         $scope.product = {};
         $scope.product.category = 1;
         $scope.product.company = 1;
@@ -166,7 +166,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         var datetime = new Date();
         $scope.userdata.updatedat = moment(datetime).format("YYYY-MM-DD HH:mm");
         var item = angular.copy($scope.userdata);
-        console.log("id:" + item.id);
+        
         $http.put(`${HOST}/api/user/${item.id}`, item).then((resp) => {
             var index = $scope.items.findIndex((p) => p.id == item.id);
             $scope.items[index] = item;
@@ -204,8 +204,8 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         $scope.product.available = false;
 
         var item = angular.copy($scope.product);
-        console.log(item)
-        $http.post(`${urlProd}`, item).then(resp => {
+        
+        $http.post(HOST + '/api/product', item).then(resp => {
             $scope.products.push(resp.data);
             $scope.reset();
             $scope.moveTabMyProd();
@@ -240,7 +240,6 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     // xoa san pham
     $scope.deleteProd = function (item) {
-        console.log(item)
         $http.delete(`${urlProd}/${item.id}`).then(resp => {
             var index = $scope.products.findIndex(p => p.id == $scope.product.id);
             $scope.products.splice(index, 1);
