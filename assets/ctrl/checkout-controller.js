@@ -18,7 +18,7 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
             timer: 2000,
         });
     }
-    
+
 
     $scope.isAuthed = function () {
         return authService.isAuthed ? authService.isAuthed() : false;
@@ -44,7 +44,7 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
         $scope.order.user = $scope.userid;
 
         var item = angular.copy($scope.order);
-        await $http.post(`${urlorder}`, item).then((resp) => {
+        await $http.post(HOST + '/api/order', item).then((resp) => {
             $scope.orders.push(resp.data);
             $scope.order.id = resp.data.id;
             sweetalert_success("Thanh toán thành công")
@@ -61,8 +61,17 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
             $scope.orderdetail.product = cart;
 
             var itemoddt = angular.copy($scope.orderdetail);
-            await $http.post(`${urlorderdetail}`, itemoddt).then((response) => {
+            await $http.post(HOST + '/api/orderdetail', itemoddt).then((response) => {
                 $scope.orderdetails.push(response.data);
+            })
+            var product = {}
+            await $http.get(HOST + '/api/product/' + cart.id).then(resp => {
+                product = resp.data;
+            })
+            product.quantity = (product.quantity - cart.quantity);
+            var subtracted = product;
+            await $http.put(HOST + '/api/product/' + cart.id, subtracted).then(resp => {
+                console.log(resp.data);
             })
         }
 
@@ -71,10 +80,10 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
         window.location.reload();
     }
 
-    $scope.findUserAndProd = () => {
+    $scope.findUserDetail = () => {
         var getNameUser = localStorage.getItem("currentUser");
-        $scope.userid = $scope.users.filter(function (item) {
-            return item.username === getNameUser;
-        })[0];
+        $http.get(HOST + '/api/user').then(resp => {
+            $scope.userid = resp.data.filter(item => item.username === getNameUser)[0];
+        })
     }
 });
