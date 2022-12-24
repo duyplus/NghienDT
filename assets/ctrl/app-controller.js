@@ -6,6 +6,7 @@ app.config(function ($routeProvider, $httpProvider, $qProvider) {
     $routeProvider
         .when("/", { templateUrl: "pages/home.html", controller: "home-ctrl" })
         .when("/shop", { templateUrl: "pages/shop.html", controller: "shop-ctrl" })
+        .when("/shop/search/:name", { templateUrl: "pages/shopsearch.html", controller: "shopsearch-ctrl" })
         .when("/product", { templateUrl: "pages/product.html", controller: "product-ctrl" })
         .when("/wishlist", { templateUrl: "pages/wishlist.html", controller: "wishlist-ctrl" })
         .when("/cart", { templateUrl: "pages/cart.html", controller: "cart-ctrl" })

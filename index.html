@@ -91,8 +91,8 @@
                     <div class="col-lg-6 col-md-12 col-12 order-sm-last">
                         <div class="header-middle-inner">
                             <form>
-                                <input type="text" class="top-cat-field" placeholder="Tìm kiếm mọi thứ ở đây..">
-                                <button class="top-search-btn">Tìm kiếm</button>
+                                <input type="text" ng-model="searchN" class="top-cat-field" placeholder="Tìm kiếm mọi thứ ở đây..">
+                                <a href="#!shop/search/{{searchN}}"><button class="top-search-btn">Tìm kiếm</button></a>
                             </form>
                         </div>
                     </div>
@@ -391,6 +391,7 @@
     <script type="text/javascript" src="assets/ctrl/wishlist-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/checkout-controller.js"></script>
     <script type="text/javascript" src="assets/ctrl/shop-controller.js"></script>
+    <script type="text/javascript" src="assets/ctrl/shopsearch-controller.js"></script>
 
     <script type="text/javascript" src="https://bit.ly/ui-bootstrap-tpls"></script>
     <script type="text/javascript" src="https://bit.ly/googleTranslateElementInit2"></script>
