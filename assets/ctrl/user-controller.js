@@ -2,7 +2,7 @@
 app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, HOST, userService, authService) {
     const { $http, $data, $serverUrl, $message } = $utility;
 
-    var urlProd = "http://localhost:8080/api/product";
+    var urlProd = HOST + "/api/product";
     $scope.items = [];
     $scope.userdata = {};
 
@@ -71,7 +71,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $scope.edit = function (item) {
         $scope.index = true;
-        
+
         var item1 = angular.copy(item);
         $scope.product = item1;
         $scope.product.category = (item1.category.id)
@@ -117,6 +117,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         $("#add-tab").attr("class", "nav-link");
         $("#dashboard").attr("class", "tab-pane fade show active");
         $("#add").attr("class", "tab-pane fade show");
+        $scope.findProd();
     }
 
     $scope.moveTabAddProd = () => {
@@ -150,7 +151,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     $scope.reset = function () {
         $scope.index = false;
-        
+
         $scope.product = {};
         $scope.product.category = 1;
         $scope.product.company = 1;
@@ -166,7 +167,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         var datetime = new Date();
         $scope.userdata.updatedat = moment(datetime).format("YYYY-MM-DD HH:mm");
         var item = angular.copy($scope.userdata);
-        
+
         $http.put(`${HOST}/api/user/${item.id}`, item).then((resp) => {
             var index = $scope.items.findIndex((p) => p.id == item.id);
             $scope.items[index] = item;
@@ -195,8 +196,9 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     // Create Product
     $scope.createProd = () => {
-        $scope.product.createdAt = moment().format('YYYY-MM-DD HH:mm');
-        $scope.product.updatedAt = moment().format('YYYY-MM-DD HH:mm');
+        var datetime = new Date();
+        $scope.product.createdAt = datetime.getTime();
+        $scope.product.updatedAt = datetime.getTime();
         $scope.product.category = $scope.cates[$scope.product.category - 1];
         $scope.product.company = $scope.companys[$scope.product.company - 1];
         $scope.product.image = document.getElementById("imgs").value;
@@ -204,8 +206,8 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         $scope.product.available = false;
 
         var item = angular.copy($scope.product);
-        
-        $http.post(HOST + '/api/product', item).then(resp => {
+
+        $http.post(`${urlProd}`, item).then(resp => {
             $scope.products.push(resp.data);
             $scope.reset();
             $scope.moveTabMyProd();
@@ -217,7 +219,8 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
 
     //cap nhat san pham
     $scope.updateProd = function () {
-        $scope.product.updatedat = moment().format('YYYY-MM-DD HH:mm');
+        var datetime = new Date();
+        $scope.product.updatedat = datetime.getTime();
         $scope.product.company = $scope.companys[$scope.product.company - 1];
         $scope.product.category = $scope.cates[$scope.product.category - 1];
         $scope.product.discount = 0;
@@ -231,6 +234,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
             var index = $scope.products.findIndex(p => p.id == item.id);
             $scope.products[index] = item;
             $scope.reset();
+            $scope.moveTabMyProd();
             sweetalert_success("Cập nhật sản phẩm thành công!");
         }).catch(error => {
             sweetalert_error("Lỗi cập nhật sản phẩm!");
