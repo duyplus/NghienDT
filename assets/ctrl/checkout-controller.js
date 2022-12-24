@@ -81,10 +81,13 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
                 console.log(resp.data);
             })
         }
-        sweetalert_success("Thanh toán thành công")
         localStorage.removeItem("cart");
-        $window.location.href = 'http://127.0.0.1:5500/#!/';
-        window.location.reload();
+        sweetalert_success("Thanh toán thành công")
+        
+
+        setTimeout(() => {
+            $window.location.href = '#!my-account';
+          }, 3000); // Reload sau 3 giây
     }
 
     // Get info user
