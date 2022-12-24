@@ -1,6 +1,8 @@
 app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, authService) {
-    var urlorder = "http://157.245.157.128/v1/api/order";
-    var urlorderdetail = "http://157.245.157.128/v1/api/orderdetail";
+    var urluser = `${HOST}/api/user`;
+    var urlprod = `${HOST}/api/product`;
+    var urlorder = `${HOST}/api/order`;
+    var urlorderdetail = `${HOST}/api/orderdetail`;
 
     $scope.users = [];
     $scope.orderdetails = [];
@@ -38,20 +40,22 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
 
     $scope.checkout = async () => {
         // * POST Order
-        $scope.order.createdat = moment().format('YYYY-MM-DD hh:mm');
-        $scope.order.updatedat = moment().format('YYYY-MM-DD hh:mm');
+        var datetime = new Date();
+        $scope.order.createdat = datetime.getTime();
+        $scope.order.updatedat = datetime.getTime();
         // * GET user
         $scope.order.user = $scope.userid;
 
         var item = angular.copy($scope.order);
-        await $http.post(HOST + '/api/order', item).then((resp) => {
+        console.log(item);
+        await $http.post(`${urlorder}`, item).then((resp) => {
             $scope.orders.push(resp.data);
             $scope.order.id = resp.data.id;
-            sweetalert_success("Thanh toán thành công")
         });
+        
 
         // * Recover Order
-        var item2 = angular.copy($scope.order);;
+        var item2 = angular.copy($scope.order);
         // * POST orderdetail
         for (const cart of $cart.values) {
             $scope.orderdetail.price = cart.price;
@@ -59,30 +63,34 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
             $scope.orderdetail.status = '1';
             $scope.orderdetail.order = item2;
             $scope.orderdetail.product = cart;
+            $scope.orderdetail.reviewed = false;
 
             var itemoddt = angular.copy($scope.orderdetail);
-            await $http.post(HOST + '/api/orderdetail', itemoddt).then((response) => {
+            console.log(itemoddt);
+            await $http.post(`${urlorderdetail}`, itemoddt).then(response => {
                 $scope.orderdetails.push(response.data);
             })
+            //subtract quantity prod
             var product = {}
-            await $http.get(HOST + '/api/product/' + cart.id).then(resp => {
+            await $http.get(urlprod + '/' + cart.id).then(resp => {
                 product = resp.data;
             })
             product.quantity = (product.quantity - cart.quantity);
             var subtracted = product;
-            await $http.put(HOST + '/api/product/' + cart.id, subtracted).then(resp => {
+            await $http.put(urlprod + '/' + cart.id, subtracted).then(resp => {
                 console.log(resp.data);
             })
         }
-
+        sweetalert_success("Thanh toán thành công")
         localStorage.removeItem("cart");
         $window.location.href = 'http://127.0.0.1:5500/#!/';
         window.location.reload();
     }
 
+    // Get info user
     $scope.findUserDetail = () => {
         var getNameUser = localStorage.getItem("currentUser");
-        $http.get(HOST + '/api/user').then(resp => {
+        $http.get(urluser).then(resp => {
             $scope.userid = resp.data.filter(item => item.username === getNameUser)[0];
         })
     }
