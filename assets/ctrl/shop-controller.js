@@ -76,7 +76,7 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
 
         if (diffMonths === 0 && diffDays <= 7) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
