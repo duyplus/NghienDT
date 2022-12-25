@@ -149,18 +149,21 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         return authService.isAuthed ? authService.isAuthed() : false;
     };
 
-    $scope.reset = function () {
-        $scope.index = false;
+    $scope.loadTabMyProd = () => {
+        location.reload();
+    }
 
+    $scope.reset = function () {
         $scope.product = {};
-        $scope.product.category = 1;
-        $scope.product.company = 1;
+        $scope.product.category = $scope.cates[0].id;
+        $scope.product.company = $scope.companys[0].id;
 
         // * Delete all element in class "myDIV"
         setTimeout(() => {
             const getdiv = document.getElementById("myDIV");
             getdiv.innerHTML = "";
         }, 1000)
+
     };
 
     $scope.updateInfo = function () {
