@@ -76,27 +76,28 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
                 $scope.orderdetail.product = cart;
                 $scope.orderdetail.reviewed = false;
 
-            var itemoddt = angular.copy($scope.orderdetail);
-            await $http.post(`${urlorderdetail}`, itemoddt).then(response => {
-                $scope.orderdetails.push(response.data);
-            })
-            //subtract quantity prod
-            var product = {}
-            await $http.get(urlprod + '/' + cart.id).then(resp => {
-                product = resp.data;
-            })
-            product.quantity = (product.quantity - cart.quantity);
-            var subtracted = product;
-            await $http.put(urlprod + '/' + cart.id, subtracted).then(resp => {
-                console.log(resp.data);
-            })
+                var itemoddt = angular.copy($scope.orderdetail);
+                await $http.post(`${urlorderdetail}`, itemoddt).then(response => {
+                    $scope.orderdetails.push(response.data);
+                })
+                //subtract quantity prod
+                var product = {}
+                await $http.get(urlprod + '/' + cart.id).then(resp => {
+                    product = resp.data;
+                })
+                product.quantity = (product.quantity - cart.quantity);
+                var subtracted = product;
+                await $http.put(urlprod + '/' + cart.id, subtracted).then(resp => {
+                    console.log(resp.data);
+                })
+            }
+            sweetalert_success("Thanh toán thành công")
+            localStorage.removeItem("cart");
+            setTimeout(() => {
+                $window.location.href = 'http://127.0.0.1:5500/#!/my-account';
+                window.location.reload();
+            }, 2500)
         }
-        sweetalert_success("Thanh toán thành công")
-        localStorage.removeItem("cart");
-        setTimeout(() => {
-            $window.location.href = 'http://127.0.0.1:5500/#!/my-account';
-            window.location.reload();
-        }, 2500)
     }
 
     // Get info user
