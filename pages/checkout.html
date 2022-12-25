@@ -133,11 +133,11 @@
                                         </div>
                                     </div>
                                     <div class="checkout-payment">
-                                        <form action="#">
+                                        <form name="checkForm">
                                             <div class="form-row">
                                                 <div class="form-check">
                                                     <div class="custom-checkbox">
-                                                        <input class="form-check-input" type="checkbox"
+                                                        <input ng-model="check" class="form-check-input" type="checkbox"
                                                             id="terms_acceptance" required>
                                                         <span class="checkmark"></span>
                                                         <label class="form-check-label" for="terms_acceptance">Tôi
@@ -147,8 +147,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-row justify-content-end">
-                                                <a href="#!my-account" ng-click="checkout()"
-                                                    class="btn btn-secondary dark py-2">Thanh toán</a>
+                                                <a href="javascript:void(0);" ng-click="checkout()"
+                                                    class="btn btn-secondary dark py-2" ng-disabled="checkForm.check.$pristine">Thanh toán</a>
                                             </div>
                                         </form>
                                     </div>
