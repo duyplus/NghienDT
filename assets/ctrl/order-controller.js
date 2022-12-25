@@ -146,6 +146,31 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
         return item.status == 1 || item.status == 2;
     }
 
+      $scope.confirmOrderFinish = function(detail) {
+        Swal.fire({
+          text: 'Bạn chắc chắn đã nhận được hàng?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Có, tôi đã nhận!',
+          cancelButtonText: 'Không'
+        }).then((result) => {
+          if (result.value) {
+            detail.status = 4;
+            $scope.upadateDetail(detail);
+            Swal.fire(
+              'Đã xác nhận!',
+              'Cám ơn bạn đã sử dụng dịch vụ của NghienDT!!!.',
+              'success'
+            );
+            setTimeout(() => {
+                location.reload();
+              }, 5000); // Reload sau 3 giây
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.close();
+          }
+        });
+      }
+
     ////////////////////////////////////////////// review order ////////////////////////////////////////
     var urlReview = `${HOST}/api/review`;
     var reviewPU = angular.element("#myModal");
@@ -175,10 +200,12 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
         var did = document.getElementById("detail-id").value;
         $http.get(`${urlOrderDetail}/${did}`).then(respose => {
             $scope.itemReview.orderDetail = respose.data;
+            $scope.itemReview.orderDetail.reviewed = true;
             var item = angular.copy($scope.itemReview);
             $http.post(`${urlReview}`, item).then(resp => {
-                $scope.items.push(resp.data);
+                $scope.upadateDetail($scope.itemReview.orderDetail);
                 reviewPU.modal('hide');
+                location.reload();
                 sweetalert_success("Cám ơn bạn đã góp ý!");
             }).catch(error => {
                 sweetalert_error("Có lỗi xảy ra!");
@@ -188,7 +215,15 @@ app.controller('order-ctrl', function ($scope, $location, $http, orderService, H
             sweetalert_error("Có lỗi xảy ra!");
             console.log("Error", error);
         });
-    }
+    };
+
+    $scope.upadateDetail = function(item) {
+        $http.post(`${urlOrderDetail}`, item).then(resp => {
+            $scope.items.push(resp.data);
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    };
 })
     .directive('date', function (dateFilter) {
         return {

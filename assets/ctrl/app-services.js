@@ -468,7 +468,7 @@ app.factory("$cart", ($utility) => {
     var sweetalert_topPU_success = function (text) {
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: 'bottom-end',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
