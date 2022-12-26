@@ -94,7 +94,7 @@ app.controller("checkout-ctrl", function ($scope, HOST, $cart, $http, $window, a
             sweetalert_success("Thanh toán thành công")
             localStorage.removeItem("cart");
             setTimeout(() => {
-                $window.location.href = 'http://127.0.0.1:5500/#!/my-account';
+                $window.location.href = '#!my-account';
                 window.location.reload();
             }, 2500)
         }
