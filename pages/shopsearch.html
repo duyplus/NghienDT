@@ -142,7 +142,7 @@
                     </div>
                     <div class="shop-product-wrap grid row">
                         <div class="col-lg-3 col-md-4 col-sm-6"
-                            ng-repeat="product in products| filter:q | orderBy:propertyName:reverse | limitTo:pageSize">
+                            ng-repeat="product in products| filter:q | orderBy:propertyName:reverse | startFrom:currentPage*pageSize | limitTo:pageSize">
                             <div class=" product-item mb-30">
                                 <div class="product-thumb">
                                     <a href="#!product" ng-click="viewProduct($event, product)">

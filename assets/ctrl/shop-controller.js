@@ -63,9 +63,9 @@ app.controller('shop-ctrl', function ($scope, $filter, $http, HOST, $cart, $prod
     $scope.showLabel = (val) => {
         var date1 = new Date();
         var date2 = new Date(val);
-        var diffMonths = date2.getMonth() - date1.getMonth();
-        var diffDays = date2.getDate() - date1.getDate();
-        var diffYears = date2.getYear() - date1.getYear();
+        var diffMonths = date1.getMonth() - date2.getMonth();
+        var diffDays = date1.getDate() - date2.getDate();
+        var diffYears = date1.getYear() - date2.getYear();
         diffMonths += 12 * diffYears
 
         if (diffDays < 0) {

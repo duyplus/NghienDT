@@ -6,8 +6,8 @@ app.controller('shopsearch-ctrl', function ($scope, $filter, $http, HOST, $cart,
     $scope.products = [];
     $scope.categories = [];
     $scope.companies = [];
-    
-    $http.get(HOST + "/api/product/search/"+$scope.searchN).then((resp) => {
+
+    $http.get(HOST + "/api/product/search/" + $scope.searchN).then((resp) => {
         $scope.products = resp.data;
     }).catch((err) => {
         console.log(err);
@@ -65,29 +65,27 @@ app.controller('shopsearch-ctrl', function ($scope, $filter, $http, HOST, $cart,
     $scope.showLabel = (val) => {
         var date1 = new Date();
         var date2 = new Date(val);
-        var diffMonths = date2.getMonth() - date1.getMonth();
-        var diffDays = date2.getDate() - date1.getDate();
-        var diffYears = date2.getYear() - date1.getYear();
-        diffMonths += 12 * diffYears
-
+        var diffMonths = date1.getMonth() - date2.getMonth();
+        var diffDays = date1.getDate() - date2.getDate();
+        var diffYears = date1.getYear() - date2.getYear();
+        
+        console.log(diffDays, diffMonths, diffYears)
         if (diffDays < 0) {
             diffMonths -= 1;
             var daysInMonth = new Date(date2.getYear(), date2.getMonth() - 1, 0).getDate();
             diffDays = daysInMonth + diffDays;
         }
-
-        if (diffMonths === 0 && diffDays <= 7) {
+        
+        if (diffMonths <= 0 && diffDays <= 7) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
+
     $scope.searchName = () => {
-        alert("s")
-        console.log($scope.searchN)
-        // $http.get(HOST + "/api/product/search" + $scope.searchN).then((resp) => {
-        //     $scope.products = resp.data;
-        // });
+        $http.get(HOST + "/api/product/search" + $scope.searchN).then((resp) => {
+            $scope.products = resp.data;
+        });
     }
 });
