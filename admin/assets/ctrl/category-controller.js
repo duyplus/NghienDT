@@ -89,7 +89,7 @@ app.controller("category-ctrl", function ($scope, $location, $http, HOST, cateSe
     // cap nhat danh muc
     $scope.update = function () {
         // * Get img
-        $scope.productdata.image = document.getElementById("imgs").value;
+        $scope.categorydata.image = document.getElementById("imgs").value;
         var item = angular.copy($scope.categorydata);
         $http.put(`${url}/${item.id}`, item).then(resp => {
             var index = $scope.items.findIndex(p => p.id == item.id);
