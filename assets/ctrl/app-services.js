@@ -543,7 +543,7 @@ app.factory("$cart", ($utility) => {
             } else {
                 quantity = quantityToAdd;
             }
-            this.#items.set(product.id, { ...product, quantity: quantity });
+            this.#items.set(product.id, { ...product, quantity: 1 });
             this.saveToLocal();
             sweetalert_topPU_success('Đã thêm sản phẩm vào giỏ hàng');
         }
