@@ -306,11 +306,21 @@
                                                 <div class="form-group row mb-3">
                                                     <label
                                                         class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Ảnh</label>
-                                                    <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                    <div class="col-11 col-sm-11 col-md-7 col-lg-5">
                                                         <input type="file" class="form-control" accept="image/*"
                                                             multiple required>
                                                         <div id="myDIV"></div>
                                                         <input type="text" ng-model="product.image" id="imgs" hidden>
+                                                    </div>
+                                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-form-label" title="Thứ lỗi vì điều này. Hãy sắp xếp file ảnh theo thứ tự có trong thiết bị rồi sau đó mới chọn ảnh.">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-exclamation-circle text-warning"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                            <path
+                                                                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                                        </svg>
                                                     </div>
                                                 </div>
                                                 <div class="register-box d-flex justify-content-end">
@@ -399,7 +409,8 @@
                                                                     <td>
                                                                         <a class="btn btn-sm btn-success"
                                                                             ng-if="detail.status == 2 "
-                                                                            ng-click="confirmOrderFinish(detail)">Đã nhận
+                                                                            ng-click="confirmOrderFinish(detail)">Đã
+                                                                            nhận
                                                                             hàng</a>
                                                                     </td>
                                                                 </tr>
@@ -903,7 +914,7 @@
                     <div class="col-6 align-bottom justify-content-center py-5">
                         <div class="row green-border-focus">
                             <label for="content-review" class="form-label">Góp ý: </label>
-                            <input id="detail-id" class="from-control"/>
+                            <input id="detail-id" class="from-control" />
                             <textarea id="content-review" class="form-control" ng-model="itemReview.content"
                                 rows="5"></textarea>
                         </div>
