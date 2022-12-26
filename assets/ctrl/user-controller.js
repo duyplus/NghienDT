@@ -285,6 +285,19 @@ app.controller("user-ctrl", function ($scope, $rootScope, $window, $location, $u
         }
     }
 
+    $scope.deleteImg = (index) => {
+        var arrImg = document.getElementById("imgs").value.split(',');
+        arrImg.splice(index, 1);
+        document.getElementById("imgs").value = arrImg;
+        // * Delete all element in class "myDIV"
+        setTimeout(() => {
+            const getdiv = document.getElementById("myDIV");
+            getdiv.innerHTML = "";
+        }, 1000)
+        // * After 1s, function updateImg() is execute
+        setTimeout(() => { $scope.updateImg() }, 2000)
+    }
+
     // Upload IMG to imgur api
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
