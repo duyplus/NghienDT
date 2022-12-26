@@ -289,9 +289,10 @@ app.controller("user-ctrl", function ($scope, $rootScope, $window, $location, $u
     $('document').ready(function () {
         $('input[type=file]').on('change', function () {
             var $files = $(this).get(0).files;
+            console.log($files.length);
             const getdiv = document.getElementById("myDIV");
             getdiv.innerHTML = "";
-            if ($files.length) {
+            if ($files.length < 6) {
                 for (let index = 0; index < $files.length; index++) {
                     if ($files[index].size > $(this).data('max-size') * 1024) {
                         return false;
@@ -336,6 +337,8 @@ app.controller("user-ctrl", function ($scope, $rootScope, $window, $location, $u
                     });
                 }
                 document.getElementById("imgs").value = arr.toString().split(',')
+            }else{
+                sweetalert_error("Chọn tối đa 5 ảnh")
             }
         });
     });
