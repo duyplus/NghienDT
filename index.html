@@ -91,7 +91,8 @@
                     <div class="col-lg-6 col-md-12 col-12 order-sm-last">
                         <div class="header-middle-inner">
                             <form>
-                                <input type="text" ng-model="searchN" class="top-cat-field" placeholder="Tìm kiếm mọi thứ ở đây..">
+                                <input type="text" ng-model="searchN" class="top-cat-field"
+                                    placeholder="Tìm kiếm mọi thứ ở đây..">
                                 <a href="#!shop/search/{{searchN}}"><button class="top-search-btn">Tìm kiếm</button></a>
                             </form>
                         </div>
@@ -210,7 +211,8 @@
                                                 <span ng-show="isAuthed()">
                                                     <li style="background-color: #e0ffe5;"><a style="color: #000;">Xin
                                                             chào, <b>{{currentUser}}</b></a></li>
-                                                    <li><a href="/admin">Bảng quản trị</a></li>
+                                                    <li><a href="/admin" ng-if="currentUser == 'admin'">Bảng quản
+                                                            trị</a></li>
                                                     <li><a href="#!my-account">Tài khoản</a></li>
                                                     <li><a href="" ng-click="logout()">Đăng xuất</a>
                                                     </li>
