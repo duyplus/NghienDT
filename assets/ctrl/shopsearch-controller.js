@@ -43,13 +43,6 @@ app.controller('shopsearch-ctrl', function ($scope, $filter, $http, HOST, $cart,
         $scope.q = name;
     }
 
-    //Add class active for cate & compa
-    const divs = document.querySelectorAll('.filter-attribute-container');
-
-    divs.forEach(el => el.addEventListener('click', event => {
-        event.target.classList.toggle("active");
-    }));
-
     $scope.currentPage = 0;
     $scope.pageSize = 12;
     $scope.q = '';
