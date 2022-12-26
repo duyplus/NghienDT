@@ -60,9 +60,7 @@
                                                     <td>{{item.category.name}}</td>
                                                     <td>
                                                         <div class="input-group btn-block">
-                                                            <div class="product-qty me-3">
-                                                                <input ng-model="item.quantity" type="number" min="1" max="3">
-                                                            </div>
+                                                            <span>{{item.quantity}}</span>
                                                         </div>
                                                     </td>
                                                     <td>${{item.price*item.quantity|number:0}}₫</td>
