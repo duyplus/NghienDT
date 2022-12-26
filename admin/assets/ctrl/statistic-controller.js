@@ -4,11 +4,11 @@ app.controller('statistic-ctrl', function ($scope, $http, HOST) {
     const companyUrl = `${HOST}/api/company`;
     const productUrl = `${HOST}/api/product`;
     const orderDetailUrl = `${HOST}/api/orderdetail`;;
-    
+
     $http.get(orderUrl).then((resp) => {
         $scope.orders = resp.data
         $scope.orders.forEach(
-            (od) => (od.year = new Date(Date.parse(od.createdat)).getFullYear())
+            (od) => (od.year = new Date(od.createdat).getFullYear())
         )
         $scope.getYears($scope.orders)
         $scope.getProducts()
@@ -19,6 +19,15 @@ app.controller('statistic-ctrl', function ($scope, $http, HOST) {
             return od.year
         })
         $scope.years = createArray(Math.min(...years), Math.max(...years))
+    }
+
+    function createArray(min, max) {
+        const arr = new Array(max - min + 1)
+        let count = 0
+        while (count < arr.length) {
+            arr[count] = min + count++
+        }
+        return arr
     }
 
     $scope.getProducts = () => {
@@ -121,13 +130,6 @@ app.controller('statistic-ctrl', function ($scope, $http, HOST) {
         return XLSX.writeFile(workbook, "Statistic_List.xlsx");
     }
 })
-
-function createArray(min, max) {
-    const arr = new Array(max - min + 1)
-    let count = 0
-    while (count < arr.length) arr[count] = min + count++
-    return arr
-}
 
 function distinctArray(arr) {
     const map = new Map(arr.map((item) => [item.id, item]))

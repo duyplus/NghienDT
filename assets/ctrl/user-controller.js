@@ -1,5 +1,5 @@
 "use strict";
-app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, HOST, userService, authService) {
+app.controller("user-ctrl", function ($scope, $rootScope, $window, $location, $utility, HOST, userService, authService) {
     const { $http, $data, $serverUrl, $message } = $utility;
 
     var urlProd = HOST + "/api/product";
@@ -63,7 +63,7 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
     function handleRequest(res) {
         var token = res.data ? res.data.token : null;
         if (token) {
-            console.log("JWT: ", token);
+            // console.log("JWT: ", token);
             $rootScope.currentUser = localStorage.setItem("currentUser", $scope.username);
         }
         $scope.message = res.data.message;
@@ -131,7 +131,15 @@ app.controller("user-ctrl", function ($scope, $rootScope, $location, $utility, H
         userService
             .login($scope.username, $scope.password)
             .then(handleRequest, handleRequest);
-        $location.path("/");
+        setTimeout(() => {
+            if (localStorage.getItem('jwtToken')) {
+                sweetalert_success("Đăng nhập thành công")
+                setTimeout(() => { $window.location.href = "/" }, 1000);
+            } else {
+                sweetalert_error("Đăng nhập thất bại")
+                setTimeout(() => { $window.location.href = "#!login" }, 1000);
+            }
+        }, 1000);
     };
 
     $scope.register = function () {

@@ -17,14 +17,14 @@
     <meta name="keywords" content="NghienDT là trang thương mại điện tử chuyên mua bán máy tính, laptop, điện thoại." />
     <!-- Twitter data -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="https://nghiendt.me">
+    <meta name="twitter:site" content="http://nghiendt.me">
     <meta name="twitter:image" content="assets/img/nghiendt.png">
     <meta name="twitter:title" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam">
     <meta name="twitter:description" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam">
     <!-- Open Graph data -->
     <meta property="og:title" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nghiendt.me" />
+    <meta property="og:url" content="http://nghiendt.me" />
     <meta property="og:image" content="assets/img/nghiendt.png" />
     <meta property="og:description" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam" />
     <meta property="og:site_name" content="NghienDT - Trang thương mại điện tử hàng đầu Việt Nam" />
@@ -91,7 +91,8 @@
                     <div class="col-lg-6 col-md-12 col-12 order-sm-last">
                         <div class="header-middle-inner">
                             <form>
-                                <input type="text" ng-model="searchN" class="top-cat-field" placeholder="Tìm kiếm mọi thứ ở đây..">
+                                <input type="text" ng-model="searchN" class="top-cat-field"
+                                    placeholder="Tìm kiếm mọi thứ ở đây..">
                                 <a href="#!shop/search/{{searchN}}"><button class="top-search-btn">Tìm kiếm</button></a>
                             </form>
                         </div>
@@ -209,8 +210,9 @@
                                                 </span>
                                                 <span ng-show="isAuthed()">
                                                     <li style="background-color: #e0ffe5;"><a style="color: #000;">Xin
-                                                            chào, <b>Duy</b></a></li>
-                                                    <li><a href="/admin">Bảng quản trị</a></li>
+                                                            chào, <b>{{currentUser}}</b></a></li>
+                                                    <li><a href="/admin" ng-if="currentUser == 'admin'">Bảng quản
+                                                            trị</a></li>
                                                     <li><a href="#!my-account">Tài khoản</a></li>
                                                     <li><a href="" ng-click="logout()">Đăng xuất</a>
                                                     </li>
