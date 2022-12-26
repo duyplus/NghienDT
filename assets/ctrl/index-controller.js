@@ -4,6 +4,7 @@ app.controller("index-ctrl", ($scope, $http, $cart, $utility, authService) => {
 	var brand = "http://157.245.157.128/v1/api/category";
 	$scope.cates = [];
 	$scope.brands = [];
+	$scope.currentUser = localStorage.getItem("currentUser");
 	
     $scope.logout = function () {
         authService.logout && authService.logout();
